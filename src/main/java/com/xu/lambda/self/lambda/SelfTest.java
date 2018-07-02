@@ -15,6 +15,7 @@ import org.junit.Test;
 public class SelfTest {
     @Test
     public void test(){
+
         //formal
         new LoveParam().love(new Love() {
             @Override
@@ -22,6 +23,7 @@ public class SelfTest {
                 return true;
             }
         });
+
         //lambda  变量--》变量里的方法
         new LoveParam().love(people -> true);
 

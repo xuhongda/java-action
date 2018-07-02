@@ -1,6 +1,5 @@
 package com.xu.lambda.self.service;
 
-import com.xu.lambda.self.bean.Girl;
 import com.xu.lambda.self.bean.People;
 
 /**
