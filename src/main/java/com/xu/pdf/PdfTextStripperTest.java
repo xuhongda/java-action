@@ -787,6 +787,7 @@ public class PdfTextStripperTest {
                                 list6.add(map1.get(i4));
                             }
                         }
+                        ((ArrayList<String>) list6).trimToSize();
                         creditCardDetails003.setDetail(list6);
                         creditCardDetailsList.add(creditCardDetails003);
                     } else if (x3 == 0 && x4 != 0) {
@@ -885,6 +886,7 @@ public class PdfTextStripperTest {
                             list7.add(map1.get(i4));
                         }
                     }
+                    ((ArrayList<String>) list7).trimToSize();
                     creditCardDetails007.setDetail(list7);
                     creditCardDetailsList.add(creditCardDetails007);
                 } else if (x6 != 0 && x7 != 0) {
@@ -973,6 +975,8 @@ public class PdfTextStripperTest {
                         }
                     }
                     creditCardDetails009.setDetail(list8);
+                    ((ArrayList<String>) list7).trimToSize();
+                    ((ArrayList<String>) list8).trimToSize();
                     creditCardDetailsList.add(creditCardDetails008);
                     creditCardDetailsList.add(creditCardDetails009);
                 }
