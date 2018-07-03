@@ -10,12 +10,13 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 
+/**
+ * @author xuhongda
+ */
 public class PdfTextStripperTest {
 
 
     /**
-     * 获取文本提取
-     * http://www.xlgps.com/article/408957.html
      *
      * @param document
      * @param writer
@@ -35,7 +36,7 @@ public class PdfTextStripperTest {
      * @throws IOException
      */
     public String getText(File fileName) throws IOException {
-        String textString = "";
+        String textString;
         SavePdfDocument pdfDocument = new SavePdfDocument();
         PDDocument document = pdfDocument.getPdDocument(fileName);
         //将提取出来的字节流转换为字符流进行显示  
@@ -208,19 +209,15 @@ public class PdfTextStripperTest {
             //
             String[] split12 = pdf.split("信用卡")[1].split("其他贷款")[0].split("\r\n");
             String s4 = split12[1].split(":")[0];
-            String heading = s4;
             String s5 = pdf.split("信用卡")[1].split("其他贷款")[0];
             String s6 = s5.replaceAll("。截至", "@");
             String s7 = s6.split("明细如下：")[1];
             String regEx = "[。？！?.!]";
             Pattern p = Pattern.compile(regEx);
-
             //按照句子结束符分割句子
             String[] substrs = p.split(s7);
             //查询
             String s8 = pdf.split("说(\\s+)明")[1].split("（www.pbccrc.org.cn）查询。")[0];
-            String s9 = pdf.replaceAll(s8, "@*@");
-            String s10 = pdf.split("您有权对本报告中的内容提出异议。")[1].split("请致电全国客户服务热线400-810-8866。")[0];
             String s11 = pdf.split("机构查询记录明细")[1].split("本人查询记录明细")[0];
             String[] split13 = s11.split("\\n");
             List<Map<Integer, String>> list1 = new ArrayList();
@@ -242,8 +239,6 @@ public class PdfTextStripperTest {
                 }
             }
             ObjectMapper objectMapper = new ObjectMapper();
-            String s13 = objectMapper.writeValueAsString(list1);
-            String s14 = objectMapper.writeValueAsString(list2);
             List<String> list = new ArrayList<>();
             for (Map map : list1) {
                 Set set = map.entrySet();
@@ -253,7 +248,6 @@ public class PdfTextStripperTest {
                     list.add(value);
                 }
             }
-            String s12 = objectMapper.writeValueAsString(list3);
             List<QueryDetails> queryDetailss = new ArrayList<>(130);
             QueryDetails queryDetails;
             for (String str : list3) {
@@ -298,7 +292,6 @@ public class PdfTextStripperTest {
                                 queryDetails.setQueryReason(s16);
                             }
                         }
-                        String s16 = objectMapper.writeValueAsString(queryDetails);
                         queryDetailss.add(queryDetails);
                     }
                 } catch (Exception e) {
@@ -326,7 +319,6 @@ public class PdfTextStripperTest {
             Map<Integer, String> map1 = new HashMap<>(16);
             Map<Integer, String> map2 = new HashMap<>(16);
             Map<Integer, String> map3 = new HashMap<>(16);
-            Map<Integer, String> map4 = new HashMap<>(16);
             for (int j = 0; j < split16.length; j++) {
                 if (j > 0) {
                     if (split16[j].length() > 4) {
@@ -518,7 +510,6 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-
                             list5.add(map1.get(i4));
                         }
                     }
@@ -630,7 +621,6 @@ public class PdfTextStripperTest {
                     creditCardDetails001.setDetail(list5);
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-
                             list6.add(map1.get(i4));
                         }
                     }
@@ -647,7 +637,6 @@ public class PdfTextStripperTest {
                 List<String> details = new ArrayList<>(20);
                 for (int i4 = xinyongka + 2; i4 < qita; i4++) {
                     if (map1.get(i4) != null) {
-
                         details.add(map1.get(i4));
                     }
                 }
