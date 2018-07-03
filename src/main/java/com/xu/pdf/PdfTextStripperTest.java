@@ -64,36 +64,37 @@ public class PdfTextStripperTest {
             String[] strings = pdf.split("报告编号: ");
             String[] split = strings[1].split("查询时间: ");
             String reportNum = split[0];
-            individualCreditReport.setReportNum(reportNum);
+            individualCreditReport.setReportNum("报告编号: "+reportNum);
             String[] split1 = split[1].split("报告时间:");
             String queryTime = split1[0];
-            individualCreditReport.setQueryTime(queryTime);
+            individualCreditReport.setQueryTime("查询时间: "+queryTime);
             String reportTime = split1[1].split("\n")[0];
-            individualCreditReport.setReportTime(reportTime);
+            individualCreditReport.setReportTime("报告时间："+reportTime.replaceAll("\r|\n", ""));
             String[] split2 = split1[1].split("\n");
             String[] split3 = split2[1].split("%姓名：(\\S+)\\s%");
             String[] split4 = split3[0].split("姓名: ");
             String[] split5 = split4[1].split("证件类型: ");
             String name = split5[0];
-            individualCreditReport.setName(name);
-            String idType = split5[1].split("证件号码: ")[0];
+            individualCreditReport.setName("姓名："+name);
+            String idType = split5[1].split("证件号码:")[0];
+            individualCreditReport.setIdType("证件类型: "+idType);
             String[] split6 = split5[1].split("证件号码: ");
             String idNO = split6[1].split("\\s")[0];
-            individualCreditReport.setIdNO(idNO);
+            individualCreditReport.setIdNO("证件号码："+idNO);
             String maritalStatus = split6[1].split("\\s")[1];
             individualCreditReport.setMaritalStatus(maritalStatus);
             String[] creditRecords = pdf.split("信贷记录");
             Record record = new Record();
             String creditRecord = creditRecords[1] + "信贷记录" + creditRecords[2].split("信息概要")[0];
-            record.setCreditRecord(creditRecord);
+            record.setCreditRecord(creditRecord.replaceAll("\r|\n", ""));
             String publicRecords = pdf.split("公共记录")[1].split("查询记录")[0];
-            record.setPublicRecords(publicRecords);
+            record.setPublicRecords(publicRecords.replaceAll("\r|\n", ""));
             String queryLog = pdf.split("查询记录")[1].split("机构查询记录明细")[0];
-            record.setQueryLog(queryLog);
+            record.setQueryLog(queryLog.replaceAll("\r|\n", ""));
             String organizationQueryDetail = "机构查询记录明细";
-            record.setOrganizationQueryDetail(organizationQueryDetail);
+            record.setOrganizationQueryDetail(organizationQueryDetail.replaceAll("\r|\n", ""));
             String selfQueryDetail = "个人查询记录明细";
-            record.setSelfQueryDetail(selfQueryDetail);
+            record.setSelfQueryDetail(selfQueryDetail.replaceAll("\r|\n", ""));
             String creditCardAccount = pdf.split("账户数")[1].split("房（包括商住两用）贷款和个人住房公积")[0];
             creditCardAccount = PdfTextStripperTest.rex(creditCardAccount);
             String[] split7 = creditCardAccount.split("@");
@@ -204,18 +205,8 @@ public class PdfTextStripperTest {
             informationSummary.setCreditCardGuaranteeAccount(creditCardGuaranteeAccount);
             informationSummary.setHousingMortgageGuaranteeAccount(housingMortgageGuaranteeAccount);
             informationSummary.setOtherCreditGuaranteeAccount(otherCreditGuaranteeAccount);
-            //
-            String[] split12 = pdf.split("信用卡")[1].split("其他贷款")[0].split("\r\n");
-            String s4 = split12[1].split(":")[0];
-            String s5 = pdf.split("信用卡")[1].split("其他贷款")[0];
-            String s6 = s5.replaceAll("。截至", "@");
-            String s7 = s6.split("明细如下：")[1];
-            String regEx = "[。？！?.!]";
-            Pattern p = Pattern.compile(regEx);
             //按照句子结束符分割句子
-            String[] substrs = p.split(s7);
             //查询
-            String s8 = pdf.split("说(\\s+)明")[1].split("（www.pbccrc.org.cn）查询。")[0];
             String s11 = pdf.split("机构查询记录明细")[1].split("本人查询记录明细")[0];
             String[] split13 = s11.split("\\n");
             List<Map<Integer, String>> list1 = new ArrayList();
@@ -265,7 +256,6 @@ public class PdfTextStripperTest {
                         }
                     }
                     queryDetailss.add(queryDetails);
-                    String s16 = objectMapper.writeValueAsString(queryDetails);
                 }
             }
             String s15 = pdf.split("本人查询记录明细")[1];
@@ -287,7 +277,9 @@ public class PdfTextStripperTest {
                             } else if (i2 == 2) {
                                 queryDetails.setQueryOperator(s16);
                             } else if (i2 == 3) {
-                                queryDetails.setQueryReason(s16);
+                                if (s16 != null){
+                                    queryDetails.setQueryReason(s16);
+                                }
                             }
                         }
                         queryDetailss.add(queryDetails);
@@ -305,7 +297,7 @@ public class PdfTextStripperTest {
             List<CreditCardDetails> creditCardDetailsList = new ArrayList<>();
             int i = s20.indexOf("个人信用报告");
             int i1 = s20.indexOf("为他人担保信息");
-            String substring = null;
+            String substring;
             if (i1>0){
                  substring = s20.substring(i, i1);
             }else {
@@ -389,7 +381,7 @@ public class PdfTextStripperTest {
                 for (int j = 0; j < split17.length-1; j++) {
                     if (j%2!=0&&j!=0){
                         String s16 = split17[j] + split17[j + 1];
-                        details.add(s16);
+                        details.add(s16.replaceAll("\r|\n", ""));
                     }
                 }
                 creditCardDetails.setDetail(details);
@@ -398,7 +390,8 @@ public class PdfTextStripperTest {
             if (xinyongka == 0 && fangdai == 0 && qita == 0) {
                 //都没有
                 creditCardDetailsList.add(null);
-            } else if (xinyongka != 0 && fangdai == 0 && qita == 0) {
+            }
+            else if (xinyongka != 0 && fangdai == 0 && qita == 0) {
                 //只有信用卡
                 CreditCardDetails creditCardDetails = new CreditCardDetails();
                 creditCardDetails.setLoanType(map1.get(xinyongka));
@@ -407,11 +400,12 @@ public class PdfTextStripperTest {
                 //遍历map1
                 for (int i4 = xinyongka + 2; i4 <= max; i4++) {
                     if (map1.get(i4) != null) {
-                        details.add(map1.get(i4));
+                        details.add(map1.get(i4).replaceAll("\r|\n", ""));
                     }
                 }
                 creditCardDetailsList.add(creditCardDetails);
-            } else if (xinyongka == 0 && fangdai != 0 && qita == 0) {
+            }
+            else if (xinyongka == 0 && fangdai != 0 && qita == 0) {
                 //只有房贷
                 CreditCardDetails creditCardDetails001 = null;
                 CreditCardDetails creditCardDetails002 = null;
@@ -420,14 +414,14 @@ public class PdfTextStripperTest {
                 Iterator<Integer> iterator2 = integers2.iterator();
                 Integer x1 = 0;
                 Integer x2 = 0;
-                while (iterator.hasNext()) {
+                while (iterator2.hasNext()) {
                     Integer next = iterator2.next();
                     String x = map2.get(next);
                     if (x.length() > 0) {
-                        if ("发生过逾期的账户明细如下".equals(x)) {
+                        if ("发生过逾期的账户明细如下".equals(x.substring(0,12))) {
                             x1 = next;
                             creditCardDetails001 = new CreditCardDetails();
-                        } else if ("从未逾期过的账户明细如下".equals(x)) {
+                        } else if ("从未逾期过的账户明细如下".equals(x.substring(0,12))) {
                             x2 = next;
                             creditCardDetails002 = new CreditCardDetails();
                         }
@@ -440,7 +434,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
@@ -451,7 +445,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list5);
@@ -465,20 +459,21 @@ public class PdfTextStripperTest {
                     List<String> list6 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 < x2; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list6.add(map1.get(i4));
+                            list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list6);
                     creditCardDetailsList.add(creditCardDetails001);
                     creditCardDetailsList.add(creditCardDetails002);
                 }
-            } else if (xinyongka == 0 && fangdai == 0 && qita != 0) {
+            }
+            else if (xinyongka == 0 && fangdai == 0 && qita != 0) {
                 //其他贷款
                 CreditCardDetails creditCardDetails001 = null;
                 CreditCardDetails creditCardDetails002 = null;
@@ -487,14 +482,14 @@ public class PdfTextStripperTest {
                 Iterator<Integer> iterator2 = integers2.iterator();
                 Integer x1 = 0;
                 Integer x2 = 0;
-                while (iterator.hasNext()) {
+                while (iterator2.hasNext()) {
                     Integer next = iterator2.next();
                     String x = map2.get(next);
                     if (x.length() > 12) {
-                        if ("发生过逾期的账户明细如下".equals(x)) {
+                        if ("发生过逾期的账户明细如下".equals(x.substring(0,12))) {
                             x1 = next;
                             creditCardDetails001 = new CreditCardDetails();
-                        } else if ("从未逾期过的账户明细如下".equals(x)) {
+                        } else if ("从未逾期过的账户明细如下".equals(x.substring(0,12))) {
                             x2 = next;
                             creditCardDetails002 = new CreditCardDetails();
                         }
@@ -506,7 +501,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
@@ -517,7 +512,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list5);
@@ -531,20 +526,21 @@ public class PdfTextStripperTest {
                     List<String> list6 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 < x2; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list6.add(map1.get(i4));
+                            list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list6);
                     creditCardDetailsList.add(creditCardDetails001);
                     creditCardDetailsList.add(creditCardDetails002);
                 }
-            } else if (xinyongka != 0 && fangdai != 0 && qita == 0) {
+            }
+            else if (xinyongka != 0 && fangdai != 0 && qita == 0) {
                 //信用卡
                 CreditCardDetails creditCardDetails = new CreditCardDetails();
                 creditCardDetails.setLoanType(map1.get(xinyongka));
@@ -553,7 +549,7 @@ public class PdfTextStripperTest {
                 //遍历map1
                 for (int i4 = xinyongka + 2; i4 < fangdai; i4++) {
                     if (map1.get(i4) != null) {
-                        details.add(map1.get(i4));
+                        details.add(map1.get(i4).replaceAll("\r|\n", ""));
                     }
                 }
                 creditCardDetailsList.add(creditCardDetails);
@@ -566,7 +562,7 @@ public class PdfTextStripperTest {
                 Integer next = iterator2.next();
                 Integer x1 = 0;
                 Integer x2 = 0;
-                while (iterator.hasNext()) {
+                while (iterator2.hasNext()) {
                     String x = map2.get(next);
                     if (x.length() > 12) {
                         if ("发生过逾期的账户明细如下".equals(x.substring(0, 12))) {
@@ -585,7 +581,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
@@ -596,7 +592,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list5);
@@ -610,13 +606,13 @@ public class PdfTextStripperTest {
                     List<String> list6 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 < x2; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list6.add(map1.get(i4));
+                            list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list6);
@@ -624,7 +620,8 @@ public class PdfTextStripperTest {
                     creditCardDetailsList.add(creditCardDetails002);
                 }
 
-            } else if (xinyongka != 0 && fangdai == 0 && qita != 0) {
+            }
+            else if (xinyongka != 0 && fangdai == 0 && qita != 0) {
                 //信用卡
                 CreditCardDetails creditCardDetails = new CreditCardDetails();
                 creditCardDetails.setLoanType(map2.get(xinyongka));
@@ -632,7 +629,7 @@ public class PdfTextStripperTest {
                 List<String> details = new ArrayList<>(20);
                 for (int i4 = xinyongka + 2; i4 < qita; i4++) {
                     if (map1.get(i4) != null) {
-                        details.add(map1.get(i4));
+                        details.add(map1.get(i4).replaceAll("\r|\n", ""));
                     }
                 }
                 creditCardDetails.setDetail(details);
@@ -651,7 +648,6 @@ public class PdfTextStripperTest {
                     String x = map2.get(next);
                     System.out.println(x);
                     if (x.length() > 12) {
-                        System.out.println(x.substring(0, 12));
                         if ("发生过逾期的账户明细如下".equals(x.substring(0, 12))) {
                             x1 = next;
                             creditCardDetails001 = new CreditCardDetails();
@@ -668,7 +664,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
@@ -679,7 +675,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list5);
@@ -693,20 +689,21 @@ public class PdfTextStripperTest {
                     List<String> list6 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 < x2; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
                     for (int i4 = x2 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list6.add(map1.get(i4));
+                            list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails002.setDetail(list6);
                     creditCardDetailsList.add(creditCardDetails001);
                     creditCardDetailsList.add(creditCardDetails002);
                 }
-            } else if (xinyongka == 0 && fangdai != 0 && qita != 0) {
+            }
+            else if (xinyongka == 0 && fangdai != 0 && qita != 0) {
                 //只有房贷
                 CreditCardDetails creditCardDetails001 = null;
                 CreditCardDetails creditCardDetails002 = null;
@@ -734,7 +731,7 @@ public class PdfTextStripperTest {
                     List<String> list5 = new ArrayList<>();
                     for (int i4 = x1 + 1; i4 < qita; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails001.setDetail(list5);
@@ -746,7 +743,7 @@ public class PdfTextStripperTest {
                     for (int i4 = x2 + 1; i4 < qita; i4++) {
                         if (map1.get(i4) != null) {
                             if (map1.get(i4) != null) {
-                                list5.add(map1.get(i4));
+                                list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                             }
                         }
                     }
@@ -779,7 +776,7 @@ public class PdfTextStripperTest {
                         List<String> list6 = new ArrayList<>();
                         for (int i4 = x3 + 1; i4 <= max; i4++) {
                             if (map1.get(i4) != null){
-                                list6.add(map1.get(i4));
+                                list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                             }
                         }
                         ((ArrayList<String>) list6).trimToSize();
@@ -791,7 +788,7 @@ public class PdfTextStripperTest {
                         List<String> list6 = new ArrayList<>();
                         for (int i4 = x4 + 3; i4 <= max; i4++) {
                             if (map1.get(i4) != null) {
-                                list6.add(map1.get(i4));
+                                list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                             }
                         }
                         creditCardDetails004.setDetail(list6);
@@ -804,19 +801,20 @@ public class PdfTextStripperTest {
                         List<String> list6 = new ArrayList<>();
                         for (int i4 = x3 + 1; i4 < x4; i4++) {
                             if (map1.get(i4) != null) {
-                                list6.add(map1.get(i4));
+                                list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                             }
                         }
                         for (int i4 = x4 + 1; i4 <= max; i4++) {
                             if (map1.get(i4) != null) {
-                                list6.add(map1.get(i4));
+                                list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                             }
                         }
                         creditCardDetailsList.add(creditCardDetails003);
                         creditCardDetailsList.add(creditCardDetails004);
                     }
                 }
-            } else if (xinyongka != 0 && fangdai != 0 && qita != 0) {
+            }
+            else if (xinyongka != 0 && fangdai != 0 && qita != 0) {
                 //信用卡
                 CreditCardDetails creditCardDetails = new CreditCardDetails();
                 creditCardDetails.setLoanType(map2.get(xinyongka));
@@ -825,7 +823,7 @@ public class PdfTextStripperTest {
                 //遍历map1
                 for (int i4 = xinyongka + 2; i4 < fangdai; i4++) {
                     if (map1.get(i4) != null) {
-                        details.add(map1.get(i4));
+                        details.add(map1.get(i4).replaceAll("\r|\n", ""));
                     }
                 }
                 creditCardDetails.setDetail(details);
@@ -867,7 +865,7 @@ public class PdfTextStripperTest {
                     List<String> list6 = new ArrayList<>();
                     for (int i4 = x6 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list6.add(map1.get(i4));
+                            list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails006.setDetail(list6);
@@ -879,7 +877,7 @@ public class PdfTextStripperTest {
                     List<String> list7 = new ArrayList<>();
                     for (int i4 = x7 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list7.add(map1.get(i4));
+                            list7.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     ((ArrayList<String>) list7).trimToSize();
@@ -894,13 +892,13 @@ public class PdfTextStripperTest {
                     List<String> list6 = new ArrayList<>();
                     for (int i4 = x6 + 1; i4 < x7; i4++) {
                         if (map1.get(i4) != null) {
-                            list5.add(map1.get(i4));
+                            list5.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails006.setDetail(list5);
                     for (int i4 = x7 + 1; i4 <= qita; i4++) {
                         if (map1.get(i4) != null) {
-                            list6.add(map1.get(i4));
+                            list6.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails007.setDetail(list6);
@@ -936,7 +934,7 @@ public class PdfTextStripperTest {
                     List<String> list7 = new ArrayList<>();
                     for (int i4 = x8 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list7.add(map1.get(i4));
+                            list7.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails008.setDetail(list7);
@@ -947,7 +945,7 @@ public class PdfTextStripperTest {
                     List<String> list7 = new ArrayList<>();
                     for (int i4 = x9 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list7.add(map1.get(i4));
+                            list7.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails009.setDetail(list7);
@@ -961,13 +959,13 @@ public class PdfTextStripperTest {
                     List<String> list8 = new ArrayList<>();
                     for (int i4 = x8 + 1; i4 < x9; i4++) {
                         if (map1.get(i4) != null) {
-                            list7.add(map1.get(i4));
+                            list7.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails008.setDetail(list7);
                     for (int i4 = x9 + 1; i4 <= max; i4++) {
                         if (map1.get(i4) != null) {
-                            list8.add(map1.get(i4));
+                            list8.add(map1.get(i4).replaceAll("\r|\n", ""));
                         }
                     }
                     creditCardDetails009.setDetail(list8);
