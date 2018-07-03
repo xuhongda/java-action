@@ -199,9 +199,7 @@ public class PdfTextStripperTest {
             // 信();
             informationSummary.setCreditCardOverdueNinetyAccount(creditCardOverdueNinetyAccount);
             informationSummary.setHousingMortgageOverdueNinetyAccount(housingMortgageOverdueNinetyAccount);
-            // ();
             informationSummary.setOtherCreditOverdueNinetyAccount(otherCreditOverdueNinetyAccount);
-            //
             informationSummary.setCreditCardGuaranteeAccount(creditCardGuaranteeAccount);
             informationSummary.setHousingMortgageGuaranteeAccount(housingMortgageGuaranteeAccount);
             informationSummary.setOtherCreditGuaranteeAccount(otherCreditGuaranteeAccount);
@@ -272,8 +270,6 @@ public class PdfTextStripperTest {
                     }
                 }
             }
-
-
             String s15 = pdf.split("本人查询记录明细")[1];
             if(s15 != null){
                 queryDetails = new QueryDetails();
@@ -1009,7 +1005,6 @@ public class PdfTextStripperTest {
             pedestrianReport.setCreditCardDetailsList(creditCardDetailsList);
             String s16 = objectMapper.writeValueAsString(pedestrianReport);
             System.out.println(s16);
-          //  System.out.println(pdf);
         } catch (Exception e) {
             e.printStackTrace();
         }
