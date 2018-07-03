@@ -381,7 +381,6 @@ public class PdfTextStripperTest {
             Integer xinyongka = 0;
             Integer fangdai = 0;
             Integer qita = 0;
-            Integer danbao = 0;
             while (iterator.hasNext()) {
                 Integer next = iterator.next();
                 String map2Value = map2.get(next);
@@ -391,8 +390,6 @@ public class PdfTextStripperTest {
                     fangdai = next;
                 } else if ("其他贷款".equals(map2Value)) {
                     qita = next;
-                } else if ("为他人担保信息".equals(map2Value)) {
-                    danbao = next;
                 }
             }
             if (i1 != -1) {
@@ -746,7 +743,6 @@ public class PdfTextStripperTest {
                             }
                         }
                     }
-
                 }
                 if (x1 != 0 && x2 == 0) {
                     creditCardDetails001.setLoanType("购房贷款");
@@ -820,7 +816,6 @@ public class PdfTextStripperTest {
                         creditCardDetails003.setHeading("发生过逾期的账户明细如下:");
                         creditCardDetails004.setLoanType("其他贷款");
                         creditCardDetails004.setHeading("从未逾期过的账户明细如下:");
-
                         List<String> list6 = new ArrayList<>();
                         for (int i4 = x3 + 1; i4 < x4; i4++) {
                             if (map1.get(i4) != null) {
@@ -835,7 +830,6 @@ public class PdfTextStripperTest {
                         creditCardDetailsList.add(creditCardDetails003);
                         creditCardDetailsList.add(creditCardDetails004);
                     }
-
                 }
             } else if (xinyongka != 0 && fangdai != 0 && qita != 0) {
                 //信用卡
@@ -873,14 +867,12 @@ public class PdfTextStripperTest {
                                 x6 = next;
                                 creditCardDetails006 = new CreditCardDetails();
                             }
-
                         } else if ("从未逾期过的账户明细如下".equals(x.substring(0, 12))) {
                             iii++;
                             if (iii == 1){
                                 x7 = next;
                                 creditCardDetails007 = new CreditCardDetails();
                             }
-
                         }
                     }
                 }
@@ -1003,7 +995,6 @@ public class PdfTextStripperTest {
             pedestrianReport.setCreditCardDetailsList(creditCardDetailsList);
             String s16 = objectMapper.writeValueAsString(pedestrianReport);
             System.out.println(s16);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
