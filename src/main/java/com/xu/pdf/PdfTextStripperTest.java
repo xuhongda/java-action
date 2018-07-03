@@ -14,8 +14,6 @@ import java.util.regex.Pattern;
  * @author xuhongda
  */
 public class PdfTextStripperTest {
-
-
     /**
      *
      * @param document
@@ -313,7 +311,6 @@ public class PdfTextStripperTest {
             }else {
                 substring = s20.substring(i);
             }
-
             String[] split16 = substring.split("\\n");
             List<String> list4 = new ArrayList<>();
             Map<Integer, String> map1 = new HashMap<>(16);
@@ -355,7 +352,6 @@ public class PdfTextStripperTest {
                     }
                 }
             }
-
             /*System.out.println(objectMapper.writeValueAsString(map1));
             System.out.println(objectMapper.writeValueAsString(map2));
             System.out.println(objectMapper.writeValueAsString(map3));*/
@@ -561,7 +557,6 @@ public class PdfTextStripperTest {
                     }
                 }
                 creditCardDetailsList.add(creditCardDetails);
-
                 //其他贷款
                 CreditCardDetails creditCardDetails001 = null;
                 CreditCardDetails creditCardDetails002 = null;
@@ -877,6 +872,7 @@ public class PdfTextStripperTest {
                     }
                     creditCardDetails006.setDetail(list6);
                     creditCardDetailsList.add(creditCardDetails006);
+                    ((ArrayList<String>) list6).trimToSize();
                 } else if (x6 == 0 && x7 != 0) {
                     creditCardDetails007.setLoanType("购房贷款");
                     creditCardDetails007.setHeading("从未逾期过的账户明细如下:");
