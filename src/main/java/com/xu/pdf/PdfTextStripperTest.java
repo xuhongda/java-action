@@ -67,7 +67,7 @@ public class PdfTextStripperTest {
             individualCreditReport.setReportNum("报告编号: "+reportNum);
             String[] split1 = split[1].split("报告时间:");
             String queryTime = split1[0];
-            individualCreditReport.setQueryTime("查询时间: "+queryTime);
+            individualCreditReport.setQueryTime("查询时间： "+queryTime);
             String reportTime = split1[1].split("\n")[0];
             individualCreditReport.setReportTime("报告时间："+reportTime.replaceAll("\r|\n", ""));
             String[] split2 = split1[1].split("\n");
@@ -77,7 +77,7 @@ public class PdfTextStripperTest {
             String name = split5[0];
             individualCreditReport.setName("姓名："+name);
             String idType = split5[1].split("证件号码:")[0];
-            individualCreditReport.setIdType("证件类型: "+idType);
+            individualCreditReport.setIdType("证件类型： "+idType);
             String[] split6 = split5[1].split("证件号码: ");
             String idNO = split6[1].split("\\s")[0];
             individualCreditReport.setIdNO("证件号码："+idNO);
@@ -205,89 +205,117 @@ public class PdfTextStripperTest {
             informationSummary.setCreditCardGuaranteeAccount(creditCardGuaranteeAccount);
             informationSummary.setHousingMortgageGuaranteeAccount(housingMortgageGuaranteeAccount);
             informationSummary.setOtherCreditGuaranteeAccount(otherCreditGuaranteeAccount);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
             //按照句子结束符分割句子
             //查询
             String s11 = pdf.split("机构查询记录明细")[1].split("本人查询记录明细")[0];
-            String[] split13 = s11.split("\\n");
-            List<Map<Integer, String>> list1 = new ArrayList();
-            List<Map<Integer, String>> list2 = new ArrayList();
-            List<String> list3 = new ArrayList<>();
-            for (int i = 0; i < split13.length; i++) {
-                String trim = split13[i].substring(0, 1).trim();
-                try {
-                    Integer.parseInt(trim);
-                    Map<Integer, String> map1 = new HashMap(30);
-                    map1.put(i, split13[i]);
-                    list1.add(map1);
-                    list3.add(split13[i]);
-                } catch (Exception e) {
-                    Map<Integer, String> map2 = new HashMap(16);
-                    String s12 = split13[i];
-                    map2.put(i, s12);
-                    list2.add(map2);
-                }
-            }
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<String> list = new ArrayList<>();
-            for (Map map : list1) {
-                Set set = map.entrySet();
-                for (Object o : set) {
-                    Map.Entry entry = (Map.Entry) o;
-                    String value = (String) entry.getValue();
-                    list.add(value);
-                }
-            }
+            //
             List<QueryDetails> queryDetailss = new ArrayList<>(130);
             QueryDetails queryDetails;
-            for (String str : list3) {
-                if (str.length() > 10) {
-                    queryDetails = new QueryDetails();
-                    String[] split14 = str.split("\\s+");
-                    for (int i = 0; i < split14.length; i++) {
-                        String s15 = split14[i];
-                        if (i == 0) {
-                            queryDetails.setNumber(s15);
-                        } else if (i == 1) {
-                            queryDetails.setQueryDate(s15);
-                        } else if (i == 2) {
-                            queryDetails.setQueryOperator(s15);
-                        } else if (i == 3) {
-                            queryDetails.setQueryReason(s15);
+            if (s11 != null){
+                String[] split13 = s11.split("\\n");
+                List<String> ll = new ArrayList<>(5);
+                List<String> list3 = new ArrayList<>();
+                for (int i = 0; i < split13.length; i++) {
+                    String trim = split13[i].substring(0, 1).trim();
+                    try {
+                        Integer.parseInt(trim);
+                        Map<Integer, String> map1 = new HashMap(30);
+                        map1.put(i, split13[i].replaceAll("\r|\n", ""));
+                        list3.add(split13[i]);
+                    } catch (Exception e) {
+                        String s12 = split13[i].replaceAll("\r|\n", "").trim();
+                        if (s12.length() == 4 || s12.length() == 16){
+                            if (!s12.contains("说  明")){
+                                ll.add(s12);
+                            }
                         }
                     }
-                    queryDetailss.add(queryDetails);
                 }
-            }
-            String s15 = pdf.split("本人查询记录明细")[1];
-            String[] split14 = s15.split("\\n");
-            for (int i = 0; i < split14.length; i++) {
-                String trim = split14[i].substring(0, 1).trim();
-                try {
-                    Integer.parseInt(trim);
-                    queryDetails = new QueryDetails();
-                    if (split14[i].length() > 10) {
-                        //空格分割
-                        String[] split15 = split14[i].split("\\s+");
-                        for (int i2 = 0; i2 < split15.length; i2++) {
-                            String s16 = split15[i2];
-                            if (i2 == 0) {
-                                queryDetails.setNumber(s16);
-                            } else if (i2 == 1) {
-                                queryDetails.setQueryDate(s16);
-                            } else if (i2 == 2) {
-                                queryDetails.setQueryOperator(s16);
-                            } else if (i2 == 3) {
-                                if (s16 != null){
-                                    queryDetails.setQueryReason(s16);
+                int num = 0;
+                for (String str : list3) {
+                    if (str.length() > 10) {
+                        queryDetails = new QueryDetails();
+                        String[] split14 = str.split("\\s+");
+                        for (int i = 0; i < split14.length; i++) {
+                            String s15 = split14[i];
+                            if (split14.length==4){
+                                if (i == 0) {
+                                    queryDetails.setNumber(s15);
+                                } else if (i == 1) {
+                                    queryDetails.setQueryDate(s15);
+                                } else if (i == 2) {
+                                    queryDetails.setQueryOperator(s15);
+                                } else if (i == 3) {
+                                    queryDetails.setQueryReason(s15);
                                 }
+                            }else if (split14.length==3){
+                                if (i == 0) {
+                                    queryDetails.setNumber(s15);
+                                } else if (i == 1) {
+                                    queryDetails.setQueryDate(s15);
+                                } else if (i == 2) {
+                                    queryDetails.setQueryOperator(s15);
+                                }
+                                if (i == 2){
+                                    num++;
+                                    queryDetails.setQueryReason(ll.get(num-1));
+                                }
+
                             }
+
+
                         }
                         queryDetailss.add(queryDetails);
                     }
-                } catch (Exception e) {
-
                 }
             }
+
+
+            String s15 = pdf.split("本人查询记录明细")[1];
+            if(s15 != null){
+                queryDetails = new QueryDetails();
+                queryDetails.setNumber("编号");
+                queryDetails.setQueryDate("查询日期");
+                queryDetails.setQueryOperator("查询操作员");
+                queryDetails.setQueryReason("查询原因");
+                queryDetailss.add(queryDetails);
+                //
+                String[] split14 = s15.split("\\n");
+                Map<Integer,String> map = new HashMap<>(5);
+                for (int i = 0; i < split14.length; i++) {
+                    String trim = split14[i].substring(0, 1).trim();
+                    try {
+                        Integer.parseInt(trim);
+                        queryDetails = new QueryDetails();
+                        if (split14[i].length() > 10) {
+                            //空格分割
+                            String[] split15 = split14[i].split("\\s+");
+                            for (int i2 = 0; i2 < split15.length; i2++) {
+                                String s16 = split15[i2];
+                                if (i2 == 0) {
+                                    queryDetails.setNumber(s16);
+                                } else if (i2 == 1) {
+                                    queryDetails.setQueryDate(s16);
+                                } else if (i2 == 2) {
+                                    queryDetails.setQueryOperator(s16);
+                                } else if (i2 == 3) {
+                                    if (s16 != null){
+                                        queryDetails.setQueryReason(s16);
+                                    }
+                                }
+                            }
+                            queryDetailss.add(queryDetails);
+                        }
+                    } catch (Exception e) {
+                        map.put(i,split14[i]);
+                    }
+                }
+            }
+
+          //  System.out.println(objectMapper.writeValueAsString(map));
             String[] split15 = pdf.split("个人信用报告( \\s+)");
             String s17 = split15[0].split("公共记录(\\s+)")[0];
             //
@@ -646,7 +674,6 @@ public class PdfTextStripperTest {
                 while (iterator2.hasNext()) {
                     Integer next = iterator2.next();
                     String x = map2.get(next);
-                    System.out.println(x);
                     if (x.length() > 12) {
                         if ("发生过逾期的账户明细如下".equals(x.substring(0, 12))) {
                             x1 = next;
@@ -982,6 +1009,7 @@ public class PdfTextStripperTest {
             pedestrianReport.setCreditCardDetailsList(creditCardDetailsList);
             String s16 = objectMapper.writeValueAsString(pedestrianReport);
             System.out.println(s16);
+          //  System.out.println(pdf);
         } catch (Exception e) {
             e.printStackTrace();
         }
