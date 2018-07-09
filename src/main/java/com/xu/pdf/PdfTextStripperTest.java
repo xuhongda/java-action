@@ -57,7 +57,7 @@ public class PdfTextStripperTest {
         PedestrianReport pedestrianReport = new PedestrianReport();
         IndividualCreditReport individualCreditReport = new IndividualCreditReport();
         try {
-            String filePath = "C:\\Users\\Administrator\\Desktop\\xhm.pdf";
+            String filePath = "C:\\Users\\Administrator\\Desktop\\个人信用报告2.pdf";
             PdfTextStripperTest textStripperTest = new PdfTextStripperTest();
             File file = new File(filePath);
             String pdf = textStripperTest.getText(file);
