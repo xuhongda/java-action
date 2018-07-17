@@ -1,9 +1,7 @@
 package com.xu.pdf;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,7 +33,7 @@ public class Test {
     }
     @org.junit.Test
     public void test3(){
-        String str = "信用卡  \n";
+        String str = "说 明";
         System.out.println(str.length());
     }
 
@@ -47,4 +45,44 @@ public class Test {
         System.out.println("转换后："+s);
 
     }
+    @org.junit.Test
+    public void test006(){
+        Map map1 = null;
+        Map map2 = null;
+        Map map3 = null;
+        for (int i = 0; i < 1000000000; i++) {
+            for (int j= 0;j<1000000000;j++){
+                map1 = new HashMap(100000);
+                map2 = new HashMap(100000);
+                map3 = new HashMap(100000);
+                map1.put(i,i);
+                map2.put(i,i);
+                map3.put(i,i);
+            }
+        }
+    }
+
+    @org.junit.Test
+    public void test007(){
+        Map map = new HashMap();
+        map.put(1,"me");
+        Object o = map.get(0);
+        o.getClass();
+    }
+    @org.junit.Test
+    public void test008(){
+        List<String> aList = Arrays.asList("1","2","3","4","5");
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+       /* for (String string : aList) {
+            System.out.println(string);
+        }*/
+        for (int i = aList.size();i>0;i--){
+            System.out.println(aList.get(i-1));
+        }
+    }
+
 }
