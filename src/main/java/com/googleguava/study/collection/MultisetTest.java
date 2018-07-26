@@ -34,7 +34,7 @@ public class MultisetTest {
     public void test2(){
 
         Multiset<People> peopleMultiset = HashMultiset.create();
-        People people = null ;
+        People people;
         for (int i = 0; i <100; i++) {
             people = new People("xx"+i,i);
             peopleMultiset.add(people);
