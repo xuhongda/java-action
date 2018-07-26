@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * javase-practice
  */
 public class MyArrayList extends ArrayList {
-    public MyArrayList(){};
+    public MyArrayList(){}
 
     public MyArrayList(int i){
         //调用父类构造器

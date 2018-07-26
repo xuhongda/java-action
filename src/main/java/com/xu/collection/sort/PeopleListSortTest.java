@@ -16,20 +16,24 @@ import java.util.List;
  * com.xu.collection.sort
  * javase-practice
  */
-public class PeopleListSort {
+public class PeopleListSortTest {
     List<People> peoples;
 
     @Before
     public void before() {
         peoples = new ArrayList<>();
         People people1 = new People("x", 1);
-        People people2 = new People("x", 2);
+        People people2 = new People("a", 2);
         People people3 = new People("x", 3);
-        People people4 = new People("x", 4);
+        People people5 = new People("f", 4);
+        People people6 = new People("k", 4);
+        People people4 = new People("c", 4);
         peoples.add(people1);
         peoples.add(people3);
         peoples.add(people4);
         peoples.add(people2);
+        peoples.add(people5);
+        peoples.add(people6);
         System.out.println("before" + peoples);
     }
 
@@ -55,7 +59,7 @@ public class PeopleListSort {
         //java8 提供的新写法;意思是给peoples集合排序，比较 people 的 年龄
         peoples.sort(Comparator.comparing(People::getAge));
         //或者这样，调用reversed方法倒序
-        Collections.sort(peoples, Comparator.comparing(People::getAge).reversed());
+       // Collections.sort(peoples, Comparator.comparing(People::getAge).reversed());
         System.out.println("test2" + peoples);
     }
 
@@ -69,6 +73,12 @@ public class PeopleListSort {
         Comparator<People> comparator =  (p1,p2) -> p1.getAge().compareTo(p2.getAge());
         peoples.sort(comparator.reversed());
         System.out.println(peoples);
+    }
+
+    @Test
+    public void test4(){
+        peoples.sort(Comparator.comparing(People::getAge).thenComparing(People::getName));
+        System.out.println("test4"+peoples);
     }
 
 }
