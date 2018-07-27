@@ -4,10 +4,8 @@ import com.xu.pojo.People;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>List 排序 匿名对象方式，也可以创建实列对象</p>
@@ -59,7 +57,7 @@ public class PeopleListSortTest {
         //java8 提供的新写法;意思是给peoples集合排序，比较 people 的 年龄
         peoples.sort(Comparator.comparing(People::getAge));
         //或者这样，调用reversed方法倒序
-       // Collections.sort(peoples, Comparator.comparing(People::getAge).reversed());
+        Collections.sort(peoples, Comparator.comparing(People::getAge).reversed());
         System.out.println("test2" + peoples);
     }
 
@@ -79,6 +77,25 @@ public class PeopleListSortTest {
     public void test4(){
         peoples.sort(Comparator.comparing(People::getAge).thenComparing(People::getName));
         System.out.println("test4"+peoples);
+    }
+
+    @Test
+    public void test5(){
+        peoples.stream().filter(people -> people.getAge()>18).sorted(Comparator.comparing(People::getAge)).forEach(people -> people.setName("迪丽热巴"));
+        System.out.println(peoples);
+    }
+
+    @Test
+    public void test6(){
+        //用map来实现多重条件过滤
+        peoples.stream().map(people ->{
+            if (people.getAge()==3){
+                people.setName("xuhongda");
+                return people;
+            }
+            return people;
+        } ).collect(Collectors.toList());
+        System.out.println(peoples);
     }
 
 }
