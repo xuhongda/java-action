@@ -93,6 +93,10 @@ public class PeopleListSortTest {
                 people.setName("xuhongda");
                 return people;
             }
+            if (people.getAge()==4){
+                people.setName("liulizhen");
+                return people;
+            }
             return people;
         } ).collect(Collectors.toList());
         System.out.println(peoples);
