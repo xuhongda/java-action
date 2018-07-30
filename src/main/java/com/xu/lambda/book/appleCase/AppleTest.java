@@ -2,6 +2,7 @@ package com.xu.lambda.book.appleCase;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -15,7 +16,7 @@ import java.util.function.Predicate;
 public class AppleTest {
 
     public static void main(String[] args) {
-        List apples = new ArrayList(3);
+        List<Apple> apples = new ArrayList(3);
         Apple apple1 = new Apple("green",160);
         Apple apple2 = new Apple("red",140);
         Apple apple3 = new Apple("yellow",160);
@@ -39,7 +40,7 @@ public class AppleTest {
         List list4 = filterApples(apples, Apple::isHeavyApple);
         System.out.println(list4);
 
-
+        apples.sort(Comparator.comparing(a->a.getWeight()>140 || "green".equals(a.getColor())));
         //apples.stream().filter((Apple a) -> "green".equals(a.getColor())).collect(toList());
 
     }
