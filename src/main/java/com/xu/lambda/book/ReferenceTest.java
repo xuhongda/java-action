@@ -34,6 +34,7 @@ public class ReferenceTest {
         supplier.get();
 
         Function<Integer,Apple> function = Apple::new;
-        function.apply(18);
+        Apple apply = function.apply(18);
+        System.out.println(apply);
     }
 }
