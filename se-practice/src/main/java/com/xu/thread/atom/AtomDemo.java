@@ -1,6 +1,5 @@
 package com.xu.thread.atom;
 
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * javase-practice
  */
 public class AtomDemo {
-    
+
     private static final long THREAD_NUM = 10L;
 
     public static void main(String[] args) {
@@ -26,7 +25,7 @@ public class AtomDemo {
 
     static void open1(){
         RunnableThread thread = new RunnableThread();
-        for (int i = 0; i <10 ; i++) {
+        for (int i = 0; i <THREAD_NUM ; i++) {
             new Thread(thread).start();
         }
     }
