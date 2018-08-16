@@ -13,7 +13,7 @@ package com.xu.thread.basic;
  */
 public class Ticket {
 
-    private  static Long num = 1000L;
+    private static Long num = 1000L;
 
     protected static void func(){
         while (num>0){
