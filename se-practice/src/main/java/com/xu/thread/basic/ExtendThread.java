@@ -5,7 +5,7 @@ package com.xu.thread.basic;
  * com.xu.thread.basic
  * javase-practice
  */
-public class MyThread extends Thread {
+public class ExtendThread extends Thread {
 
 
     @Override

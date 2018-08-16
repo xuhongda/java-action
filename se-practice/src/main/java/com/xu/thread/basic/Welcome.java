@@ -8,14 +8,14 @@ package com.xu.thread.basic;
 public class Welcome {
     public static void main(String[] args) {
         //继承Thread 类
-        Thread thread = new MyThread();
+        Thread thread = new ExtendThread();
         //给线程命名
         thread.setName("线程一");
         thread.start();
 
 
         //runnable 方式
-        Thread thread1 = new Thread(new MyThred2());
+        Thread thread1 = new Thread(new RunnableThread());
         thread1.start();
 
         //以lambda 方式创建

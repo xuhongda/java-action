@@ -1,6 +1,7 @@
 package com.xu.thread.basic;
 
 
+
 /**
  * <p>
  *     模拟卖票问题
@@ -14,7 +15,7 @@ public class Ticket {
 
     private  static Long num = 1000L;
 
-    public  static void func(){
+    protected static void func(){
         while (num>0){
             try {
                 if (num%3==0){
@@ -52,10 +53,10 @@ public class Ticket {
      * 继承Thread
      */
     private static void way2(){
-        Thread thread4 = new MyThread();
-        Thread thread5 = new MyThread();
-        Thread thread6 = new MyThread();
-        Thread thread7 = new MyThread();
+        Thread thread4 = new ExtendThread();
+        Thread thread5 = new ExtendThread();
+        Thread thread6 = new ExtendThread();
+        Thread thread7 = new ExtendThread();
 
         thread4.start();
         thread5.start();
