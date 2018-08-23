@@ -2,8 +2,9 @@ package com.xu.thread.basic;
 
 /**
  * <p>
- *     内存可见性问题
+ * 内存可见性问题
  * </p>
+ *
  * @author xuhongda on 2018/8/16
  * com.xu.thread.basic
  * javase-practice
@@ -12,22 +13,23 @@ public class VolatileTest {
     public static void main(String[] args) throws InterruptedException {
         MyRunnable thread = new MyRunnable();
         new Thread(thread).start();
-       // Thread.sleep(10);
-        while (true){
-            if (thread.isFlag()){
+        // Thread.sleep(10);
+        while (true) {
+            if (thread.isFlag()) {
                 System.out.println("<><><><>");
                 break;
             }
         }
     }
 }
-class MyRunnable implements Runnable{
+
+class MyRunnable implements Runnable {
     /**
      * volatile 关键字
      * 注意： volatile 不具备互斥性；不保证原子性
-     * 
      */
-    private volatile boolean  flag = false;
+    private volatile boolean flag = false;
+
     @Override
     public void run() {
         flag = true;
