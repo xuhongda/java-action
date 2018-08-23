@@ -23,14 +23,14 @@ public class AtomDemo {
             open2();
     }
 
-    static void open1(){
+    private static void open1(){
         RunnableThread thread = new RunnableThread();
         for (int i = 0; i <THREAD_NUM ; i++) {
             new Thread(thread).start();
         }
     }
 
-    static void open2(){
+    private static void open2(){
         AtomicT thread = new AtomicT();
         for (int i = 0; i <THREAD_NUM ; i++) {
             new Thread(thread).start();
@@ -39,7 +39,7 @@ public class AtomDemo {
 }
 
 class RunnableThread implements Runnable{
-    private    int num;
+    private int num;
     @Override
     public  void run() {
         try {

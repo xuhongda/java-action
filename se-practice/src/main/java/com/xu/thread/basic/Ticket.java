@@ -1,6 +1,7 @@
 package com.xu.thread.basic;
 
 
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <p>
@@ -15,7 +16,9 @@ public class Ticket {
 
     private static Long num = 1000L;
 
-    protected static void func(){
+    private static AtomicInteger atomicInteger = new AtomicInteger(1000);
+
+    protected static void func1(){
         while (num>0){
             try {
                 if (num%3==0){
@@ -32,21 +35,36 @@ public class Ticket {
         }
     }
 
+
+    protected static void func2(){
+        while (atomicInteger.intValue()>0){
+            try {
+                if (atomicInteger.intValue()%3==0){
+                    Thread.sleep(7);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            atomicInteger.decrementAndGet();
+            System.out.println("还有\t"+atomicInteger.intValue());
+            if (atomicInteger.intValue()<0){
+                System.err.println(atomicInteger.intValue());
+            }
+        }
+    }
+
     /**
      * runnable 方式
      */
     private static void way1(){
-        Runnable runnable = () -> func();
 
-        Thread thread0 = new Thread(runnable);
-        Thread thread1 = new Thread(runnable);
-        Thread thread2 = new Thread(runnable);
-        Thread thread3 = new Thread(runnable);
+       // Runnable runnable = () -> func1();
 
-        thread0.start();
-        thread1.start();
-        thread2.start();
-        thread3.start();
+        Runnable runnable2 = () -> func2();
+
+        for (int i = 0; i <10 ; i++) {
+            new Thread(runnable2).start();
+        }
     }
 
     /**
@@ -69,7 +87,7 @@ public class Ticket {
 
         Ticket.way1();
 
-        Ticket.way2();
+        //Ticket.way2();
         //可用的核心数量
         int i = Runtime.getRuntime().availableProcessors();
         System.err.println(i);

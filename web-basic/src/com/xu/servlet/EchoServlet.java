@@ -1,6 +1,5 @@
 package com.xu.servlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ public class EchoServlet extends HttpServlet {
 
     @Override
     protected void
-    doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {
         // 获取当前线程
         Thread currentThread = Thread.currentThread();
         // 获取当前线程的线程名称

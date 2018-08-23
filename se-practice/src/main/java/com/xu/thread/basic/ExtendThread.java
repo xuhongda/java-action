@@ -10,7 +10,7 @@ public class ExtendThread extends Thread {
 
     @Override
     public void run(){
-        Ticket.func();
+        Ticket.func1();
         System.out.println("is run "+Thread.currentThread().getName());
     }
 }
