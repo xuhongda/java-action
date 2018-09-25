@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * com.xu.lambda.self.test
  * javase-practice
  */
-public class TestL {
+public class DemoTest {
     @Test
     public void test(){
         List<String> list = Arrays.asList("xx","zA","cc");
@@ -32,13 +32,13 @@ public class TestL {
     public void test2(){
         List<String> list = Arrays.asList("xx","zA","cc");
         //需求一：。。。
-        List xx = TestL.xx(list, s -> s.toLowerCase());
+        List xx = DemoTest.xx(list, s -> s.toLowerCase());
         System.out.println(xx);
         //需求二：。。。
-        TestL.xx(list,s->s.charAt(1));
+        DemoTest.xx(list, s->s.charAt(1));
         //
         List<People> peopleList = Arrays.asList(new People("xx", 12), new People("vv", 18));
-        List xuhongda = TestL.xx(peopleList, p->"xuhongda".equals(p.getName()));
+        List xuhongda = DemoTest.xx(peopleList, p->"xuhongda".equals(p.getName()));
         System.out.println(xuhongda);
         //
         peopleList.sort(Comparator.comparing(people -> people.getAge()>=18));
@@ -76,7 +76,7 @@ public class TestL {
         System.out.println(xxx);
 
         List<People> peopleList = Arrays.asList(new People("xx", 12), new People("vv", 18));
-        List xx = TestL.xx(peopleList, peopleObjectFunction);
+        List xx = DemoTest.xx(peopleList, peopleObjectFunction);
         System.out.println(xx);
     }
 
