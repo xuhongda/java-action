@@ -1,7 +1,11 @@
 package com.xu.lambda.self.bean;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.beans.ConstructorProperties;
 
 /**
  * @author xuhongda on 2018/7/30
@@ -10,21 +14,16 @@ import lombok.ToString;
  */
 @ToString
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class Apple {
 
-    Integer weight;
 
+    Integer weight;
     String address;
 
-    public Apple() {
-    }
-
-    public Apple(int weight) {
+    public Apple(Integer weight) {
         this.weight = weight;
-    }
-
-    public Apple(int weight, String address) {
-        this.weight = weight;
-        this.address = address;
     }
 }

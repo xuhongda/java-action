@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static java.util.stream.Collectors.toList;
+
 
 /**
  * @author xuhongda on 2018/7/26
@@ -19,9 +21,11 @@ public class AppleTest {
         Apple apple1 = new Apple("green",160);
         Apple apple2 = new Apple("red",140);
         Apple apple3 = new Apple("yellow",160);
+        Apple apple4 = new Apple("yellow", 10);
         apples.add(apple1);
         apples.add(apple2);
         apples.add(apple3);
+        apples.add(apple4);
 
 
         List list = filterApples(apples, AppleTest::isGreeaApple);
@@ -39,8 +43,7 @@ public class AppleTest {
         List list4 = filterApples(apples, Apple::isHeavyApple);
         System.out.println(list4);
 
-        apples.sort(Comparator.comparing(a->a.getWeight()>140 || "green".equals(a.getColor())));
-        //apples.stream().filter((Apple a) -> "green".equals(a.getColor())).collect(toList());
+        apples.stream().filter((Apple a) -> "green".equals(a.getColor())).collect(toList());
 
     }
 
