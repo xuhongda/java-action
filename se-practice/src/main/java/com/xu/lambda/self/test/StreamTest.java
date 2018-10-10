@@ -4,7 +4,9 @@ import com.xu.lambda.self.bean.Man;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +30,9 @@ public class StreamTest {
 
     /**
      * map
+     * <p>
+     *     根据条件对list 里每个元素进行操作
+     * </p>
      */
     @Test
     public void test() {
@@ -68,6 +73,35 @@ public class StreamTest {
     @Test
     public void test4() {
         mans.parallelStream().limit(10).forEach(System.out::println);
+    }
+
+
+    /**
+     * forEach
+     * <p>
+     * 两个list 根据条件合并为同一个list
+     * </p>
+     */
+    @Test
+    public void test6() {
+        List<Man> list = new ArrayList<>();
+        List<Man> mens = Arrays.asList(new Man(18, 93.0), new Man(1, 32.0));
+
+        mans.parallelStream().forEach(a -> {
+            mens.parallelStream().forEach(man -> {
+                if (man.getAge() > 5) {
+                    list.add(man);
+                }
+            });
+
+            if (a.getWeight() > 10) {
+                list.add(a);
+            } else if (a.getAge() > 10) {
+                a.setWeight(80.0);
+
+            }
+        });
+        System.out.println(list);
     }
 
 
