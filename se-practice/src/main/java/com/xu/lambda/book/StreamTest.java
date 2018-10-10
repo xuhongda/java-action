@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,6 +34,10 @@ public class StreamTest {
         apples.stream().forEach(System.out::println);
     }
 
+    /**
+     * filter
+     * filter 是一个惰性求值方法。函数接口为 {@link Predicate},此方法负责对数据进行判断，filter高阶函数负责根据判断结果对流进行过滤。
+     */
     @Test
     public void test2() {
         long l = apples.stream().filter(a -> a.getWeight() > 7).distinct().limit(2).count();
@@ -46,7 +51,12 @@ public class StreamTest {
     }
 
     /**
-     * map
+     * <p>
+     *     map
+     *      map是一个惰性求值方法。函数接口为{@link java.util.function.Function}函数接口
+     *      负责将数据从一个类型转换为另一个类型；高阶函数map的作用就是将数据从一个流转换为另一个流
+     * </p>
+     *
      * 返回数的平方
      */
     @Test
@@ -54,6 +64,24 @@ public class StreamTest {
       List<Integer> list = Arrays.asList(1,23,45,6,78);
       List l = list.stream().map(a->a*a).collect(Collectors.toList());
         System.out.println(l);
+        list.parallelStream().map(a -> {
+            System.out.println(a.intValue());
+            return a + 1;
+        }).collect(Collectors.toList()).forEach(System.out::println);
+    }
+
+    @Test
+    public void test11() {
+        Stream<List<Integer>> inputStream = Stream.of(
+                Arrays.asList(1),
+                Arrays.asList(2, 3),
+                Arrays.asList(4, 5, 6)
+        );
+        Stream<Integer> outputStream = inputStream.
+                flatMap((childList) -> childList.stream());
+        List<Integer> collect = outputStream.collect(Collectors.toList());
+        System.out.println(collect);
+
     }
 
     /**
@@ -64,11 +92,17 @@ public class StreamTest {
     public void test5(){
         List<Integer> numbers1 = Arrays.asList(1,22,3);
         List<Integer> numbers2 = Arrays.asList(3,77,99);
-        List<int[]> list = new ArrayList<>();
+        // List<int[]> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         for (Integer i : numbers1){
             for (Integer i2: numbers2){
-                int[] ints = new int[]{i,i2};
-                list.add(ints);
+                //int[] ints = new int[]{i,i2};
+                if (i2 > 2) {
+                    list.add(i2);
+                }
+                if (i > 22) {
+                    list.add(i);
+                }
             }
         }
 
