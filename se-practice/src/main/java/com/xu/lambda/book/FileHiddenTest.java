@@ -1,9 +1,12 @@
 package com.xu.lambda.book;
 
+import com.google.common.base.Function;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 筛选一个目录中的所有隐藏
@@ -24,6 +27,7 @@ public class FileHiddenTest {
                 return file.isHidden();
             }
         });
+        assert hiddenFiles != null;
         System.out.println(hiddenFiles.length);
         for(File file : hiddenFiles){
             System.out.println(file.getName());
@@ -35,10 +39,12 @@ public class FileHiddenTest {
      */
     @Test
     public void test2(){
-        File[] hiddenFiles = new File("C:\\Program Files").listFiles(File::isHidden);
+        //创建了一个方法的引用，可以传递它
+        FileFilter isHidden = File::isHidden;
+        File[] hiddenFiles = new File("C:\\Program Files").listFiles(isHidden);
+        assert hiddenFiles != null;
         System.out.println(hiddenFiles.length);
-        for(File file : hiddenFiles){
-            System.out.println(file.getName());
-        }
+        List<File> files = Arrays.asList(hiddenFiles);
+        files.forEach(System.out::println);
     }
 }

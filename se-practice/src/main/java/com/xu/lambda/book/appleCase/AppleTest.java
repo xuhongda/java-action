@@ -49,9 +49,9 @@ public class AppleTest {
 
     /**
      *
-     * @param inventory
+     * @param inventory 一个集合
      * @param p 作为参数
-     * @return
+     * @return 集合
      */
     public static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p){
         List<Apple> result = new ArrayList<>();
