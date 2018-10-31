@@ -35,7 +35,7 @@ public class People {
     }
     @Override
     public boolean equals(Object obj) {
-        if (this == null){
+        if (obj == null) {
             return false;
         }
         if (!(obj instanceof People)){
