@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class ListTest {
 
-    List<People> list = new ArrayList();
+    private List<People> list = new ArrayList<>();
 
     {
         for (int i = 0; i < 10; i++) {
@@ -40,6 +40,5 @@ public class ListTest {
             System.out.println(a);
         });
     }
-
 
 }
