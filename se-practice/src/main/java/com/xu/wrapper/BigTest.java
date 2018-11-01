@@ -15,7 +15,7 @@ public class BigTest {
      */
     @Test
     public void test1() {
-        Float f = 8.98F;
+        Float f = 0F;
         Integer integer = 5;
         BigDecimal bigDecimal = new BigDecimal(f);
         BigDecimal bigDecimal1 = new BigDecimal(integer);
