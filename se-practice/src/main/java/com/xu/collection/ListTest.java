@@ -16,7 +16,8 @@ public class ListTest {
     private List<People> list = new ArrayList<>();
 
     {
-        for (int i = 0; i < 10; i++) {
+        int size = 10;
+        for (int i = 0; i < size; i++) {
             list.add(new People("x" + i, i));
         }
     }
