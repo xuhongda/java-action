@@ -1,6 +1,7 @@
 package com.xu.collection;
 
 import com.xu.pojo.People;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
@@ -26,6 +27,8 @@ public class ListTest {
     @Test
     public void test1() {
         list.clear();
+        boolean empty = list.isEmpty();
+        Assert.assertEquals(true, empty);
         list.get(0);
         list.stream().filter(a -> a.getAge() > 18);
     }
@@ -35,10 +38,10 @@ public class ListTest {
      */
     @Test
     public void test2() {
-        list.forEach(a -> {
-            a.setName("yan");
-            System.out.println(a);
-        });
+
+        Runnable r = () -> list.forEach(a -> a.setName("yan"));
+        r.run();
+
     }
 
 }
