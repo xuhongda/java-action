@@ -45,4 +45,12 @@ public class ListTest {
 
     }
 
+    @Test
+    public void test3() {
+        People people = new People();
+        people.setName(null);
+        String name = people.getName();
+        System.out.println(name);
+    }
+
 }
