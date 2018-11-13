@@ -1,16 +1,10 @@
 package com.xu.serializable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.io.Files;
-import com.xu.pojo.Girl;
-import org.dom4j.Document;
+import pojo.Girl;
 import org.testng.annotations.Test;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.util.List;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 
 /**

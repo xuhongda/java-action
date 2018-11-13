@@ -1,8 +1,8 @@
-package com.xu.pojo;
+package pojo;
 
 /**
  * @author xuhonda on 2018/7/9
- * com.xu.pojo
+ * pojo
  * javase-practice
  */
 

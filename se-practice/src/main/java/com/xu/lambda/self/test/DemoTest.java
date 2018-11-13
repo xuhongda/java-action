@@ -2,7 +2,7 @@ package com.xu.lambda.self.test;
 
 import com.google.common.base.Function;
 import com.xu.lambda.self.impl.StringFunction;
-import com.xu.pojo.People;
+import pojo.People;
 import org.junit.Test;
 
 import java.util.ArrayList;

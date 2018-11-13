@@ -1,6 +1,6 @@
 package com.xu.collection;
 
-import com.xu.pojo.People;
+import pojo.People;
 import org.junit.Assert;
 import org.junit.Test;
 

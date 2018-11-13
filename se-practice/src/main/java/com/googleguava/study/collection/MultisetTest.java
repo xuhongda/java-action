@@ -2,7 +2,7 @@ package com.googleguava.study.collection;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import com.xu.pojo.People;
+import pojo.People;
 import org.junit.Test;
 
 import java.util.Set;

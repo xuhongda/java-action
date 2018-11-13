@@ -1,7 +1,7 @@
 package com.xu.lambda.book;
 
 import com.xu.lambda.self.bean.Apple;
-import com.xu.pojo.People;
+import pojo.People;
 import org.junit.Test;
 
 import java.util.Arrays;

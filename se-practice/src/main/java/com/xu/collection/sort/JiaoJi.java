@@ -1,6 +1,6 @@
 package com.xu.collection.sort;
 
-import com.xu.pojo.People;
+import pojo.People;
 import org.junit.Test;
 
 import java.util.ArrayList;

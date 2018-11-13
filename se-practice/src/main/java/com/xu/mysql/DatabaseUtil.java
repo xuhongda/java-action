@@ -1,5 +1,6 @@
 package com.xu.mysql;
-import com.xu.pojo.People;
+
+import pojo.People;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package com.xu.thread.basic;
+package thread.basic;
 
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *     不同线程消费单一资源，由于线程的阻塞，休眠，被唤醒等原因 造成多卖，超卖问题
  * </p>
  * @author xuhongda on 2018/8/16
- * com.xu.thread.basic
+ * thread.basic
  * javase-practice
  */
 public class Ticket {

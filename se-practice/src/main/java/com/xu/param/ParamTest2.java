@@ -1,6 +1,6 @@
 package com.xu.param;
 
-import com.xu.pojo.People;
+import pojo.People;
 
 import java.util.ArrayList;
 import java.util.List;
