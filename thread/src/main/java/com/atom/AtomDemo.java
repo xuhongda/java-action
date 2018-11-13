@@ -1,4 +1,4 @@
-package thread.atom;
+package com.atom;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *     导致的是最终值的问题
  * </p>
  * @author xuhongda on 2018/8/16
- * thread.atom
+ * com.atom
  * javase-practice
  */
 public class AtomDemo {

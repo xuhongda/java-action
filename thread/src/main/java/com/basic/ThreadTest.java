@@ -1,10 +1,10 @@
-package thread.basic;
+package com.basic;
 
 import org.junit.Test;
 
 /**
  * @author xuhongda on 2018/11/5
- * thread.basic
+ * com.basic
  * javase-practice
  */
 public class ThreadTest {

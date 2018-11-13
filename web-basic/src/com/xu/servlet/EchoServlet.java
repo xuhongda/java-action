@@ -26,7 +26,7 @@ public class EchoServlet extends HttpServlet {
         response.setContentType("text/plain");
         try (PrintWriter pwr = response.getWriter()) {
             // 输出处理当前请求的线程的名称
-            pwr.printf("This request was handled by thread:%s%n", currentThreadName);
+            pwr.printf("This request was handled by com:%s%n", currentThreadName);
             pwr.flush();
         }
     }

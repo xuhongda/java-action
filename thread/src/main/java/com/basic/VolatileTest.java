@@ -1,4 +1,4 @@
-package thread.basic;
+package com.basic;
 
 /**
  * <p>
@@ -6,7 +6,7 @@ package thread.basic;
  * </p>
  *
  * @author xuhongda on 2018/8/16
- * thread.basic
+ * com.basic
  * javase-practice
  */
 public class VolatileTest {
