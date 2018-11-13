@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.xu</groupId>
-    <artifactId>javase-practice</artifactId>
+    <artifactId>java-action</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>se-practice</module>
         <module>thread</module>
         <module>component</module>
+        <module>web-basic</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
