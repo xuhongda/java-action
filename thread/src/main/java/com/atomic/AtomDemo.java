@@ -50,7 +50,7 @@ class RunnableThread implements Runnable{
 
 
 class AtomicT implements Runnable{
-    protected AtomicInteger atomicInteger = new AtomicInteger(0);
+    private AtomicInteger atomicInteger = new AtomicInteger(0);
     @Override
     public void run() {
         try {
