@@ -14,22 +14,18 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class AtomDemo {
 
-    private static final long THREAD_NUM = 10L;
+    private static final long THREAD_NUM = 18000L;
 
     public static void main(String[] args) {
-
             open1();
-
             open2();
     }
-
     private static void open1(){
         RunnableThread thread = new RunnableThread();
         for (int i = 0; i <THREAD_NUM ; i++) {
             new Thread(thread).start();
         }
     }
-
     private static void open2(){
         AtomicT thread = new AtomicT();
         for (int i = 0; i <THREAD_NUM ; i++) {
@@ -39,37 +35,31 @@ public class AtomDemo {
 }
 
 class RunnableThread implements Runnable{
-    private int num;
+    private long num;
     @Override
     public  void run() {
         try {
              Thread.sleep(Math.round(Math.random()*100));
             num++;
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
        System.out.println(Thread.currentThread().getName()+"\t"+num);
     }
 }
 
 
 class AtomicT implements Runnable{
-
-    protected AtomicInteger atomicInteger = new AtomicInteger();
-
+    protected AtomicInteger atomicInteger = new AtomicInteger(0);
     @Override
     public void run() {
         try {
             Thread.sleep(Math.round(Math.random()*100));
             //原子自增
-            atomicInteger.incrementAndGet();
+            atomicInteger.getAndIncrement();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         System.out.println(Thread.currentThread().getName()+"\tatomic\t"+atomicInteger);
-
     }
 }
