@@ -18,7 +18,7 @@ public class AtomDemo {
 
     public static void main(String[] args) {
         open1();
-        // open2();
+        open2();
     }
 
     private static void open1() {
