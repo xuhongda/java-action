@@ -37,8 +37,7 @@ public class AtomDemo {
 }
 
 class RunnableThread implements Runnable {
-    private long num;
-
+    private int num;
     @Override
     public void run() {
         try {
