@@ -11,8 +11,8 @@ public class TreeSetTest {
     @Test
     public void testStr(){
 
-        String s1 = "徐宏达";
-        String s2 = new String("刘丽珍");
+        String s1 = "xu";
+        String s2 = new String("yan");
         int i = s1.compareTo(s2);
         System.out.println(i);
     }
