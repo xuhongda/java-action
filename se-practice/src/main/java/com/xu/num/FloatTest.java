@@ -48,4 +48,16 @@ public class FloatTest {
         System.out.println(divide.floatValue());
 
     }
+
+    @Test
+    public void test3() {
+        Float f1 = 12493401276.86F;
+        Float f2 = 49758.53F;
+        BigDecimal b1 = new BigDecimal(Float.toString(f1));
+        BigDecimal b2 = new BigDecimal(Float.toString(f2));
+        BigDecimal divide = b1.divide(b2, 2, 4);
+        System.out.println(divide.toString());
+        Float f = f1 / f2;
+        System.out.println(f);
+    }
 }

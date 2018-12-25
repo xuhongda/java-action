@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="300 seconds">
+
+    <springProperty scop="context" name="fluentHost" source="myapp.fluentd.host" defaultValue="localhost"/>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <springProfile name="dev">
+                <fileNamePattern>/logs/dev/myconfig.%d{yyyy-MM-dd}.log</fileNamePattern>
+            </springProfile>
+            <springProfile name="prod">
+                <fileNamePattern>/logs/prod/myconfig.%d{yyyy-MM-dd}.log</fileNamePattern>
+            </springProfile>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${fluentHost} %d{yyyy-MM-dd HH:mm:ss}: %p [%t] %c{1} %F:%L - %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${fluentHost} %d{yyyy-MM-dd HH:mm:ss}: %p [%t] %c{1} %F:%L - %m%n</pattern>
+        </encoder>
+    </appender>
+    <root level="info">
+        <appender-ref ref="file"/>
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

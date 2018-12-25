@@ -19,4 +19,6 @@ public class Man {
     private Integer age;
 
     private Double weight;
+
+    private String name;
 }
