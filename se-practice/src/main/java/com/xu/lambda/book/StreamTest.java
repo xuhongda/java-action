@@ -21,8 +21,8 @@ import java.util.stream.Stream;
  */
 public class StreamTest {
 
-    List<Apple> apples;
-    List<Integer> numbers;
+    private List<Apple> apples;
+    private List<Integer> numbers;
     @BeforeTest
     public void before() {
         apples = Arrays.asList(new Apple(20, "xx"), new Apple(20, "tt"), new Apple(18, "f"), new Apple(7, "liu"));

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -118,5 +117,5 @@ public class StreamTest {
             }
         }
     }
-
+    //TODO: 将打印输出换成日志输出
 }
