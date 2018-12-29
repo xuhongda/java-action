@@ -1,12 +1,19 @@
 package com.xu.lambda.self.test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xu.lambda.self.bean.Man;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author xuhongda on 2018/10/10
@@ -15,11 +22,15 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class StreamTest {
+
     private List<Man> mans = new ArrayList<>();
+
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @Before
     public void before() {
-        for (int i = 0; i < 99; i++) {
+        int num = 10;
+        for (int i = 0; i < num; i++) {
             double random = Math.random() * 100;
             Man man = new Man(i, random, "formal");
             mans.add(man);
@@ -42,7 +53,7 @@ public class StreamTest {
             }
             a.setAge(7);
             return a;
-        }).collect(Collectors.toList());
+        }).collect(toList());
         log.info("map 后： {}", collect);
         log.info("原先： {}", mans);
         log.info("{}", collect == mans);
@@ -104,18 +115,40 @@ public class StreamTest {
         System.out.println(list);
     }
 
+    /**
+     * collect
+     */
     @Test
     public void test7() {
         List<Integer> list = Arrays.asList(1, 2, 3, 3, 4, 5);
         Map<Integer, Long> collect = list.stream().collect(Collectors.groupingBy(a -> a, Collectors.counting()));
-        System.out.println(collect);
+        log.info("collect = {}", ToStringBuilder.reflectionToString(collect, ToStringStyle.JSON_STYLE));
         Collection<Long> values = collect.values();
         for (Long num : values) {
             if (num > 1) {
-                System.out.println(num);
+                log.info("{}", num);
                 throw new RuntimeException("具有重复数");
             }
         }
     }
     //TODO: 将打印输出换成日志输出
+
+
+    @Test
+    public void test8() throws JsonProcessingException {
+        List<Double> weights = new ArrayList<>();
+        mans.forEach(m -> {
+            weights.add(m.getWeight());
+        });
+        //对 weights 排序
+        List<Double> weightsOrder = weights.stream().sorted(Comparator.comparing(Double::doubleValue)).collect(toList());
+        log.info("weightsOrder = {}", objectMapper.writeValueAsString(weightsOrder));
+        Assert.assertEquals(mans.size(), weightsOrder.size());
+        //lambda 不是万能的
+        //mans.forEach(man -> weightsOrder.forEach(man::setWeight));
+        for (int i = 0; i < mans.size(); i++) {
+            mans.get(i).setWeight(weightsOrder.get(i));
+        }
+        log.info("排序后的 mans = {}", objectMapper.writeValueAsString(mans));
+    }
 }
