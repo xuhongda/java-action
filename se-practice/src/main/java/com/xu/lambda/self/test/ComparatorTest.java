@@ -1,9 +1,12 @@
 package com.xu.lambda.self.test;
 
+import com.util.ListToJsonUtil;
 import com.xu.lambda.self.bean.Apple;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
  * com.xu.lambda.self.test
  * javase-practice
  */
+@Slf4j
 public class ComparatorTest {
     List<Apple> list = new ArrayList<>();
 
@@ -32,10 +36,10 @@ public class ComparatorTest {
      * lambda 排序
      */
     @Test
-    public void test1() {
+    public void test1() throws IOException {
         List<Integer> list = Arrays.asList(1, 23, 445, 66, 56, 7, 787, 8, 85, 3, 9);
         list.sort((Integer::compareTo));
-        System.out.println(list);
+        log.info(ListToJsonUtil.listToJson(list));
     }
 
     @Test

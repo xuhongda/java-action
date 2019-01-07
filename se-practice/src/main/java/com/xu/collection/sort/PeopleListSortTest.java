@@ -97,7 +97,7 @@ public class PeopleListSortTest {
                 return people;
             }
             if (people.getAge()==4){
-                people.setName("liulizhen");
+                people.setName("yan");
                 return people;
             }
             return people;
