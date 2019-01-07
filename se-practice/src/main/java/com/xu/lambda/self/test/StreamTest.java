@@ -2,6 +2,7 @@ package com.xu.lambda.self.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.util.ListToJsonUtil;
 import com.xu.lambda.self.bean.Man;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -10,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -94,7 +96,7 @@ public class StreamTest {
      * </p>
      */
     @Test
-    public void test6() {
+    public void test6() throws IOException {
         List<Man> list = new ArrayList<>();
         List<Man> mens = Arrays.asList(new Man(18, 93.0, "f"), new Man(1, 32.0, "f"));
 
@@ -112,7 +114,7 @@ public class StreamTest {
 
             }
         });
-        System.out.println(list);
+        log.info("list = {}", ListToJsonUtil.listToJson(list));
     }
 
     /**
