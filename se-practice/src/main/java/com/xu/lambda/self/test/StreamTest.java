@@ -2,7 +2,7 @@ package com.xu.lambda.self.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.util.ListToJsonUtil;
+import util.ListToJsonUtil;
 import com.xu.lambda.self.bean.Man;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;

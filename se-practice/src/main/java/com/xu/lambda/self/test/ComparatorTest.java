@@ -1,6 +1,6 @@
 package com.xu.lambda.self.test;
 
-import com.util.ListToJsonUtil;
+import util.ListToJsonUtil;
 import com.xu.lambda.self.bean.Apple;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
