@@ -18,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
 
-
     private Integer id;
 
     private List<Girl> girls;

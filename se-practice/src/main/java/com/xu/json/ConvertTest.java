@@ -1,6 +1,8 @@
 package com.xu.json;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import pojo.Girl;
@@ -31,14 +33,34 @@ public class ConvertTest {
      */
     @Test
     public void test() throws IOException {
-        User user = new User();
+        List<User> users = new ArrayList<>();
+        User user1 = new User();
+        User user2 = new User();
         Girl girl = new Girl();
         List<Girl> girls = new ArrayList<>();
         girls.add(girl);
-        user.setGirls(girls);
-        mapper.writeValue(writer, user);
+        user1.setGirls(girls);
+        user2.setGirls(girls);
+        users.add(user1);
+        users.add(user2);
+        String s = mapper.writeValueAsString(users);
+        log.info("s = {}", s);
+        mapper.writeValue(writer, user1);
         log.info(writer.toString());
         Result<User> result = new Result<>();
-        result.setData(user);
+        result.setData(user1);
+    }
+
+
+    @Test
+    public void test1() throws IOException {
+        Girl girl = new Girl();
+        List<Girl> girls = new ArrayList<>();
+        girls.add(girl);
+        String str = mapper.writeValueAsString(girls);
+        log.info("str = {}", str);
+        CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(List.class, Girl.class);
+        List<Girl> girlList = mapper.readValue(str, collectionType);
+        log.info("girlList = {}", girlList);
     }
 }
