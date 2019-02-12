@@ -1,7 +1,7 @@
 package com.xu.num;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-
 import java.math.BigDecimal;
 
 /**
@@ -13,17 +13,18 @@ import java.math.BigDecimal;
  * com.xu.num
  * java-action
  */
+@Slf4j
 public class FloatTest {
     @Test
     public void test1() {
         Float f1 = 96515.84F;
         Float f2 = 568.19F;
         float f = f1 - f2;
-        System.out.println(f);
+        log.info("{}", f);
         BigDecimal num1 = new BigDecimal(Float.toString(f1));
         BigDecimal num2 = new BigDecimal(Float.toString(f2));
         BigDecimal subtract = num1.subtract(num2);
-        System.out.println(subtract.floatValue());
+        log.info("{}", subtract.floatValue());
 
     }
 
@@ -37,7 +38,7 @@ public class FloatTest {
         Float f6 = 0f;
         float v = f1 * f2 + f3 * f4 + f5 * f6;
         float ff = v / f2 + f4 + f6;
-        System.out.println(ff);
+        log.info("{}", ff);
 
         BigDecimal b1 = new BigDecimal(Float.toString(f1));
         BigDecimal b2 = new BigDecimal(Float.toString(f2));
@@ -45,7 +46,7 @@ public class FloatTest {
         BigDecimal b4 = new BigDecimal(Float.toString(f4));
         BigDecimal add = b1.multiply(b2).add(b3.multiply(b4));
         BigDecimal divide = add.divide(b2.add(b4), 2, 4);
-        System.out.println(divide.floatValue());
+        log.info("{}", divide.floatValue());
 
     }
 
@@ -56,8 +57,33 @@ public class FloatTest {
         BigDecimal b1 = new BigDecimal(Float.toString(f1));
         BigDecimal b2 = new BigDecimal(Float.toString(f2));
         BigDecimal divide = b1.divide(b2, 2, 4);
-        System.out.println(divide.toString());
+        log.info(divide.toString());
         Float f = f1 / f2;
-        System.out.println(f);
+        log.info("{}", f);
+    }
+
+    @Test
+    public void test4() {
+        float f = 0;
+        int i = 4;
+        float v1 = f / i;
+        log.info("{}", v1);
+        try {
+            float v2 = i / f;
+            log.info("{}", v2);
+        } catch (Exception e) {
+            log.info("{}", e);
+        }
+    }
+
+    /**
+     * 强制类型转换
+     */
+    @Test
+    public void test5() {
+        int i = 3;
+        //(int)(x+4.5)
+        i += 4.5;
+        log.info("{}", i);
     }
 }

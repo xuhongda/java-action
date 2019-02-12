@@ -1,5 +1,7 @@
 package com.atomic;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -12,9 +14,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * com.atomic
  * javase-practice
  **/
+@Slf4j
 public class AtomDemo {
 
-    private static final long THREAD_NUM = 180000L;
+    private static final long THREAD_NUM = 1800L;
 
     public static void main(String[] args) {
         open1();
@@ -36,6 +39,7 @@ public class AtomDemo {
     }
 }
 
+@Slf4j
 class RunnableThread implements Runnable {
     private int num;
     @Override
@@ -46,11 +50,11 @@ class RunnableThread implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(Thread.currentThread().getName() + "\t" + num);
+        log.info(Thread.currentThread().getName() + "\t" + num);
     }
 }
 
-
+@Slf4j
 class AtomicT implements Runnable {
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
@@ -63,6 +67,6 @@ class AtomicT implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(Thread.currentThread().getName() + "\tatomic\t" + atomicInteger);
+        log.info(Thread.currentThread().getName() + "\tatomic\t" + atomicInteger);
     }
 }
