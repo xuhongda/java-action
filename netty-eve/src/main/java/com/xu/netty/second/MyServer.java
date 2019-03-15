@@ -1,35 +1,37 @@
-package com.xu.netty.first;
+package com.xu.netty.second;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 /**
- * @author xuhongda on 2019/3/13
- * com.xu.netty.first
+ * @author xuhongda on 2019/3/14
+ * com.xu.netty.second
  * java-action
  */
-public class ServerTest {
-
+public class MyServer {
 
     public static void main(String[] args) throws InterruptedException {
-        //建立两个线程组
-        //接受请求
+
         EventLoopGroup bossGroup = new NioEventLoopGroup();
-        //处理请求
         EventLoopGroup workerGroup = new NioEventLoopGroup();
+
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(bossGroup,workerGroup).channel(NioServerSocketChannel.class).childHandler(new InitializerTest());
-            ChannelFuture future = serverBootstrap.bind(8080).sync();
-            future.channel().closeFuture().sync();
-        }finally {
+            serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).
+                    handler(new LoggingHandler(LogLevel.WARN)).
+                    childHandler(new ServerInitializer());
+
+            ChannelFuture channelFuture = serverBootstrap.bind(8070).sync();
+            channelFuture.channel().closeFuture().sync();
+        } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
 
     }
-
 }
