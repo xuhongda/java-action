@@ -17,29 +17,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 
  * @author kome.Jiangmy
  * @version 1.0
- * @created 2012-9-28 下午1:43:06
+ * @date 2012-9-28 下午1:43:06
  */
 public class TaskExecutor {
 	static {
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				shutdown();
-			}
-		});
+		Runtime.getRuntime().addShutdownHook(new Thread(TaskExecutor::shutdown));
 	}
 	/**
 	 * 创建一个可根据需要创建新线程的线程池，但是在以前构造的线程可用时将重用它们。对于执行很多短期异步任务的程序而言，这些线程池通常可提高程序性能。
 	 */
 	public static final ThreadPoolExecutor cachedPool = new ThreadPoolExecutor(50, 1000, 60, TimeUnit.SECONDS,
-			new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
+			new LinkedBlockingQueue<>(), new ThreadFactory() {
 				private AtomicInteger counter = new AtomicInteger();
 				
 				@Override
 				public Thread newThread(Runnable paramRunnable) {
 					Thread t = new Thread(paramRunnable);
 					t.setDaemon(true);
-					//t.setName("cached-" + DateUtil.date2Str(new Date(), "dd-HHmmss") + "-" + counter.incrementAndGet());
 					return t;
 				}
 			});
@@ -50,21 +44,17 @@ public class TaskExecutor {
 			.newScheduledThreadPool(1000);
 	
 	private static Runnable taskToRunnable(final Task task, final ExecutorService cachedPool) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				try {
-					if (cachedPool.isShutdown() || cachedPool.isTerminated()) {
-						return;
-					}
-					task.execute();
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
+		return () -> {
+			try {
+				if (cachedPool.isShutdown() || cachedPool.isTerminated()) {
+					return;
 				}
-				return;
+				task.execute();
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		};
 	}
@@ -119,7 +109,6 @@ public class TaskExecutor {
 			throw new IllegalArgumentException();
 		}
 		while (firstTime.before(new Date())) {
-			//firstTime = DateUtil.add(firstTime, timeUnit, timeValue);
 		}
 		Runnable runnable = taskToRunnable(task, scheduledPool);
 		long delay = firstTime.getTime() - System.currentTimeMillis();
@@ -164,12 +153,7 @@ public class TaskExecutor {
 			System.out.println("stop ...");
 			TaskExecutor.cancelTask(future, true);
 		}
-		TaskExecutor.addTask(new Task() {
-			@Override
-			public void execute() throws Exception {
-				System.out.println("at fix time:" + new Timestamp(System.currentTimeMillis()));
-			}
-		}, DateUtil.str2DateTime("2013-03-04 17:41:00"));
+		TaskExecutor.addTask(() -> System.out.println("at fix time:" + new Timestamp(System.currentTimeMillis())), DateUtil.str2DateTime("2013-03-04 17:41:00"));
 	}
 	
 }
