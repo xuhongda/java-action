@@ -1,6 +1,8 @@
 package com.xu.lambda.self.bean;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author xuhongda on 2018/6/18
@@ -8,6 +10,8 @@ import lombok.Data;
  * javase-practice
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class People {
 
     private String name;

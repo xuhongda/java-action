@@ -1,5 +1,9 @@
 package com.pool;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.pool.task.KaCon;
+import com.pool.task.Task;
+import com.pool.task.TaskExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -25,5 +29,36 @@ public class ThreadPoolTest {
     public void testScheduledThreadPool(){
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(4);
         scheduledExecutorService.scheduleAtFixedRate(() -> System.out.println("ScheduledThreadPool"),1L,3L, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void test() throws Exception {
+        log.info("---->>start:"+Thread.currentThread().getName());
+
+        KaCon.t();
+
+        KaCon.method(()-> System.out.println("task one!!!"+Thread.currentThread().getName()));
+
+        TaskExecutor.addTask(() -> {
+            while (true){
+                if (System.currentTimeMillis()/2==0){
+                    log.info("[][][][][]");
+                    continue;
+                }
+                if (System.currentTimeMillis()/3 == 0){
+                    System.out.println(";;");
+                }
+            }
+        });
+
+        log.info("---->>end:"+Thread.currentThread().getName());
+    }
+
+
+    @Test
+    public void t(){
+        while (true){
+            log.info("{}","hello");
+        }
     }
 }
