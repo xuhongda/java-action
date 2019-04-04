@@ -41,17 +41,12 @@ public class ThreadPoolTest {
 
         TaskExecutor.addTask(() -> {
             while (true){
-                if (System.currentTimeMillis()/2==0){
-                    log.info("[][][][][]");
-                    continue;
-                }
-                if (System.currentTimeMillis()/3 == 0){
-                    System.out.println(";;");
-                }
+                log.info("[][][][][]");
             }
         });
 
         log.info("---->>end:"+Thread.currentThread().getName());
+        while (true){}
     }
 
 

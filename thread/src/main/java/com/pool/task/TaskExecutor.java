@@ -43,22 +43,31 @@ public class TaskExecutor {
 	private static final ScheduledThreadPoolExecutor scheduledPool = (ScheduledThreadPoolExecutor) Executors
 			.newScheduledThreadPool(1000);
 	
-	private static Runnable taskToRunnable(final Task task, final ExecutorService cachedPool) {
+	public static Runnable taskToRunnable(final Task task, final ExecutorService cachedPool) {
 		return () -> {
-			try {
-				if (cachedPool.isShutdown() || cachedPool.isTerminated()) {
-					return;
-				}
-				task.execute();
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
+
+			while (true){
+				System.out.println("/////////////////"+Thread.currentThread().getName());
+				/*try {
+					if (cachedPool.isShutdown() || cachedPool.isTerminated()) {
+						return;
+					}
+					//task.execute();
+
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}*/
 			}
+
 		};
 	}
-	
+
+
+	private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(100);
+
 	/**
 	 * 执行一次
 	 * 
@@ -138,7 +147,7 @@ public class TaskExecutor {
 			}, 100);
 			list.add(future);
 		}
-		Future<?> future2 = TaskExecutor.addTask(new Task() {
+		/*Future<?> future2 = TaskExecutor.addTask(new Task() {
 			@Override
 			public void execute() throws Exception {
 				while (true) {
@@ -147,7 +156,7 @@ public class TaskExecutor {
 				}
 			}
 		});
-		list.add(future2);
+		list.add(future2);*/
 		Thread.sleep(3000);
 		for (Future<?> future : list) {
 			System.out.println("stop ...");

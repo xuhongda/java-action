@@ -13,13 +13,14 @@ public class KaCon {
         log.info("---->>start:"+Thread.currentThread().getName());
         ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
         ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 10, 100, TimeUnit.SECONDS, new LinkedBlockingQueue<>(),threadFactory);
-        Future<?> submit = executor.submit((Runnable) () -> {
-            for (int i = 0; i < 1000; i++) {
-                System.out.println(i+Thread.currentThread().getName());
+        Future<?> submit = executor.submit( () -> {
+            while (true){
+                System.out.println("++++++++++++"+Thread.currentThread().getName());
+                Thread.sleep(100L);
             }
+
         });
         System.out.println(submit.isDone());
-        submit.get();
     }
 
     public static void method(TaskOne task) throws Exception {
