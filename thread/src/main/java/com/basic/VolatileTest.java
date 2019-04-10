@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 /**
  * <p>
- * 内存可见性问题demo,会导致最终值问题
+ * 内存可见性问题demo
  * </p>
  *
  * @author xuhongda on 2018/8/16
@@ -19,18 +19,20 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class VolatileTest {
 
-    private long num = 0L;
 
-    public long increase() {
-        num++;
-        return num;
+    private static boolean b = false;
+
+    public static boolean b() {
+        b = true;
+        return b;
     }
 
     public static void main(String[] args) throws InterruptedException {
         MyRunnable thread = new MyRunnable();
-        ExecutorService executorService = Executors.newFixedThreadPool(30);
-        for (int i = 0; i < 600; i++) {
-            executorService.submit(thread);
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        executorService.submit(thread);
+        while (b) {
+            log.info("<><><><><><><><>" + Thread.currentThread().getName());
         }
         executorService.shutdown();
     }
@@ -45,16 +47,13 @@ class MyRunnable implements Runnable {
      * volatile 关键字
      * 注意： volatile 不具备互斥性；不保证原子性
      */
-    VolatileTest volatileTest = new VolatileTest();
-
     @Override
     public void run() {
-        long increase = volatileTest.increase();
+        VolatileTest.b();
         try {
-            Thread.sleep(500L);
+            Thread.sleep(200L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(increase + "\t" + Thread.currentThread().getName());
     }
 }
