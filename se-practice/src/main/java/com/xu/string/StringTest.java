@@ -1,6 +1,8 @@
 package com.xu.string;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -8,6 +10,7 @@ import org.junit.Test;
  * com.xu.string
  * javase-practice
  */
+@Slf4j
 public class StringTest {
 
 
@@ -38,5 +41,12 @@ public class StringTest {
         String s1 = "ABC", s2 = "abv";
         int i = s1.compareTo(s2);
         System.out.println(i);
+    }
+
+    @Test
+    public void test5() {
+        char a = 'A';
+        char b = 'B';
+        Assert.assertTrue("a>b", a < b);
     }
 }
