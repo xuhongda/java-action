@@ -22,7 +22,11 @@ public class ThreadPoolTest {
         Future<?> future = executorService.submit(() -> System.out.println("thread pool"));
         boolean done = future.isDone();
         log.info("{}",done);
-        executorService.shutdown();
+        if (done) {
+            executorService.shutdown();
+            log.info("{}", done);
+
+        }
     }
 
     @Test
@@ -52,8 +56,19 @@ public class ThreadPoolTest {
 
     @Test
     public void t(){
-        while (true){
-            log.info("{}","hello");
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(() -> log.info("i = {}", "xx"));
+        }
+
+        executorService.shutdown();
+
+        while (true) {
+            boolean terminated = executorService.isTerminated();
+            log.info(" {}", terminated);
+            if (terminated) {
+                break;
+            }
         }
     }
 }
