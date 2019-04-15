@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.pool.task.KaCon;
 import com.pool.task.Task;
 import com.pool.task.TaskExecutor;
+import com.pool.task.TaskOne;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -70,5 +71,82 @@ public class ThreadPoolTest {
                 break;
             }
         }
+    }
+
+    /**
+     * 注意在junit 测试中主线程退出子线程也会退出，虚拟机不会等待全部执行完成
+     */
+    @Test
+    public void test5() {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+        executorService.submit(() -> {
+            for (int i = 0; i < 999; i++) {
+                log.info("{},{}", Thread.currentThread().getName(), i);
+            }
+        });
+
+        executorService.submit(() -> {
+            for (int i = 0; i < 999; i++) {
+                log.info("{},{}", Thread.currentThread().getName(), i);
+            }
+        });
+
+        executorService.shutdown();
+        while (true) {
+            if (executorService.isTerminated()) {
+                break;
+            }
+        }
+        System.out.println("哈哈");
+    }
+
+
+    public static void main(String[] args) {
+        //xx();
+        yy();
+    }
+
+    private static void yy() {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+        executorService.submit(() -> {
+            for (int i = 0; i < 999; i++) {
+                log.info("{},{}", Thread.currentThread().getName(), i);
+            }
+        });
+
+        executorService.submit(() -> {
+            for (int i = 0; i < 999; i++) {
+                log.info("{},{}", Thread.currentThread().getName(), i);
+            }
+        });
+
+        executorService.shutdown();
+       /* while (true){
+            if (executorService.isTerminated()){
+                break;
+            }
+        }*/
+        System.out.println("哈哈");
+    }
+
+    private static void xx() {
+        Runnable runnable1 = () -> {
+            for (int i = 0; i < 999; i++) {
+                log.info("{},{}", Thread.currentThread().getName(), i);
+            }
+        };
+        Runnable runnable2 = () -> {
+            for (int i = 0; i < 999; i++) {
+                log.info("{},{}", Thread.currentThread().getName(), i);
+            }
+        };
+
+        Thread thread1 = new Thread(runnable1);
+        thread1.start();
+        Thread thread2 = new Thread(runnable2);
+        thread2.start();
+        System.out.println("哈哈" + Thread.currentThread().getName());
     }
 }
