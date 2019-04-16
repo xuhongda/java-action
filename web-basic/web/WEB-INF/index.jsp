@@ -14,11 +14,15 @@
   <%
     // 在四个域中存放数据，进行获取
     //pageContext.setAttribute("key", "pageContext-value");
-    request.setAttribute("key", "request-Value");
+      Object hello = request.getAttribute("hello");
+      String contextPath = request.getContextPath();
+      pageContext.setAttribute("contextPath", contextPath);
+      System.out.println(hello);
     session.setAttribute("key", "session-value");
     application.setAttribute("key", "application-value");
   %>
 
   ${requestScope.hello}
+  ${pageScope.contextPath}
   </body>
 </html>
