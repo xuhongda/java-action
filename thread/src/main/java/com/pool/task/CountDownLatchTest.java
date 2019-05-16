@@ -48,7 +48,7 @@ public class CountDownLatchTest {
             latch.await();
             System.out.println("2个子线程已经执行完毕");
             System.out.println("继续执行主线程");
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
