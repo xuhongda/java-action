@@ -1,9 +1,6 @@
 package com.basic;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,7 +30,7 @@ class Rr implements Runnable{
     @Override
     public void run() {
         try {
-            Thread.sleep(700L);
+            Thread.sleep(300L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
