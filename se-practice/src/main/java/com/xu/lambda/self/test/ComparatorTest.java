@@ -1,5 +1,6 @@
 package com.xu.lambda.self.test;
 
+import com.google.common.cache.Weigher;
 import util.ListToJsonUtil;
 import com.xu.lambda.self.bean.Apple;
 import lombok.extern.slf4j.Slf4j;

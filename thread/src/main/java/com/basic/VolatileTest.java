@@ -9,7 +9,9 @@ import java.util.concurrent.Executors;
 
 /**
  * <p>
- * 内存可见性问题demo
+ * 内存可见性问题demo,感觉这个demo 展示的并不是内存可见性问题：当开启一个线程更改值，别的线程未感知，是因为线程
+ * 执行顺序问题，而非所谓的内存可见性问题。这个demo 展现的问题在于，多线程编程时，由于cpu线程间的切换，程序执行顺序
+ * 并未按单线程那样按顺序执行
  * </p>
  *
  * @author xuhongda on 2018/8/16
@@ -28,13 +30,19 @@ public class VolatileTest {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        log.info(Thread.currentThread().getName());
         MyRunnable thread = new MyRunnable();
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         executorService.submit(thread);
-        while (b) {
-            log.info("<><><><><><><><>" + Thread.currentThread().getName());
-        }
         executorService.shutdown();
+        while (true){
+            if (executorService.isTerminated()){
+                while (b) {
+                    log.info("<><><><><><><><>" + Thread.currentThread().getName());
+                }
+                break;
+            }
+        }
     }
 }
 
@@ -49,7 +57,8 @@ class MyRunnable implements Runnable {
      */
     @Override
     public void run() {
-        VolatileTest.b();
+        boolean b = VolatileTest.b();
+        log.info("{}:线程已经更改boolean 值 ,b = {}",Thread.currentThread().getName(),b);
         try {
             Thread.sleep(200L);
         } catch (InterruptedException e) {
