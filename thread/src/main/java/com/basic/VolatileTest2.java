@@ -14,22 +14,28 @@ import java.util.concurrent.Executors;
 public class VolatileTest2 {
     static volatile boolean b =false;
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(12);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
         Runnable r = ()->{
         while (!b){
-            log.info("do ... something ");
+            log.info(Thread.currentThread().getName()+"do ... something ");
+            try {
+                Thread.sleep(300L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         };
         executorService.submit(r);
         executorService.submit(new Rr());
     }
 }
-
+@Slf4j
 class Rr implements Runnable{
 
     @Override
     public void run() {
         try {
+            log.info(Thread.currentThread().getName()+"改变b值，打破循环");
             Thread.sleep(300L);
         } catch (InterruptedException e) {
             e.printStackTrace();
