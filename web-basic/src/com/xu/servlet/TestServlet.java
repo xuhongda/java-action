@@ -1,5 +1,8 @@
 package com.xu.servlet;
 
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,12 +15,14 @@ import java.io.IOException;
  * com.xu.servlet
  * java-action
  */
+@Slf4j
 @WebServlet("/testS")
 public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("hello", "hello");
+        log.info("req = {}",req);
         req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
     }
 }

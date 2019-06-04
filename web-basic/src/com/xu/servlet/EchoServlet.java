@@ -1,5 +1,7 @@
 package com.xu.servlet;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import java.io.PrintWriter;
  * com.xu.servlet
  * javase-practice
  */
+@Slf4j
 @WebServlet("/echo")
 public class EchoServlet extends HttpServlet {
     private static final long serialVersionUID = -7240062468810631096L;
@@ -23,6 +26,7 @@ public class EchoServlet extends HttpServlet {
         Thread currentThread = Thread.currentThread();
         // 获取当前线程的线程名称
         String currentThreadName = currentThread.getName();
+        log.info("ThreadName = {} ",currentThreadName);
         response.setContentType("text/plain");
         try (PrintWriter pwr = response.getWriter()) {
             // 输出处理当前请求的线程的名称
