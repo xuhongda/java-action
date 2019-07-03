@@ -23,7 +23,7 @@ public class HashMapTest {
         map.put(1,1);
         map.put(2,2);
         map.put(3,3);
-        map.put(4,4);
+        map.put(4,7);
     }
 
     /**
@@ -70,5 +70,17 @@ public class HashMapTest {
 
         Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
         entries.forEach(a->log.info("{}",a));
+    }
+
+    /**
+     * merge
+     */
+    @Test
+    public void test5(){
+
+        map.merge(4,888, Integer::sum);
+        Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
+        entries.forEach(a->log.info("{}",a));
+
     }
 }
