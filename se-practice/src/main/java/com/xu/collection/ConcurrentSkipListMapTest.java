@@ -15,40 +15,38 @@ import java.util.concurrent.ConcurrentSkipListMap;
 @Slf4j
 public class ConcurrentSkipListMapTest {
 
-    private  ConcurrentSkipListMap<Object,Object> map;
+    private ConcurrentSkipListMap<Object, Object> map;
 
     {
-       log.info("init...");
-       map  = new ConcurrentSkipListMap<>();
-        map.put("1",1);
-        map.put("2",2);
+        log.info("init...");
+        map = new ConcurrentSkipListMap<>();
+        map.put("1", 1);
+        map.put("2", 2);
     }
 
     @Test
-    public void test001(){
-        map.put("1",new Girl("yan",18,50));
-        map.put("2",2);
-        map.put("3",2);
-        map.put("4",new Girl("yan",18,50));
-        log.info("map = {}",map);
+    public void test001() {
+        map.put("1", new Girl("yan", 18, 50));
+        map.put("2", 2);
+        map.put("3", 2);
+        map.put("4", new Girl("yan", 18, 50));
+        log.info("map = {}", map);
     }
 
 
-
     @Test
-    public void test002(){
-        map.put("1",1);
-        map.put("2",2);
+    public void test002() {
+        map.put("1", 1);
+        map.put("2", 2);
         ConcurrentNavigableMap<Object, Object> objectObjectConcurrentNavigableMap = map.descendingMap();
-        log.info("map = {}",objectObjectConcurrentNavigableMap);
+        log.info("map = {}", objectObjectConcurrentNavigableMap);
     }
 
 
-
     @Test
-    public void test003(){
-        map.put("xx","yy");
+    public void test003() {
+        map.put("xx", "yy");
         Object o = map.ceilingKey("3");
-        log.info("object  = {}",o);
+        log.info("object  = {}", o);
     }
 }
