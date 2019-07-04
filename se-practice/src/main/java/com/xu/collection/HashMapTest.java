@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.function.DoubleToIntFunction;
 import java.util.function.Function;
 
 /**
@@ -16,7 +15,7 @@ import java.util.function.Function;
 public class HashMapTest {
 
 
-    HashMap<Integer,Integer> map;
+    private HashMap<Integer,Integer> map;
 
     {
       map = new HashMap<>();
