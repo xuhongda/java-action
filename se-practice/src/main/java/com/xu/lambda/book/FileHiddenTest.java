@@ -1,8 +1,6 @@
 package com.xu.lambda.book;
 
-import com.google.common.base.Function;
 import org.junit.Test;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
