@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
  * javase-practice
  */
 public class PeopleListSortTest {
-    List<People> peoples;
+
+    private List<People> peoples;
 
     @Before
     public void before() {
@@ -66,7 +67,7 @@ public class PeopleListSortTest {
 
     @Test
     public void test3() {
-        //lamda 表达
+        //lambda 表达
         peoples.sort((People p1, People p2) -> p1.getAge().compareTo(p2.getAge()));
         //可以简化,编译器会推断类型
         peoples.sort((p1,p2)->p1.getAge().compareTo(p2.getAge()));
@@ -91,18 +92,18 @@ public class PeopleListSortTest {
     @Test
     public void test6(){
         //用map来实现多重条件过滤
-        peoples.stream().map(people ->{
-            if (people.getAge()==3){
+        List<People> collect = peoples.stream().map(people -> {
+            if (people.getAge() == 3) {
                 people.setName("xuhongda");
                 return people;
             }
-            if (people.getAge()==4){
+            if (people.getAge() == 4) {
                 people.setName("yan");
                 return people;
             }
             return people;
-        } ).collect(Collectors.toList());
-        System.out.println(peoples);
+        }).collect(Collectors.toList());
+        System.out.println(collect);
     }
 
 }
