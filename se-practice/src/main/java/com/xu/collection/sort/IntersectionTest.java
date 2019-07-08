@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toList;
  * com.xu.collection.sort
  * javase-practice
  */
-public class JiaoJi {
+public class IntersectionTest {
     @Test
     public void test1() {
         List<Integer> list1 = new ArrayList<>();
