@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import pojo.Girl;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
@@ -49,4 +50,20 @@ public class ConcurrentSkipListMapTest {
         Object o = map.ceilingKey("3");
         log.info("object  = {}", o);
     }
+
+    /**
+     * pollFirstEntry
+     */
+    @Test
+    public void test004() {
+        System.out.println(map);
+        log.info("size = {}",map.size());
+        Map.Entry<Object, Object> objectObjectEntry = map.pollFirstEntry();
+        //Map.Entry<Object, Object> objectObjectEntry1 = map.pollLastEntry();
+        Object value = objectObjectEntry.getValue();
+        log.info("object  = {}", value);
+        log.info("size = {}",map.size());
+        System.out.println(map);
+    }
+
 }
