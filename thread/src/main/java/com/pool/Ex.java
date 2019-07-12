@@ -17,14 +17,20 @@ public class Ex {
 
     private static CountDownLatch countDownLatch = new CountDownLatch(2);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         executorService.submit(task1());
         executorService.submit(task2());
+        executorService.submit(()->{
+            try {
+                countDownLatch.await();
+                log.info("两件事都做完 start do something");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         executorService.shutdown();
-        countDownLatch.await();
-        log.info("两件事都做完 start do something");
     }
 
     /**
