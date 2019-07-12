@@ -1,7 +1,6 @@
 package com.xu.test;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -9,7 +8,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

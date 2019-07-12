@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class CountDownLatchTest {
 
-    private static final CountDownLatch latch = new CountDownLatch(2);
+    private static final CountDownLatch COUNT_DOWN_LATCH = new CountDownLatch(2);
 
     public static void main(String[] args) {
 
@@ -26,13 +26,13 @@ public class CountDownLatchTest {
         executorService.submit(getTask("A",300L));
 
         executorService.submit(getTask("B",100L));
-        long count = latch.getCount();
+        long count = COUNT_DOWN_LATCH.getCount();
         log.info("count = {}",count);
         executorService.shutdown();
 
         try {
             System.out.println("等待2个子线程执行完毕...");
-            latch.await();
+            COUNT_DOWN_LATCH.await();
            // latch.await(5,TimeUnit.SECONDS);
             System.out.println("2个子线程已经执行完毕");
             System.out.println("继续执行主线程");
@@ -50,7 +50,7 @@ public class CountDownLatchTest {
             }
             log.info("线程 = {}",Thread.currentThread().getName());
             System.out.println(str);
-            latch.countDown();
+            COUNT_DOWN_LATCH.countDown();
         };
     }
 }

@@ -22,7 +22,7 @@ public class CyclicBarrierTest {
     private static void t(){
 
        // CyclicBarrier barrier = new CyclicBarrier(4);
-        CyclicBarrier barrier = new CyclicBarrier(4,()->{log.info("所有线程都已经到达屏障 to do something...");});
+        CyclicBarrier barrier = new CyclicBarrier(4,()->log.info("所有线程都已经到达屏障 to do something..."));
         int numberWaiting = barrier.getNumberWaiting();
         log.info("numberWaiting ={}",numberWaiting);
         int parties = barrier.getParties();
