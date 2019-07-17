@@ -3,6 +3,9 @@ package com.threadLocal;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * <p>
+ *     ThreadLocal 每个线程独自拥有一个变量
+ * </p>
  * @author xuhongda on 2019/1/7
  * com.threadLocal
  * java-action
