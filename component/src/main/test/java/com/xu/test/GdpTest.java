@@ -14,8 +14,7 @@ import java.math.BigDecimal;
 public class GdpTest {
 
     @Test
-    public void test(){
-
+    public void test() {
 
 
         BigDecimal usa = new BigDecimal("62600");
@@ -32,40 +31,50 @@ public class GdpTest {
 
         int i = 0;
 
-        for (;;) {
+        for (; ; ) {
 
             i++;
-            v = v.multiply(vInc);
-            usa = usa.multiply(usaInc);
-            china  = china.multiply(chinaInc);
-
-
-            if (Math.abs(v.subtract(usa).doubleValue()) < 1500){
-                System.out.println(i);
-                System.out.println(v.doubleValue());
-                log.info("usa == v");
-              //  break;
+            if (i < 10) {
+                v = v.multiply(vInc);
+                usa = usa.multiply(usaInc);
+                china = china.multiply(chinaInc);
+            } else if ( i < 15) {
+                usaInc = new BigDecimal("1.005");
+                chinaInc = new BigDecimal("1.025");
+                vInc = new BigDecimal("1.035");
+                v = v.multiply(vInc);
+                usa = usa.multiply(usaInc);
+                china = china.multiply(chinaInc);
+            } else {
+                usaInc = new BigDecimal("1");
+                chinaInc = new BigDecimal("1.001");
+                vInc = new BigDecimal("1.015");
+                v = v.multiply(vInc);
+                usa = usa.multiply(usaInc);
+                china = china.multiply(chinaInc);
             }
 
-            if (Math.abs(v.subtract(china).doubleValue())< 1500){
-                System.out.println(i);
-                System.out.println(china);
-                log.info("china == v");
-               // break;
+
+            if (Math.abs(v.subtract(usa).doubleValue()) < 1000) {
+                log.info("usa == v;year = {};value = {}", i, v.doubleValue());
+                //  break;
             }
 
-            if (Math.abs(china.subtract(usa).doubleValue())<1500){
-                System.out.println(i);
-                System.out.println(china);
-                log.info("china == usa");
-               // break;
+            if (Math.abs(v.subtract(china).doubleValue()) < 1000) {
+                log.info("china == v;year = {};value = {}", i, v.doubleValue());
+                // break;
+            }
+
+            if (Math.abs(china.subtract(usa).doubleValue()) < 1000) {
+                log.info("china == usa;year = {};value = {}", i, china.doubleValue());
+                // break;
             }
         }
 
     }
 
     @Test
-    public void test002(){
+    public void test002() {
         double abs = Math.abs(-0.06);
         System.out.println(abs);
     }
