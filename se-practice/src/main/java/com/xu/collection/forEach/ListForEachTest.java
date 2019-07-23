@@ -16,13 +16,11 @@ import java.util.stream.Collectors;
 public class ListForEachTest {
     @Test
     public void test1() throws JsonProcessingException {
-        List list = new ArrayList();
-        List list2 = new ArrayList();
-        List m1 = m1(list);
-        List m2 = m2(list2);
-        List list3 = new ArrayList();
+        List<Integer> list = new ArrayList<>();
+        List<Integer> m1 = m1(list);
+        List<Integer> list3 = new ArrayList<>();
         Object collect = m1.parallelStream().map(a -> {
-            Integer i = (Integer) a + 2;
+            Integer i = a + 2;
             //list3将会是无序的
             list3.add(i);
             return i;
@@ -33,16 +31,9 @@ public class ListForEachTest {
         System.out.println(s);
     }
 
-    List m1(List list) {
+    private List<Integer> m1(List<Integer> list) {
         for (int i = 0; i < 9; i++) {
             list.add(i);
-        }
-        return list;
-    }
-
-    List m2(List list) {
-        for (int i = 0; i < 9; i++) {
-            list.add(i + 1);
         }
         return list;
     }
