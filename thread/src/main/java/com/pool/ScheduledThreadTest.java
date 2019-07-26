@@ -21,7 +21,7 @@ public class ScheduledThreadTest {
 
         ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10, threadFactory);
 
-         fixRate(scheduledThreadPoolExecutor);
+        fixRate(scheduledThreadPoolExecutor);
 
         //sc(scheduledThreadPoolExecutor);
 
@@ -31,6 +31,7 @@ public class ScheduledThreadTest {
 
     /**
      * 延迟执行
+     *
      * @param executor
      */
     private static void sc(ScheduledThreadPoolExecutor executor) {
@@ -43,7 +44,7 @@ public class ScheduledThreadTest {
             if (executor.isTerminated()) {
                 boolean done = scheduledFuture.isDone();
                 log.info("done = {}", done);
-                if (done){
+                if (done) {
                     break;
                 }
             }
@@ -72,8 +73,8 @@ public class ScheduledThreadTest {
     }
 
 
-    private static Runnable getRunnable(){
-        Runnable r = ()->{
+    private static Runnable getRunnable() {
+        Runnable r = () -> {
             try {
                 Thread.sleep(5000);
                 log.info("run...");
