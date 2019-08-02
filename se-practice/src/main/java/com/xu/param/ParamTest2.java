@@ -49,7 +49,7 @@ public class ParamTest2 {
 
 
     public static void main(String[] args) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("xx");
         ParamTest2 paramTest2 = new ParamTest2();
         paramTest2.method1(list);
