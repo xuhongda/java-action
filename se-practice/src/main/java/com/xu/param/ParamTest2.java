@@ -59,4 +59,7 @@ public class ParamTest2 {
         peopleList.add(new People("xx",18));
         paramTest2.method3(peopleList);
     }
+
+
+
 }
