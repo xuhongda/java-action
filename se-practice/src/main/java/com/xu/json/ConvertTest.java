@@ -62,4 +62,15 @@ public class ConvertTest {
         List<Girl> girlList = mapper.readValue(str, collectionType);
         log.info("girlList = {}", girlList);
     }
+
+
+    @Test
+    public void test4() throws IOException {
+        Girl girl = new Girl();
+        girl.setAge(18);
+        String str = mapper.writeValueAsString(girl);
+        log.info("str = {}", str);
+        String s = mapper.writeValueAsString(str);
+        log.info("s = {}", s);
+    }
 }
