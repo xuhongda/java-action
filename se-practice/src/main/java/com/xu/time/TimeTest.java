@@ -24,7 +24,7 @@ public class TimeTest {
      */
     @Test
     public void  timeTest001(){
-        int s=3182;
+        int s=8762;
         int N = s/3600;
         s = s%3600;
         int K = s/60;

@@ -110,6 +110,16 @@ public class StringTest {
     }
 
 
+    @Test
+    public void test8() throws IOException {
+
+        String str = "46001234567891011";
+        System.out.println(str.substring(0,3));
+        System.out.println(str.substring(3,4));
+        System.out.println(str.substring(4));
+    }
+
+
 
 
 

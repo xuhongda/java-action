@@ -13,7 +13,6 @@ public class VTest {
     }
 
     private static List<People>  m() {
-        List<People> people = Collections.singletonList(new People("1", "2", "3"));
-        return people;
+        return Collections.singletonList(new People("1", "2", "3"));
     }
 }
