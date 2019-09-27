@@ -1,6 +1,10 @@
 package com.basic;
 
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -12,13 +16,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * com.basic
  * javase-practice
  */
+@Slf4j
 public class Ticket {
 
     private static Long num = 1000L;
 
     private static AtomicInteger atomicInteger = new AtomicInteger(1000);
 
-    protected static void func1(){
+    static void func1(){
         while (num>0){
             try {
                 if (num%3==0){
@@ -35,8 +40,10 @@ public class Ticket {
         }
     }
 
-
-    protected static void func2(){
+    /**
+     *  卖票
+     */
+    private static void func2(){
         while (atomicInteger.intValue()>0){
             try {
                 if (atomicInteger.intValue()%3==0){
@@ -46,11 +53,24 @@ public class Ticket {
                 e.printStackTrace();
             }
             atomicInteger.decrementAndGet();
-            System.out.println("还有\t"+atomicInteger.intValue());
-            if (atomicInteger.intValue()<0){
-                System.err.println(atomicInteger.intValue());
-            }
+
+            log.info("还有 = {} 票,Thread = {}",atomicInteger.intValue(),Thread.currentThread().getName());
+
+            checkNum(atomicInteger.intValue());
         }
+    }
+
+    private static void checkNum(int intValue) {
+
+        try {
+            if (intValue < 0){
+                throw new RuntimeException(intValue + " 售票异常");
+            }
+        }catch (Exception e){
+            log.info("exception",e);
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -60,17 +80,25 @@ public class Ticket {
 
        // Runnable runnable = () -> func1();
 
-        Runnable runnable2 = () -> func2();
+        Runnable runnable2 = Ticket::func2;
 
-        for (int i = 0; i <10 ; i++) {
-            new Thread(runnable2).start();
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+        int thread = 10;
+
+        for (int i =0;i<thread;i++){
+            executorService.submit(runnable2);
         }
+
+        executorService.shutdown();
+
     }
 
     /**
      * 继承Thread
      */
     private static void way2(){
+
         Thread thread4 = new ExtendThread();
         Thread thread5 = new ExtendThread();
         Thread thread6 = new ExtendThread();
@@ -88,9 +116,7 @@ public class Ticket {
         Ticket.way1();
 
         //Ticket.way2();
-        //可用的核心数量
-        int i = Runtime.getRuntime().availableProcessors();
-        System.err.println(i);
+
 
     }
 }
