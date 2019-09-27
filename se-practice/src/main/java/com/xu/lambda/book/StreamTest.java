@@ -5,10 +5,7 @@ import com.xu.lambda.self.bean.Apple;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -73,12 +70,12 @@ public class StreamTest {
     @Test
     public void test11() {
         Stream<List<Integer>> inputStream = Stream.of(
-                Arrays.asList(1),
+                Collections.singletonList(1),
                 Arrays.asList(2, 3),
                 Arrays.asList(4, 5, 6)
         );
         Stream<Integer> outputStream = inputStream.
-                flatMap((childList) -> childList.stream());
+                flatMap(Collection::stream);
         List<Integer> collect = outputStream.collect(Collectors.toList());
         System.out.println(collect);
 
@@ -129,8 +126,8 @@ public class StreamTest {
     public void test7(){
         Optional<Apple> any = apples.stream().filter(a -> a.getWeight() > 7).findAny();
         System.out.println("any"+any);
-        Apple apple = any.get();
-        System.out.println(apple);
+        boolean present = any.isPresent();
+        System.out.println(present);
     }
 
     /**
