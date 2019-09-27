@@ -1,5 +1,7 @@
 package com.xu.lambda.self.test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.cache.Weigher;
 import util.ListToJsonUtil;
 import com.xu.lambda.self.bean.Apple;
@@ -21,7 +23,10 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class ComparatorTest {
-    List<Apple> list = new ArrayList<>();
+
+    private List<Apple> list = new ArrayList<>();
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Before
     public void before() {
@@ -44,19 +49,20 @@ public class ComparatorTest {
     }
 
     @Test
-    public void test2() {
+    public void test2() throws JsonProcessingException {
         list.sort(Comparator.comparing(Apple::getWeight));
         //接着比较
         list.sort(Comparator.comparing(Apple::getWeight).thenComparing(Apple::getAddress));
         //反转
         list.sort(Comparator.comparing(Apple::getWeight).reversed());
-        System.out.println(list);
+
+        log.info("list = {}",mapper.writeValueAsString(list));
     }
 
     @Test
-    public void test3() {
+    public void test3() throws JsonProcessingException {
         List<Apple> collect = list.parallelStream().filter(a -> a.getWeight() > 100).collect(Collectors.toList());
-        System.out.println(collect);
+        log.info("collect = {}",mapper.writeValueAsString(collect));
     }
 
 }

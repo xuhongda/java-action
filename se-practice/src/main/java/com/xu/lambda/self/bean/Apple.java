@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.beans.ConstructorProperties;
-
 /**
  * @author xuhongda on 2018/7/30
  * com.xu.lambda.self.bean
