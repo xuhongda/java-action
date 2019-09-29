@@ -38,7 +38,7 @@ public class VolatileTest {
         while (true){
             if (executorService.isTerminated()){
                 while (b) {
-                    log.info("<><><><><><><><>" + Thread.currentThread().getName());
+                    log.info(" is end ! ");
                 }
                 break;
             }
