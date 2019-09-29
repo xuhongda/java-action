@@ -32,14 +32,12 @@
     <logger name="com.basic" level="info">
         <!--引用配置-->
         <appender-ref ref="INFO" />
-        <appender-ref ref="STDOUT"/>
     </logger>
 
 
     <logger name="com.atomic" level="info">
         <!--引用配置-->
         <appender-ref ref="INFO" />
-        <appender-ref ref="STDOUT"/>
     </logger>
 
 
