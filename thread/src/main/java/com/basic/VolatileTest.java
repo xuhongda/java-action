@@ -58,7 +58,7 @@ class MyRunnable implements Runnable {
     @Override
     public void run() {
         boolean b = VolatileTest.b();
-        log.info("{}:线程已经更改boolean 值 ,b = {}",Thread.currentThread().getName(),b);
+        log.info("线程已经更改boolean 值 ,b = {}",b);
         try {
             Thread.sleep(200L);
         } catch (InterruptedException e) {
