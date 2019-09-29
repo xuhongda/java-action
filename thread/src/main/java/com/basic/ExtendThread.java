@@ -14,6 +14,5 @@ public class ExtendThread extends Thread {
     @Override
     public void run(){
         Ticket.func1();
-        log.info("thread name = {}",Thread.currentThread().getName());
     }
 }
