@@ -24,12 +24,12 @@ public class VolatileTest {
 
     private static boolean b = false;
 
-    public static boolean b() {
+    static boolean b() {
         b = true;
         return b;
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args)  {
         log.info(Thread.currentThread().getName());
         MyRunnable thread = new MyRunnable();
         ExecutorService executorService = Executors.newFixedThreadPool(3);
