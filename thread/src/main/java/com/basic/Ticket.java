@@ -33,10 +33,8 @@ public class Ticket {
                 e.printStackTrace();
             }
             num--;
-            System.out.println("还有\t"+num);
-            if (num<0){
-                System.err.println(num);
-            }
+            log.info("还有 = {} 票",num);
+            checkNum(num.intValue());
         }
     }
 
@@ -54,7 +52,7 @@ public class Ticket {
             }
             atomicInteger.decrementAndGet();
 
-            log.info("还有 = {} 票,Thread = {}",atomicInteger.intValue(),Thread.currentThread().getName());
+            log.info("还有 = {} 票",atomicInteger.intValue());
 
             checkNum(atomicInteger.intValue());
         }
@@ -99,15 +97,9 @@ public class Ticket {
      */
     private static void way2(){
 
-        Thread thread4 = new ExtendThread();
-        Thread thread5 = new ExtendThread();
-        Thread thread6 = new ExtendThread();
-        Thread thread7 = new ExtendThread();
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-        thread4.start();
-        thread5.start();
-        thread6.start();
-        thread7.start();
+        executorService.submit(new ExtendThread());
 
     }
 
