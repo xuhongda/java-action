@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 public class AppleTest {
 
     public static void main(String[] args) {
-        List<Apple> apples = new ArrayList(3);
+        List<Apple> apples = new ArrayList<>(3);
         Apple apple1 = new Apple("green",160);
         Apple apple2 = new Apple("red",140);
         Apple apple3 = new Apple("yellow",160);
@@ -28,7 +28,7 @@ public class AppleTest {
         apples.add(apple4);
 
 
-        List list = filterApples(apples, AppleTest::isGreeaApple);
+        List list = filterApples(apples, AppleTest::isGreenApple);
         System.out.println(list);
 
         List list1 = filterApples(apples, (Apple a) -> "yellow".equals(a.getColor()));
@@ -53,7 +53,7 @@ public class AppleTest {
      * @param p 作为参数
      * @return 集合
      */
-    public static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p){
+    private static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p){
         List<Apple> result = new ArrayList<>();
         for(Apple apple : inventory){
             if(p.test(apple)){
@@ -77,7 +77,7 @@ public class AppleTest {
         }
         return result;
     }
-    public static boolean isGreeaApple(Apple apple){
+    private static boolean isGreenApple(Apple apple){
         return "green".equals(apple.getColor());
     }
 }
