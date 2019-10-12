@@ -27,7 +27,7 @@ public class StreamTest {
 
     private List<Man> mans = new ArrayList<>();
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Before
     public void before() {
