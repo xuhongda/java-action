@@ -1,11 +1,10 @@
 package com.xu.lambda.book.appleCase;
 
 
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-
 import static java.util.stream.Collectors.toList;
 
 
@@ -14,6 +13,7 @@ import static java.util.stream.Collectors.toList;
  * com.xu.lambda.book.appleCase
  * javase-practice
  */
+@Slf4j
 public class AppleTest {
 
     public static void main(String[] args) {
@@ -43,7 +43,9 @@ public class AppleTest {
         List list4 = filterApples(apples, Apple::isHeavyApple);
         System.out.println(list4);
 
-        apples.stream().filter((Apple a) -> "green".equals(a.getColor())).collect(toList());
+        List<Apple> collect = apples.stream().filter((Apple a) -> "green".equals(a.getColor())).collect(toList());
+
+        log.info("collect = {} ",collect);
 
     }
 
@@ -65,8 +67,8 @@ public class AppleTest {
 
     /**
      * 传统的筛选方法
-     * @param inventory
-     * @return
+     * @param inventory list
+     * @return list
      */
     public static List<Apple> filterGreenApples(List<Apple> inventory){
         List<Apple> result = new ArrayList<>();
