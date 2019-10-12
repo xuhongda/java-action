@@ -1,7 +1,7 @@
 package com.xu.lambda.book;
 
 
-import com.xu.lambda.self.bean.Apple;
+import com.xu.lambda.book.appleCase.Apple;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -22,13 +22,14 @@ public class StreamTest {
     private List<Integer> numbers;
     @BeforeTest
     public void before() {
-        apples = Arrays.asList(new Apple(20, "xx"), new Apple(20, "tt"), new Apple(18, "f"), new Apple(7, "liu"));
+        apples = Arrays.asList(new Apple(20, "red","xx"), new Apple(20, "red","tt"),
+                new Apple(18, "red","f"), new Apple(7, "red","liu"));
         numbers = Arrays.asList(1,23,4,56,6,5,7);
     }
 
     @Test
     public void test() {
-        apples.stream().forEach(System.out::println);
+        apples.forEach(System.out::println);
     }
 
     /**

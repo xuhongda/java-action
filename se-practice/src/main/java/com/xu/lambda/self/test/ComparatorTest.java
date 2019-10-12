@@ -2,9 +2,9 @@ package com.xu.lambda.self.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.cache.Weigher;
+
+import com.xu.lambda.book.appleCase.Apple;
 import util.ListToJsonUtil;
-import com.xu.lambda.self.bean.Apple;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class ComparatorTest {
         for (int i = 0; i < 100; i++) {
             double random = Math.random() * 10;
             int v = (int) random * 100 + i;
-            Apple apple = new Apple(v, "cn");
+            Apple apple = new Apple(v, "red","cn");
             list.add(apple);
         }
     }

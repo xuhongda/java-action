@@ -1,13 +1,11 @@
 package com.xu.lambda.book;
 
-import com.xu.lambda.self.bean.Apple;
 import pojo.People;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -32,9 +30,5 @@ public class ReferenceTest {
     public void test2(){
         Supplier<People> supplier = People::new;
         supplier.get();
-
-        Function<Integer,Apple> function = Apple::new;
-        Apple apply = function.apply(18);
-        System.out.println(apply);
     }
 }

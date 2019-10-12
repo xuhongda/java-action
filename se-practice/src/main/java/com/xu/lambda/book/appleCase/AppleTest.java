@@ -18,15 +18,13 @@ public class AppleTest {
 
     public static void main(String[] args) {
         List<Apple> apples = new ArrayList<>(3);
-        Apple apple1 = new Apple("green",160);
-        Apple apple2 = new Apple("red",140);
-        Apple apple3 = new Apple("yellow",160);
-        Apple apple4 = new Apple("yellow", 10);
+        Apple apple1 = new Apple(160,"green","cn");
+        Apple apple2 = new Apple(140,"red","us");
+        Apple apple3 = new Apple(160,"yellow","uk");
+
         apples.add(apple1);
         apples.add(apple2);
         apples.add(apple3);
-        apples.add(apple4);
-
 
         List list = filterApples(apples, AppleTest::isGreenApple);
         System.out.println(list);
