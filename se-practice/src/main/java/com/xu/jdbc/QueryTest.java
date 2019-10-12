@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author xuhongda on 2018/11/1
@@ -28,9 +27,7 @@ public class QueryTest {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
