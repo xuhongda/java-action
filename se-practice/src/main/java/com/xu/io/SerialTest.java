@@ -10,7 +10,7 @@ import java.io.*;
  * com.xu.io
  * java-action
  */
-public class SeriTest {
+public class SerialTest {
 
 
     @Test
@@ -24,10 +24,7 @@ public class SeriTest {
     }
 
     @Test
-    public void se002() throws IOException, ClassNotFoundException {
-
-        Girl girl = new Girl("yan",18,50.50);
-
+    public void se002() throws IOException {
 
         File file = new File("acc.text");
         boolean exists = file.exists();
@@ -36,14 +33,12 @@ public class SeriTest {
            // FileOutputStream outputStream = new FileOutputStream("acc.text");
             FileInputStream inputStream = new FileInputStream("acc.text");
 
-
             FileOutputStream objectOutputStream = new FileOutputStream("acc.text");
             byte[] b = new byte[1024];
             int len;
             while ((len = inputStream.read()) != -1){
                 objectOutputStream.write(b,0,len);
             }
-
         }
 
     }
