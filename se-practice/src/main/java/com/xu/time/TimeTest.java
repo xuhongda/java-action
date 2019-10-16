@@ -1,7 +1,9 @@
 package com.xu.time;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 
 import java.sql.Timestamp;
@@ -153,16 +155,15 @@ public class TimeTest {
     public void test008() throws ParseException {
         Timestamp timestamp = Timestamp.valueOf("2019-10-11 23:31:33");
         Long l = timestamp.getTime();
-        log.info("l = {}",l);
+        log.info("l = {}", l);
         Date date = new Date(l);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formatTime = simpleDateFormat.format(date);
-        log.info("f ={}",formatTime);
+        log.info("f ={}", formatTime);
 
-        String str = timeZoneTransfer(formatTime,"+9");
-        log.info("str = {}",str);
+        String str = timeZoneTransfer(formatTime, "+9");
+        log.info("str = {}", str);
     }
-
 
 
     private static String timeZoneTransfer(String time, String targetTimeZone) {
@@ -180,4 +181,147 @@ public class TimeTest {
         format.setTimeZone(TimeZone.getTimeZone("GMT" + targetTimeZone));
         return format.format(date);
     }
+
+
+    @Test
+    public void test009() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+        Date parse = simpleDateFormat.parse("2019-10-13 00:00");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        String format1 = format.format(parse);
+        log.info(format1);
+    }
+
+    @Test
+    public void test010() throws ParseException {
+
+
+        fromTargetTimeToBeiJinTime("2019-10-14", -11);
+
+        /*Date parseEndTime = format.parse(endTime);
+        long time = parseEndTime.getTime();
+        Date date = new Date();
+        long now = date.getTime();
+        //如果转换后结束的北京时间大于当前北京时间
+        while (time > now) {
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(parseEndTime);
+            instance.add(Calendar.DATE, -1);
+            log.info("转换后北京时间大于当前北京时间 -1 天");
+            Date time1 = instance.getTime();
+            endTime = format.format(time1);
+            log.info("p = {}", endTime);
+            time = time1.getTime();
+            parseEndTime = time1;
+        }
+
+        Date parse = format.parse(endTime);
+        Date date1 = DateUtils.addSeconds(parse, -1);
+        String reallyEndTime = this.format.format(date1);
+
+
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(parseEndTime);
+        instance.add(Calendar.DATE, -1);
+        Date st = instance.getTime();
+        String startTime = this.format.format(st);
+        log.info("转化后的北京开始时间 = {}", startTime);
+        log.info("转化后的北京结束时间 = {}", endTime);
+        log.info("reallyEndTime = {}", reallyEndTime);*/
+    }
+
+
+    private void fromTargetTimeToBeiJinTime(String date, Integer utc) throws ParseException {
+        log.info("转换前的目标地区的结束时间 = {}", date);
+        //转化
+        int bt = 24 - (utc - 8);
+        log.info("bt = {}", bt);
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(format.parse(date + " " + "00:00:00"));
+        instance.add(Calendar.HOUR, bt);
+        Date edTime = instance.getTime();
+        String endTime = this.format.format(edTime);
+
+
+        Date parseEndTime = format.parse(endTime);
+        long time = parseEndTime.getTime();
+        Date date1 = new Date();
+        long now = date1.getTime();
+        //如果转换后结束的北京时间大于当前北京时间
+        while (time > now) {
+            // Calendar instance = Calendar.getInstance();
+            instance.setTime(parseEndTime);
+            instance.add(Calendar.DATE, -1);
+            log.info("转换后北京时间大于当前北京时间 -1 天");
+            Date time1 = instance.getTime();
+            endTime = format.format(time1);
+            log.info("p = {}", endTime);
+            time = time1.getTime();
+            parseEndTime = time1;
+        }
+
+        Date parse = format.parse(endTime);
+        Date date2 = DateUtils.addSeconds(parse, -1);
+        String reallyEndTime = this.format.format(date2);
+
+        //   Calendar instance = Calendar.getInstance();
+        instance.setTime(parseEndTime);
+        instance.add(Calendar.DATE, -1);
+        Date st = instance.getTime();
+        String startTime = this.format.format(st);
+        log.info("转化后的北京开始时间 = {}", startTime);
+        log.info("转化后的北京结束时间 = {}", endTime);
+        log.info("转化后真正的北京结束时间（-1 s） = {}", reallyEndTime);
+        Timestamp xx = Timestamp.valueOf(startTime);
+        Timestamp rr = Timestamp.valueOf(reallyEndTime);
+        System.out.println(xx);
+        System.out.println(rr);
+    }
+
+
+    @Test
+    public void test013(){
+        String s = "07:00";
+        String substring = s.substring(0, 2);
+        Integer integer = Integer.valueOf(substring);
+        int i = integer - 1;
+        System.out.println(i);
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("HH");
+
+        String format1 = format.format(date);
+        System.out.println(format1);
+
+
+        String targetTimeZoneForUTC = getTargetTimeZoneForUTC(24);
+        System.out.println(targetTimeZoneForUTC);
+    }
+
+
+    @Test
+    public void test014(){
+        String targetTimeZoneForUTC = getTargetTimeZoneForUTC(1);
+        System.out.println(targetTimeZoneForUTC);
+    }
+
+
+
+    public static String getTargetTimeZoneForUTC(int targetHoursOfDay){
+        String targetTimeZoneId="";
+        Calendar calendar = Calendar.getInstance();//服务器时间
+        calendar.setTime(new Date());
+        int zoneOffset = calendar.get(Calendar.ZONE_OFFSET);//服务器时区偏移量
+        int timeZone= (zoneOffset/1000/60/60);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int diffZone= (targetHoursOfDay-(hourOfDay-timeZone));
+        if (Math.abs(diffZone)==12) targetTimeZoneId=diffZone>0 ?"UTC+"+diffZone:"UTC"+diffZone;
+        else if (diffZone>0) targetTimeZoneId=diffZone>12 ?"UTC"+(diffZone-24):"UTC+"+diffZone;
+        else targetTimeZoneId=diffZone<-12 ?"UTC+"+(diffZone+24):"UTC"+diffZone;
+        return targetTimeZoneId;
+    }
+
 }

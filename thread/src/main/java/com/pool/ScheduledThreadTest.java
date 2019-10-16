@@ -58,7 +58,7 @@ public class ScheduledThreadTest {
      */
     private static void fixRate(ScheduledThreadPoolExecutor executor) {
 
-        executor.scheduleAtFixedRate(() -> log.info("run .."), 0, 2, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(() -> log.info("run .."), 2, 2, TimeUnit.SECONDS);
 
     }
 
