@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class AtLong {
 
-    private static final AtomicLong atomicLong = new AtomicLong(0L);
+    private static final AtomicLong ATOMIC_LONG = new AtomicLong(0L);
 
 
     public static void main(String[] args) {
@@ -21,13 +21,13 @@ public class AtLong {
 
     static Long m(){
 
-        synchronized (atomicLong){
-            atomicLong.addAndGet(1);
+        synchronized (ATOMIC_LONG){
+            ATOMIC_LONG.addAndGet(1);
         }
         // atomicLong.addAndGet(1);
-        if (atomicLong.get() % 2 == 0){
-            System.out.println("!!!"+atomicLong.get());
+        if (ATOMIC_LONG.get() % 2 == 0){
+            System.out.println("!!!"+ATOMIC_LONG.get());
         }
-        return atomicLong.get();
+        return ATOMIC_LONG.get();
     }
 }
