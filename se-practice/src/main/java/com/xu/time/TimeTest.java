@@ -199,46 +199,21 @@ public class TimeTest {
     public void test010() throws ParseException {
 
 
-        fromTargetTimeToBeiJinTime("2019-10-14", -11);
+        fromTargetTimeToBeiJinTime("2019-10-14", +9);
 
-        /*Date parseEndTime = format.parse(endTime);
-        long time = parseEndTime.getTime();
-        Date date = new Date();
-        long now = date.getTime();
-        //如果转换后结束的北京时间大于当前北京时间
-        while (time > now) {
-            Calendar instance = Calendar.getInstance();
-            instance.setTime(parseEndTime);
-            instance.add(Calendar.DATE, -1);
-            log.info("转换后北京时间大于当前北京时间 -1 天");
-            Date time1 = instance.getTime();
-            endTime = format.format(time1);
-            log.info("p = {}", endTime);
-            time = time1.getTime();
-            parseEndTime = time1;
-        }
-
-        Date parse = format.parse(endTime);
-        Date date1 = DateUtils.addSeconds(parse, -1);
-        String reallyEndTime = this.format.format(date1);
-
-
-        Calendar instance = Calendar.getInstance();
-        instance.setTime(parseEndTime);
-        instance.add(Calendar.DATE, -1);
-        Date st = instance.getTime();
-        String startTime = this.format.format(st);
-        log.info("转化后的北京开始时间 = {}", startTime);
-        log.info("转化后的北京结束时间 = {}", endTime);
-        log.info("reallyEndTime = {}", reallyEndTime);*/
     }
 
-
+    /**
+     *
+     * @param date 目标地区的 时间 （yyyy-MM-dd）
+     * @param utc 目标地区所属时区
+     * @throws ParseException
+     */
     private void fromTargetTimeToBeiJinTime(String date, Integer utc) throws ParseException {
         log.info("转换前的目标地区的结束时间 = {}", date);
         //转化
         int bt = 24 - (utc - 8);
-        log.info("bt = {}", bt);
+        log.info("utc = {}", utc);
         Calendar instance = Calendar.getInstance();
         instance.setTime(format.parse(date + " " + "00:00:00"));
         instance.add(Calendar.HOUR, bt);
