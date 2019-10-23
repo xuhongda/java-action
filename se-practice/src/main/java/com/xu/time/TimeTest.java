@@ -1,11 +1,9 @@
 package com.xu.time;
 
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -207,7 +205,6 @@ public class TimeTest {
      *
      * @param date 目标地区的 时间 （yyyy-MM-dd）
      * @param utc 目标地区所属时区
-     * @throws ParseException
      */
     private void fromTargetTimeToBeiJinTime(String date, Integer utc) throws ParseException {
         log.info("转换前的目标地区的结束时间 = {}", date);

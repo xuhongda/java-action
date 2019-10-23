@@ -1,10 +1,7 @@
 package com.pool;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.pool.task.KaCon;
-import com.pool.task.Task;
 import com.pool.task.TaskExecutor;
-import com.pool.task.TaskOne;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

@@ -21,9 +21,9 @@ public class ScheduledThreadTest {
 
         ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10, threadFactory);
 
-        fixRate(scheduledThreadPoolExecutor);
+        //fixRate(scheduledThreadPoolExecutor);
 
-        //sc(scheduledThreadPoolExecutor);
+        sc(scheduledThreadPoolExecutor);
 
         //withFixRate(scheduledThreadPoolExecutor);
 
