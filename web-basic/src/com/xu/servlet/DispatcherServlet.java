@@ -25,7 +25,7 @@ public class DispatcherServlet extends HttpServlet {
             ResourceBundle.getBundle(LSTRING_FILE);
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 
         String protocol = req.getProtocol();
@@ -43,7 +43,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException
+            throws IOException
     {
         String protocol = req.getProtocol();
         String msg = lStrings.getString("http.method_get_not_supported");
