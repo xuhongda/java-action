@@ -39,6 +39,8 @@ public class ConcurrentSkipListMapTest {
         /*for (String s : set){
             map.remove(s);
         }*/
+        String higher = set.higher("2");
+        log.info("higher = {}",higher);
         headMap.clear();
         System.out.println(map);
 

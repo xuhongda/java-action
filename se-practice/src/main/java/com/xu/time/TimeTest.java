@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * @author xuhongda on 2019/8/7
@@ -197,7 +195,7 @@ public class TimeTest {
     public void test010() throws ParseException {
 
 
-        fromTargetTimeToBeiJinTime("2019-10-14", +9);
+        fromTargetTimeToBeiJinTimeAndGetStartAndEndTime("2019-10-23", +9);
 
     }
 
@@ -218,29 +216,27 @@ public class TimeTest {
         String endTime = this.format.format(edTime);
 
 
-        Date parseEndTime = format.parse(endTime);
-        long time = parseEndTime.getTime();
+        long time = edTime.getTime();
         Date date1 = new Date();
         long now = date1.getTime();
         //如果转换后结束的北京时间大于当前北京时间
         while (time > now) {
             // Calendar instance = Calendar.getInstance();
-            instance.setTime(parseEndTime);
+            instance.setTime(edTime);
             instance.add(Calendar.DATE, -1);
             log.info("转换后北京时间大于当前北京时间 -1 天");
             Date time1 = instance.getTime();
             endTime = format.format(time1);
             log.info("p = {}", endTime);
             time = time1.getTime();
-            parseEndTime = time1;
+            edTime = time1;
         }
 
-        Date parse = format.parse(endTime);
-        Date date2 = DateUtils.addSeconds(parse, -1);
+        Date date2 = DateUtils.addSeconds(edTime, -1);
         String reallyEndTime = this.format.format(date2);
 
         //   Calendar instance = Calendar.getInstance();
-        instance.setTime(parseEndTime);
+        instance.setTime(edTime);
         instance.add(Calendar.DATE, -1);
         Date st = instance.getTime();
         String startTime = this.format.format(st);
@@ -253,6 +249,38 @@ public class TimeTest {
         System.out.println(rr);
     }
 
+
+
+    private static Map<String,String> fromTargetTimeToBeiJinTimeAndGetStartAndEndTime(String date, Integer utc) throws ParseException {
+
+        Map<String,String> startAndEndTime = new HashMap<>(2);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        log.info("转换前的目标地区的结束时间 = "+ date);
+        //时间转化: 获得结束时间
+        int bt = 24 - (utc - 8);
+        log.info("时区 = "+utc);
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(format.parse(date + " " + "00:00:00"));
+        instance.add(Calendar.HOUR, bt);
+        Date edTime = instance.getTime();
+        String endTime =format.format(edTime);
+
+        Date date2 = DateUtils.addSeconds(edTime, -1);
+        String reallyEndTime = format.format(date2);
+
+        instance.setTime(edTime);
+        instance.add(Calendar.DATE, -1);
+        Date st = instance.getTime();
+        String startTime = format.format(st);
+        log.info("转化后的北京开始时间 = "+ startTime);
+        log.info("转化后的北京结束时间 = "+ endTime);
+        log.info("转化后真正的北京结束时间（-1 s） = "+reallyEndTime);
+
+        startAndEndTime.put("startTime",startTime);
+        startAndEndTime.put("reallyEndTime", reallyEndTime);
+        return startAndEndTime;
+    }
 
     @Test
     public void test013(){
