@@ -1,5 +1,7 @@
 package com.xu.inheritance;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Objects;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Objects;
  * com.xu.inheritance
  * javase-practice
  */
+@Slf4j
 public class Agirl extends  Manager {
 
     @Override
@@ -53,7 +56,8 @@ public class Agirl extends  Manager {
         //用这个类的程序员。这违背了 OOP 提倡的数据封装原则。
         new Agirl().home= "Beijing";
 
-        agirl.equals(new Agirl());
+        boolean equals = agirl.equals(new Agirl());
+        log.info("e = {}",equals);
         if (agirl.getClass() == new Manager().getClass()){
             System.out.println("...");
         }

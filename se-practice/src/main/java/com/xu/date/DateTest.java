@@ -1,17 +1,18 @@
 package com.xu.date;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author xuhongda on 2019/1/20
  * com.xu.date
  * java-action
  */
+@Slf4j
 public class DateTest {
     @Test
     public void test() {
@@ -25,11 +26,9 @@ public class DateTest {
 
     /**
      * 获取上个月的最后一天
-     *
-     * @throws Exception
      */
     @Test
-    public void getBeforeLastMonthdate() throws Exception {
+    public void getBeforeLastMonthDate() {
         for (int i = 1; i <= 12; i++) {
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Calendar calendar = Calendar.getInstance();
@@ -50,7 +49,7 @@ public class DateTest {
         instance.add(Calendar.MINUTE,-23);
         System.out.println(instance.getTime());
         String time = "2017-07-31 16:06:15";
-
+        log.info("time = {}",time);
         java.sql.Date date = new java.sql.Date(instance.getTimeInMillis());
         java.sql.Date date2 = new java.sql.Date(System.currentTimeMillis());
         System.out.println(date);
@@ -60,7 +59,14 @@ public class DateTest {
 
     @Test
     public void test8(){
-        int i = 7;
-        Integer integer = Integer.valueOf(i);
+        Integer integer = 7;
+        log.info("integer = {}",integer);
+        LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<>();
+        queue.add("1");
+        queue.add("2");
+        queue.add("3");
+        queue.poll();
+        queue.poll();
+        System.out.println(queue.size());
     }
 }
