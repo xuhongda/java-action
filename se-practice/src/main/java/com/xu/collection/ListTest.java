@@ -4,7 +4,10 @@ import pojo.People;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.sql.Timestamp;
 import java.util.*;
+import java.util.concurrent.ConcurrentNavigableMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  * @author xuhongda on 2018/11/1
@@ -51,6 +54,23 @@ public class ListTest {
         people.setName(null);
         String name = people.getName();
         System.out.println(name);
+    }
+
+
+    @Test
+    public void  test4(){
+        ConcurrentSkipListMap<Object, Object> canMap = new ConcurrentSkipListMap<>();
+
+        canMap.put(1,1);
+        canMap.put(2,1);
+        canMap.put(3,1);
+        Object value = canMap.firstEntry().getValue();
+        System.out.println(value);
+        ConcurrentNavigableMap<Object, Object> objectObjectConcurrentNavigableMap =
+                canMap.headMap(2);
+        System.out.println(objectObjectConcurrentNavigableMap);
+        int i = canMap.headMap(2).size();
+        System.out.println(i);
     }
 
 }

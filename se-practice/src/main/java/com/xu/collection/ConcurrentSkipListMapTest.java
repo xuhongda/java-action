@@ -3,6 +3,7 @@ package com.xu.collection;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.Map;
 import java.util.NavigableSet;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -49,6 +50,13 @@ public class ConcurrentSkipListMapTest {
 
     @Test
     public void test006() {
+        Map.Entry<String, String> stringStringEntry = map.higherEntry("3");
+        System.out.println(stringStringEntry.getValue());
+    }
+
+
+    @Test
+    public void test007() {
 
         log.info("map = {}",map);
         ConcurrentNavigableMap<String, String> headMap = map.headMap("4");
@@ -58,4 +66,21 @@ public class ConcurrentSkipListMapTest {
 
     }
 
+
+    @Test
+    public void test008() {
+
+        Map.Entry<String, String> stringStringEntry = map.firstEntry();
+        System.out.println(stringStringEntry);
+
+    }
+
+
+    @Test
+    public void test009() {
+
+        ConcurrentNavigableMap<String, String> headMap = map.headMap("4",true);
+        System.out.println(headMap);
+
+    }
 }

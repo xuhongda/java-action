@@ -39,7 +39,7 @@ public class AppleTest {
         System.out.println(list3);
 
         List list4 = filterApples(apples, Apple::isHeavyApple);
-        System.out.println(list4);
+        log.info("list4 = {}",list4);
 
         List<Apple> collect = apples.stream().filter((Apple a) -> "green".equals(a.getColor())).collect(toList());
 

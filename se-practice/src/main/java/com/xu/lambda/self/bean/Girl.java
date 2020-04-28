@@ -10,4 +10,6 @@ import lombok.Data;
 @Data
 public class Girl {
     private String name;
+
+    public Integer age;
 }
