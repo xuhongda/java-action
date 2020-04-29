@@ -19,13 +19,14 @@ public class ConcurrentSkipListMapTest {
     private ConcurrentSkipListMap<String, String> map = new ConcurrentSkipListMap<>();
 
     {
-        log.info("init...");
+
         map.put("1", "1");
         map.put("2", "2");
         map.put("3", "3");
         map.put("4", "4");
         map.put("5", "5");
         map.put("6", "6");
+        log.info("init...map = {}",map);
     }
 
 
@@ -35,7 +36,7 @@ public class ConcurrentSkipListMapTest {
 
         log.info("map = {}",map);
         ConcurrentNavigableMap<String, String> headMap = map.headMap("4");
-        System.out.println(headMap);
+        log.info("headMap = {}",headMap);
         NavigableSet<String> set = headMap.keySet();
         /*for (String s : set){
             map.remove(s);
@@ -43,7 +44,7 @@ public class ConcurrentSkipListMapTest {
         String higher = set.higher("2");
         log.info("higher = {}",higher);
         headMap.clear();
-        System.out.println(map);
+        log.info("clear remain map = {}",map);
 
     }
 
@@ -55,32 +56,13 @@ public class ConcurrentSkipListMapTest {
     }
 
 
-    @Test
-    public void test007() {
-
-        log.info("map = {}",map);
-        ConcurrentNavigableMap<String, String> headMap = map.headMap("4");
-        headMap.clear();
-        map.remove("4");
-        System.out.println(map);
-
-    }
-
 
     @Test
     public void test008() {
-
         Map.Entry<String, String> stringStringEntry = map.firstEntry();
         System.out.println(stringStringEntry);
-
     }
 
 
-    @Test
-    public void test009() {
 
-        ConcurrentNavigableMap<String, String> headMap = map.headMap("4",true);
-        System.out.println(headMap);
-
-    }
 }
