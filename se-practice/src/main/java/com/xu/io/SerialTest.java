@@ -35,13 +35,17 @@ public class SerialTest {
             //序列化
            // FileOutputStream outputStream = new FileOutputStream("acc.text");
             FileInputStream inputStream = new FileInputStream("acc.text");
-
-            FileOutputStream objectOutputStream = new FileOutputStream("acc.text");
+            FileOutputStream objectOutputStream = new FileOutputStream("bcc.text");
+            ObjectOutputStream outputStream = new ObjectOutputStream(objectOutputStream);
+            int read = inputStream.read();
+            System.out.println(read);
             byte[] b = new byte[1024];
             int len;
             while ((len = inputStream.read()) != -1){
-                objectOutputStream.write(b,0,len);
+                outputStream.write(b,0,len);
+               // objectOutputStream.write(b,0,len);
             }
+            outputStream.flush();
         }
 
     }
