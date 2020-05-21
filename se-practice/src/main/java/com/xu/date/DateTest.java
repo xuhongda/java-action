@@ -59,14 +59,15 @@ public class DateTest {
 
     @Test
     public void test8(){
-        Integer integer = 7;
-        log.info("integer = {}",integer);
         LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<>();
         queue.add("1");
         queue.add("2");
         queue.add("3");
         queue.poll();
+        log.info("queue = {}",queue);
         queue.poll();
-        System.out.println(queue.size());
+        log.info("queue = {}",queue);
+        log.info("queue.size = {}",queue.size());
+
     }
 }

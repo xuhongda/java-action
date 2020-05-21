@@ -9,7 +9,7 @@ import java.util.concurrent.*;
 @Slf4j
 public class KaCon {
 
-    public static void t() throws ExecutionException, InterruptedException {
+    public static void t() {
         log.info("---->>start:"+Thread.currentThread().getName());
         ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
         ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 10, 100, TimeUnit.SECONDS, new LinkedBlockingQueue<>(),threadFactory);

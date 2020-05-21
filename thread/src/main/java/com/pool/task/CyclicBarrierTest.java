@@ -62,7 +62,7 @@ public class CyclicBarrierTest {
         };
 
         Runnable r4 = ()-> {
-            log.info("r4 start r4");
+            log.info("start r4");
             try {
                 int await = barrier.await();
                 log.info("r4 await ={},info = {}",await,Thread.currentThread()+"r4 do it...");

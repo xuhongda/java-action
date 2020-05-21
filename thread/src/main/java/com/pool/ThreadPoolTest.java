@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.concurrent.*;
 
 /**
+ * warn : 不能在单元测试里对对多线程进行测试
  * @author xuhongda on 2019/3/15
  * com.pool
  * java-action
@@ -48,7 +49,6 @@ public class ThreadPoolTest {
         });
 
         log.info("---->>end:"+Thread.currentThread().getName());
-        while (true){}
     }
 
 
@@ -99,10 +99,7 @@ public class ThreadPoolTest {
     }
 
 
-    public static void main(String[] args) {
-        //xx();
-        yy();
-    }
+
 
     private static void yy() {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
@@ -145,5 +142,10 @@ public class ThreadPoolTest {
         Thread thread2 = new Thread(runnable2);
         thread2.start();
         System.out.println("哈哈" + Thread.currentThread().getName());
+    }
+
+    public static void main(String[] args) {
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(4);
+        scheduledExecutorService.scheduleAtFixedRate(() -> System.out.println("ScheduledThreadPool"),1L,3L, TimeUnit.SECONDS);
     }
 }

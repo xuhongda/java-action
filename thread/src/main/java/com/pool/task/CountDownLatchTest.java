@@ -30,6 +30,7 @@ public class CountDownLatchTest {
 
         try {
             log.info("等待2个子线程执行完毕...");
+            //如果设定的数量未能全部减少，则不会往下继续执行
             COUNT_DOWN_LATCH.await();
            // latch.await(5,TimeUnit.SECONDS);
             log.info("继续执行主线程");
@@ -46,6 +47,7 @@ public class CountDownLatchTest {
                 log.info("exception",e);
             }
             log.info("str = {}",str);
+            //设定的数量减少一
             COUNT_DOWN_LATCH.countDown();
         };
     }
