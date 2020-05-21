@@ -20,7 +20,7 @@ public class ClientHandlerTest extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush("from client ------------>>>>");
+        ctx.writeAndFlush("from a client ------------>>>>");
     }
 
     @Override
