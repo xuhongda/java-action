@@ -13,14 +13,7 @@ import java.util.concurrent.SynchronousQueue;
 public class BlockQueue {
 
 
-    @Test
-    public void test2() throws InterruptedException {
-        BlockingQueue<Integer> queue = new SynchronousQueue<>();
-        //queue.add(1);
-        queue.put(1);
 
-        System.out.println(queue);
-    }
 
 
     @Test
@@ -31,5 +24,24 @@ public class BlockQueue {
         System.out.print(queue.offer(3) + " ");
         System.out.print(queue.take() + " ");
         System.out.println(queue.size());
+    }
+
+
+    @Test
+    public void test2() throws InterruptedException {
+        BlockingQueue<Integer> queue = new SynchronousQueue<>();
+        //queue.add(1);
+        queue.put(1);
+
+        System.out.println(queue);
+    }
+
+    @Test
+    public void test3() {
+
+       Integer i = (1>2 ? 1:(3>2 ? 3:2)) ;
+
+       System.out.println(i);
+
     }
 }
