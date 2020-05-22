@@ -7,7 +7,7 @@ package com.xu.genericity;
  */
 public class ArrayAlg {
 
-    public static Pair<String> minmax(String[] a){
+    static Pair<String> minmax(String[] a){
         if (a == null || a.length == 0){
             return null;
         }
@@ -28,19 +28,13 @@ public class ArrayAlg {
      * 泛型方法
      * 类型变量放在修饰符（这里是 public static) 的
      * 后面，返回类型的前面
-     * @param a
-     * @param <T>
-     * @return
      */
-    public static<T>T getMiddle(T...a){
+    static<T>T getMiddle(T... a){
         return a[(a.length)/2];
     }
 
     /**
      * 类型变量限定
-     * @param a
-     * @param <T>
-     * @return
      */
     public static <T extends Comparable> T min(T[] a) // almost correct
     {
