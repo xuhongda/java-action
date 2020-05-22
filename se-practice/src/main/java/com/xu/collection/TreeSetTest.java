@@ -16,4 +16,14 @@ public class TreeSetTest {
         int i = s1.compareTo(s2);
         System.out.println(i);
     }
+
+    /**
+     *  比TA 小 ：-1 ；比 TA 大 ： 1
+     */
+    @Test
+    public void test002(){
+        int i = Integer.compare(10, 9);
+        //output :1
+        System.out.println(i);
+    }
 }
