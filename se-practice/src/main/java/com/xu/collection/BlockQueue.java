@@ -39,7 +39,8 @@ public class BlockQueue {
     @Test
     public void test3() {
 
-       Integer i = (1>2 ? 1:(3>2 ? 3:2)) ;
+       // 模仿 Integer 的 compare 方法
+       Integer i = (1>2) ? 1:((3>2) ? 3:2) ;
 
        System.out.println(i);
 
