@@ -16,8 +16,8 @@ public class Java8CaseTest {
      * 接口 {@link Function}
      */
     @Test
-    public void test1(){
-        Function<String,Integer> function = (String s ) -> s.length();
+    public void test1() {
+        Function<String, Integer> function = (String s) -> s.length();
         Integer i = function.apply("xxx");
         System.out.println(i);
     }
@@ -27,31 +27,35 @@ public class Java8CaseTest {
      * 接口 {@link Runnable}
      */
     @Test
-    public void test2(){
-       Runnable runnable = ()-> System.out.println("lamda");
-       runnable.run();
+    public void test2() {
+        Runnable runnable = () -> System.out.println("lambda");
+        runnable.run();
     }
 
     /**
-     * 两个参数，没有返回值
-     *
+     * 体现 lambda 表达式思想的示例。
      */
     @Test
-    public void test3(){
-      Test3<Integer,Integer,Integer> t = (x, y)->{
-          PrintStream out = System.out;
-          out.println("x+y");
-          return x+y;
-        };
-        t.x(18,20);
+    public void test3() {
+        //
+        Test3<Integer, Integer, Integer> t = Integer::sum;
+        Integer x = t.todoSomething(18, 20);
+        System.out.println(x);
+
+        //
+        Test3<String,String,String> t2 = (p1,p2)-> p1 +"\t" + p2;
+        String count = t2.todoSomething("xu", "girl");
+        System.out.println(count);
+
     }
 
-    interface  Test3<T,R,E>{
+    interface Test3<T, R, E> {
         /**
-         * x
-         * @param t
-         * @param r
+         *一个接口方法，只需规定参数个数与返回结果.
+         * @param t param 1
+         * @param r param 2
+         * @return E 具体返回得到什么，取决于实现方式.
          */
-        E x(T t, R r);
+        E todoSomething(T t, R r);
     }
 }
