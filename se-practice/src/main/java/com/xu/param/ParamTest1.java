@@ -10,7 +10,7 @@ public class ParamTest1 {
         int temp=i;
         i=j;
         j =temp;
-        System.out.println("function1方法里"+" i是"+i+"j是"+j);
+        System.out.println("function1方法里"+"\ti是"+i+"\tj是"+j);
     }
     public static void function2(int a,int b){
         a++;
