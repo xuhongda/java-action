@@ -1,12 +1,14 @@
 package com.xu.json;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import pojo.Girl;
-import pojo.Result;
-import pojo.User;
+import pojo.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -72,5 +74,54 @@ public class ConvertTest {
         log.info("str = {}", str);
         String s = mapper.writeValueAsString(str);
         log.info("s = {}", s);
+    }
+
+
+    @Test
+    public void test005() throws IOException {
+
+        String str = "{\"cmd\":\"vpmsServiceDeptList\",\"result\":0,\"resultNote\":\"查询成功\",\"totalRecordNum\":1,\"pages\":1,\"pageNo\":0,\"detail\":{\"deptTree\":[{\"deptId\":\"20081313550860002D100\",\"deptName\":\"默认授权店\",\"corpId\":\"20081313550860002\"},{\"deptId\":\"20081313550860002D102\",\"deptName\":\"曲靖授权店A\",\"corpId\":\"20081313550860002\"}]}}";
+
+        JSONObject o =  JSONObject.parseObject(str);
+        System.out.println(o);
+
+        String s =  o.getString("detail");
+        System.out.println("s= "+s);
+        String ss =JSONObject.parseObject(s).getString("deptTree");
+        System.out.println(ss);
+        /*ObjectMapper objectMapper = new ObjectMapper();
+
+        OppenApiResult oppenApiResult = objectMapper.readValue(o.toJSONString(), OppenApiResult.class);
+
+        System.out.println(oppenApiResult);*/
+       /* IovCarInfo iovCarInfo = JSONObject.parseObject(s, IovCarInfo.class);
+        System.out.println(iovCarInfo);*/
+    }
+
+
+    @Test
+    public void test006(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("cmd","vpmsServiceDeptList");
+
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject2.put("corpId","20081313550860002");
+
+        jsonObject.put("detail",jsonObject2);
+
+        System.out.println(jsonObject.toJSONString());
+
+    }
+
+
+    @Test
+    public void test007(){
+        JSONObject jsonObject = new JSONObject();
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        jsonObject.put("detail",list);
+        System.out.println(jsonObject.toJSONString());
     }
 }

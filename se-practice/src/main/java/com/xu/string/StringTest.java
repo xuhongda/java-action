@@ -80,7 +80,7 @@ public class StringTest {
 
     @Test
     public void test() throws IOException {
-        DrivingFingerprintIndexMatchResponse response = new DrivingFingerprintIndexMatchResponse();
+       /* DrivingFingerprintIndexMatchResponse response = new DrivingFingerprintIndexMatchResponse();
         response.setCmd("baidu");
         response.setPageNo(1);
         response.setResultNote("SUCCESS");
@@ -99,7 +99,7 @@ public class StringTest {
         System.out.println(s);
 
         DrivingFingerprintIndexMatchResponse response1 = mapper.readValue(s, DrivingFingerprintIndexMatchResponse.class);
-        System.out.println(response1);
+        System.out.println(response1);*/
     }
 
     @Test
