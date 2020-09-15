@@ -137,7 +137,7 @@ public class StreamTest {
      */
     @Test
     public void test8(){
-        Integer reduce = numbers.stream().reduce(0, (a, b) -> a + b);
+        Integer reduce = numbers.stream().reduce(0, Integer::sum);
         System.out.println(reduce);
     }
 
