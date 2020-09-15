@@ -29,6 +29,7 @@ public class ReferenceTest {
     @Test
     public void test2(){
         Supplier<People> supplier = People::new;
-        supplier.get();
+        People people =supplier.get();
+        System.out.println(people.toString());
     }
 }

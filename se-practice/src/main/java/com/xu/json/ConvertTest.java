@@ -124,4 +124,28 @@ public class ConvertTest {
         jsonObject.put("detail",list);
         System.out.println(jsonObject.toJSONString());
     }
+
+
+    @Test
+    public void test008(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("cmd","vpmsServiceDeptList");
+
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject2.put("corpId","20081313550860002");
+
+        jsonObject.put("detail",jsonObject2);
+
+        System.out.println(jsonObject.toJSONString());
+    }
+
+
+    @Test
+    public void test009(){
+        String s = "{\"cmd\":\"queryVpmsDeviceDetail\",\"result\":0,\"resultNote\":\"Success\",\"totalRecordNum\":1,\"pages\":1,\"pageNo\":0,\"detail\":{\"deviceId\":\"46082901131\",\"operatorDeptId\":\"19052811581714784\",\"contractStartDate\":\"2020-09-03\",\"licensePlateNo\":\"临R007133\",\"vin\":\"LFMA1ACC6L0057852\",\"engineNumber\":\"\",\"objId\":\"20090310272410897\",\"operationStatus\":13,\"donateServicePeriod\":1}}";
+        JSONObject o =  JSONObject.parseObject(s);
+        String detail =  o.getString("detail");
+        IovCarInfo iovCarInfo = JSONObject.parseObject(detail, IovCarInfo.class);
+        System.out.println(iovCarInfo);
+    }
 }
