@@ -73,4 +73,16 @@ public class ListTest {
         System.out.println(i);
     }
 
+
+    /**
+     * remove
+     */
+    @Test
+    public void test5(){
+        People remove = list.remove(4);
+        System.out.println(list);
+        System.out.println(remove);
+
+
+    }
 }
