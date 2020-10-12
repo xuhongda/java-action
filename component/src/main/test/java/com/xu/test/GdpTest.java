@@ -39,35 +39,45 @@ public class GdpTest {
                 usa = usa.multiply(usaInc);
                 china = china.multiply(chinaInc);
             } else if ( i < 15) {
-                usaInc = new BigDecimal("1.005");
-                chinaInc = new BigDecimal("1.025");
-                vInc = new BigDecimal("1.035");
+                usaInc = new BigDecimal("1.015");
+                chinaInc = new BigDecimal("1.03");
+                vInc = new BigDecimal("1.045");
                 v = v.multiply(vInc);
                 usa = usa.multiply(usaInc);
                 china = china.multiply(chinaInc);
-            } else {
-                usaInc = new BigDecimal("1");
-                chinaInc = new BigDecimal("1.001");
-                vInc = new BigDecimal("1.015");
+            } else if (i< 30){
+                usaInc = new BigDecimal("1.005");
+                chinaInc = new BigDecimal("1.015");
+                vInc = new BigDecimal("1.02");
                 v = v.multiply(vInc);
                 usa = usa.multiply(usaInc);
                 china = china.multiply(chinaInc);
             }
 
+            boolean flag = false;
 
             if (Math.abs(v.subtract(usa).doubleValue()) < 1000) {
                 log.info("usa == v;year = {};value = {}", i, v.doubleValue());
-                //  break;
+                  flag = true;
             }
 
             if (Math.abs(v.subtract(china).doubleValue()) < 1000) {
                 log.info("china == v;year = {};value = {}", i, v.doubleValue());
-                // break;
+                 flag = true;
             }
 
             if (Math.abs(china.subtract(usa).doubleValue()) < 1000) {
                 log.info("china == usa;year = {};value = {}", i, china.doubleValue());
-                // break;
+                 flag =true;
+            }
+
+            if (i>50){
+                log.info("The three country's GDP will not equal in recent 100 years");
+                flag = true;
+            }
+
+            if (flag){
+                break;
             }
         }
 
