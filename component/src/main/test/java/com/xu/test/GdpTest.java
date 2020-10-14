@@ -72,7 +72,7 @@ public class GdpTest {
             }
 
             if (i > 50) {
-                log.info("The three country's GDP will not equal in recent 100 years");
+                log.info("The three country's GDP will not equal in the last 100 years");
                 flag = true;
             }
 
