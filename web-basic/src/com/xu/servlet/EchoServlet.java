@@ -34,4 +34,16 @@ public class EchoServlet extends HttpServlet {
             pwr.flush();
         }
     }
+
+
+    @Override
+    protected void
+    doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+        request.getSession().setAttribute("#Elect 2020","Poll");
+        try (PrintWriter pwr = response.getWriter()) {
+            // 输出处理当前请求的线程的名称
+            pwr.printf("Voting for Baiden 2020");
+            pwr.flush();
+        }
+    }
 }
