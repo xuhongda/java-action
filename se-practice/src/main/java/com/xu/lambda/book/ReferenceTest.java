@@ -21,6 +21,7 @@ public class ReferenceTest {
         List<People> list = Arrays.asList(new People("xx",18),new People("cc",20));
         list.sort(Comparator.comparing(p->p.getAge()));
         list.sort(Comparator.comparing(People::getAge));
+        System.out.println(list);
     }
 
     /**
