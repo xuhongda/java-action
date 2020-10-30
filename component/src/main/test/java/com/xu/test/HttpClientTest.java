@@ -8,6 +8,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,40 +21,47 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class HttpClientTest {
 
-    @Test
-    public void  test() throws IOException, InterruptedException {
 
+    public static void main(String[] args) throws Exception {
+        test001();
+    }
+
+
+    private static void  test001() throws InterruptedException{
 
         ExecutorService executorService = Executors.newFixedThreadPool(10);
+        List<String> list = new ArrayList<>();
+        executorService.submit(()->{
+            list.add("thread 1");
 
-        executorService.submit(()-> System.out.println("xx"));
+            log.info("{}",Thread.currentThread().getName());
+            for (long i = 0;i<9;i++){
+                HttpGet get = new HttpGet("http://129.204.79.247/xu7x/indexs?pageNum=1&pageSize=2");
+                HttpGet get2 = new HttpGet("http://129.204.79.247/xu7x/content?id=2");
+                CloseableHttpClient build = HttpClientBuilder.create().build();
 
-        for (int j = 0; j <9; j++) {
-            executorService.submit(()->{
-                for (long i = 0;i<9;i++){
-                    HttpGet get = new HttpGet("http://129.204.79.247/xu7x/indexs?pageNum=1&pageSize=2");
-                    HttpGet get2 = new HttpGet("http://129.204.79.247/xu7x/content?id=2");
-                    CloseableHttpClient build = HttpClientBuilder.create().build();
-                    try {
-                        CloseableHttpResponse execute = build.execute(get);
-                        build.execute(get2);
-                        log.info("{},{}",Thread.currentThread().getName(),execute.getEntity().toString());
-                        //Thread.sleep(2000);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    build.execute(get);
+                    build.execute(get2);
+                } catch (IOException e) {
+                    log.info(e.toString());
+                    executorService.shutdown();
+                    break;
                 }
-            });
-        }
+            }
+        });
 
-        boolean terminated = executorService.isTerminated();
+        executorService.submit(()-> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            list.add("thread 2");
+            log.info("The other thread = {} to do other tasks",Thread.currentThread().getName());
+        });
 
-
-
-        while (!terminated){
-            executorService.shutdown();
-        }
-
-
+        executorService.submit(()-> log.info(String.valueOf(list.size()))
+        );
     }
 }
