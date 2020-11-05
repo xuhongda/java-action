@@ -1,9 +1,10 @@
 package com.xu.collection;
 
+import lombok.SneakyThrows;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.Test;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.*;
 
 /**
  * @author xuhongda on 2019/7/23
@@ -13,14 +14,53 @@ import java.util.concurrent.SynchronousQueue;
 public class BlockQueue {
 
 
+    public static void main(String[] args) throws InterruptedException {
+        test001();
+    }
+
+    private static void test001() throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        BlockingQueue<Integer> queue = new SynchronousQueue<>();
+        executorService.submit(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                queue.put(1);
+                queue.put(2);
+                queue.put(3);
+                int count = queue.remainingCapacity();
+                System.out.println(count);
+
+            }
+        });
+
+
+        executorService.submit(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                Integer i = queue.take();
+                Integer i2 = queue.take();
+                Integer i3 = queue.take();
+                System.out.println(i2);
+                Boolean b = queue.contains(2);
+                System.out.println(b);
+            }
+        });
+
+        executorService.shutdown();
+    }
+
     @Test
     public void test1() throws InterruptedException {
         BlockingQueue<Integer> queue = new SynchronousQueue<>();
-        System.out.print(queue.offer(1) + " ");
-        System.out.print(queue.offer(2) + " ");
-        System.out.print(queue.offer(3) + " ");
-        System.out.print(queue.take() + " ");
-        System.out.println(queue.size());
+        boolean b = queue.offer(1);
+       queue.put(1);
+        if (b){
+            Integer i = queue.poll();
+            Integer i2 = queue.take();
+            System.out.println(i2);
+        }
     }
 
 

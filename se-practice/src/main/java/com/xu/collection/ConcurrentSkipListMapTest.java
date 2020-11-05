@@ -52,7 +52,7 @@ public class ConcurrentSkipListMapTest {
     @Test
     public void test006() {
         Map.Entry<String, String> stringStringEntry = map.higherEntry("3");
-        System.out.println(stringStringEntry.getValue());
+        System.out.println(stringStringEntry);
     }
 
 
