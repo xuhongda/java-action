@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.net.SocketAddress;
 import java.nio.charset.Charset;
@@ -21,7 +22,12 @@ public class HttpServerHandlerTest extends SimpleChannelInboundHandler<HttpObjec
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         SocketAddress socketAddress = ctx.channel().remoteAddress();
         System.out.println(socketAddress.toString());
-        ByteBuf byteBuf = Unpooled.copiedBuffer(socketAddress.toString(), Charset.defaultCharset());
+        String uri = "";
+        if (msg != null  && !String.valueOf(msg).startsWith("EmptyLast")){
+            DefaultHttpRequest request = (DefaultHttpRequest) msg;
+            uri = request.uri();
+        }
+        ByteBuf byteBuf = Unpooled.copiedBuffer(uri+socketAddress.toString(), Charset.defaultCharset());
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK,byteBuf);
         response.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/plain");
         response.headers().set(HttpHeaderNames.CONTENT_LENGTH,byteBuf.readableBytes());
