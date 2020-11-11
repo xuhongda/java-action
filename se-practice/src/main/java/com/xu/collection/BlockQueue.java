@@ -19,7 +19,7 @@ public class BlockQueue {
     }
 
     private static void test001() throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
         BlockingQueue<Integer> queue = new SynchronousQueue<>();
         executorService.submit(new Runnable() {
             @SneakyThrows
@@ -29,22 +29,27 @@ public class BlockQueue {
                 queue.put(2);
                 queue.put(3);
                 int count = queue.remainingCapacity();
-                System.out.println(count);
-
+                System.out.println("count: = "+ count);
             }
         });
+
+
 
 
         executorService.submit(new Runnable() {
             @SneakyThrows
             @Override
             public void run() {
-                Integer i = queue.take();
-                Integer i2 = queue.take();
-                Integer i3 = queue.take();
-                System.out.println(i2);
-                Boolean b = queue.contains(2);
+                Boolean b = queue.contains(1);
                 System.out.println(b);
+                Integer i1 = queue.take();
+                System.out.println("i1 = "+i1);
+
+
+                Integer i2 = queue.take();
+                System.out.println("i2 = "+i2);
+                Integer i3 = queue.take();
+                System.out.println("i3 = "+i3);
             }
         });
 
