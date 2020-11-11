@@ -18,7 +18,7 @@ public class Welcome {
         Thread thread1 = new Thread(new RunnableThread());
         thread1.start();
 
-        //以lambda 方式创建
+        //runnable 方式->以lambda 方式创建
         Runnable runnable = () -> System.out.println("lambda\t" + Thread.currentThread().getName());
         Thread thread2 = new Thread(runnable);
         thread2.start();
