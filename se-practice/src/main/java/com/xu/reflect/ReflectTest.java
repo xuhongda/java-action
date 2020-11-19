@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * com.xu.reflect
  * java-action
  */
-public class Reflect {
+public class ReflectTest {
 
 
     /**
