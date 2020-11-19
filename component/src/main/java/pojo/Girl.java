@@ -1,9 +1,6 @@
 package pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -18,6 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Girl implements Serializable {
 
+    @LoveMe(name = "xuhongda")
     private String name;
 
     private int age;

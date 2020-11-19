@@ -1,7 +1,9 @@
 package com.xu.reflect;
 
 import org.junit.Test;
+import pojo.Contants;
 import pojo.Girl;
+import pojo.LoveMe;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -80,6 +82,13 @@ public class Reflect {
             girl.setName("yan");
             String name = (String)field.get(girl);
             System.out.println(name);
+            LoveMe annotation = field.getAnnotation(LoveMe.class);
+
+            if (Contants.ME.getValue().equals(annotation.name())){
+                field.set(girl,girl.getName()+" love "+annotation.name());
+                System.out.println(girl);
+            }
+
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
