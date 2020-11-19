@@ -1,7 +1,7 @@
 package com.xu.reflect;
 
 import org.junit.Test;
-import pojo.Contants;
+import pojo.Constants;
 import pojo.Girl;
 import pojo.LoveMe;
 
@@ -84,7 +84,7 @@ public class Reflect {
             System.out.println(name);
             LoveMe annotation = field.getAnnotation(LoveMe.class);
 
-            if (Contants.ME.getValue().equals(annotation.name())){
+            if (Constants.ME.getValue().equals(annotation.name())){
                 field.set(girl,girl.getName()+" love "+annotation.name());
                 System.out.println(girl);
             }

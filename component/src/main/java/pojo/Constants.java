@@ -5,7 +5,7 @@ package pojo;
  * pojo
  * java-action
  */
-public enum  Contants {
+public enum Constants {
     /**
      *  me
      */
@@ -15,7 +15,7 @@ public enum  Contants {
 
     private String value;
 
-    Contants(String name, String value) {
+    Constants(String name, String value) {
         this.name = name;
         this.value = value;
     }
