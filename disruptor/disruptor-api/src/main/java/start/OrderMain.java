@@ -27,7 +27,7 @@ public class OrderMain {
 
         disruptor.start();
 
-        //4. 获取实际存储数据的容器: RingBuffer
+
         RingBuffer<OrderEvent> ringBuffer = disruptor.getRingBuffer();
 
         OrderEventProducer producer = new OrderEventProducer(ringBuffer);
