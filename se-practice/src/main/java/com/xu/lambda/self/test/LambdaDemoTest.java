@@ -1,15 +1,17 @@
 package com.xu.lambda.self.test;
 
-import com.google.common.base.Function;
 import com.xu.lambda.self.impl.MyFunction;
-import pojo.People;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
+import pojo.People;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author xuhongda on 2018/7/28
@@ -27,8 +29,13 @@ public class LambdaDemoTest {
         List<String> list1 = method(list, myFunction);
         list1.parallelStream().forEach(System.err::print);
 
-        List<String> collect = list.stream().map(String::toUpperCase).collect(Collectors.toList());
-        System.out.println(collect);
+
+
+        Function<String, @Nullable String> stringStringFunction = String::toUpperCase;
+        Stream<Integer> integerStream = list.stream().map(stringStringFunction.andThen(s -> s != null ? s.length() : 0));
+        List<Integer> collect1 = integerStream.collect(Collectors.toList());
+        collect1.forEach(System.out::println);
+
     }
 
 
