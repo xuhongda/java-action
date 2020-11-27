@@ -1,10 +1,10 @@
-package com.xu.inheritance;
+package com.xu.basic.inheritance;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author xuhongda 2018/6/27
- * com.xu.inheritance
+ * com.xu.basic.inheritance
  * javase-practice
  */
 @Slf4j

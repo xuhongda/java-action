@@ -1,4 +1,4 @@
-package com.xu.load;
+package com.xu.basic;
 
 /**
  * @author xuhongda on 2020/8/18

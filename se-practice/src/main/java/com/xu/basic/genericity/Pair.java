@@ -1,11 +1,11 @@
-package com.xu.genericity;
+package com.xu.basic.genericity;
 
 
 /**
  * 泛型类
  * 泛型类可看作普通类的工厂
  * @author xuhongda on 2018/7/24
- * com.xu.genericity
+ * com.xu.basic.genericity
  * javase-practice
  */
 public class Pair<T> {

@@ -1,8 +1,8 @@
-package com.xu.inheritance;
+package com.xu.basic.inheritance;
 
 /**
  * @author xuhongda 2018/6/27
- * com.xu.inheritance
+ * com.xu.basic.inheritance
  * javase-practice
  */
 public class Employee {

@@ -1,8 +1,8 @@
-package com.xu.genericity;
+package com.xu.basic.genericity;
 
 /**
  * @author xuhongda on 2018/7/24
- * com.xu.genericity
+ * com.xu.basic.genericity
  * javase-practice
  */
 public class ArrayAlg {

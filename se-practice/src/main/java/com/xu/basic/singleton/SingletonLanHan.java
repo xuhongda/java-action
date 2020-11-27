@@ -1,11 +1,11 @@
-package com.xu.singleton;
+package com.xu.basic.singleton;
 
 /**
  * <p>
  *     单列模式，懒汉式,线程不安全
  * </p>
  * @author xuhongda on 2018/8/23
- * com.xu.singleton
+ * com.xu.basic.singleton
  * javase-practice
  */
 public class SingletonLanHan {

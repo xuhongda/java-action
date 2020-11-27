@@ -1,4 +1,4 @@
-package com.xu.load;
+package com.xu.basic;
 
 /**
  * 类初始化顺序

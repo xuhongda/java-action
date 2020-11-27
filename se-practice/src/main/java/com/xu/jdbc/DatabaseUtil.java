@@ -1,4 +1,4 @@
-package com.xu.mysql;
+package com.xu.jdbc;
 
 import pojo.People;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.xu.math;
+package com.xu.basic;
 
 import org.junit.Test;
 
@@ -68,5 +68,15 @@ public class MathTest {
         System.out.println(floor);
     }
 
+    @Test
+    public void test6(){
+        double hypot = Math.hypot(3, 4);
+        System.out.println(hypot);
+    }
 
+    @Test
+    public void test7(){
+        double hypot = Math.hypot(Math.hypot(0.2, -0.1), 1);
+        System.out.println(hypot);
+    }
 }

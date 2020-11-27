@@ -1,4 +1,4 @@
-package com.xu.math;
+package com.xu.basic;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.xu.genericity;
+package com.xu.basic.genericity;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * 泛型类测试
  * @author xuhongda on 2018/7/24
- * com.xu.genericity
+ * com.xu.basic.genericity
  * javase-practice
  */
 public class PairTest1 {

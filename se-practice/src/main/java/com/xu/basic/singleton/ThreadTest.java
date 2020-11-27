@@ -1,8 +1,8 @@
-package com.xu.singleton;
+package com.xu.basic.singleton;
 
 /**
  * @author xuhongda on 2018/8/23
- * com.xu.singleton
+ * com.xu.basic.singleton
  * javase-practice
  */
 public class ThreadTest {
