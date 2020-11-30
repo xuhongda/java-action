@@ -25,4 +25,9 @@ public class SingletonLanHan {
         }
         return singletonLanHan;
     }
+
+    public static void main(String[] args) {
+        SingletonLanHan instance = getInstance();
+        System.out.println(instance);
+    }
 }

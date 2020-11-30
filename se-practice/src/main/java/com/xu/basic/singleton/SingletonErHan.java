@@ -18,5 +18,8 @@ public class SingletonErHan {
         return singletonErHan;
     }
 
-
+    public static void main(String[] args) {
+        SingletonErHan instance = getInstance();
+        System.out.println(instance);
+    }
 }
