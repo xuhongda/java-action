@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <p>
@@ -22,6 +23,8 @@ public class Ticket {
     private static Long num = 1000L;
 
     private static AtomicInteger atomicInteger = new AtomicInteger(1000);
+
+    static ReentrantLock reentrantLock = new ReentrantLock();
 
     static void func1(){
         while (num>0){
@@ -41,22 +44,32 @@ public class Ticket {
     /**
      *  卖票
      */
-    private static void func2(){
-        while (atomicInteger.intValue()>0){
+    private  static void func2(){
+
+            reentrantLock.lock();
             try {
-                if (atomicInteger.intValue()%3==0){
-                    Thread.sleep(7);
+                while (atomicInteger.intValue()>0){
+                    try {
+                        if (atomicInteger.intValue()%3==0){
+                            Thread.sleep(7);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    atomicInteger.decrementAndGet();
+
+                    log.info("还有 = {} 票",atomicInteger.intValue());
+
+                    checkNum(atomicInteger.intValue());
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            }finally {
+                reentrantLock.unlock();
             }
-            atomicInteger.decrementAndGet();
 
-            log.info("还有 = {} 票",atomicInteger.intValue());
-
-            checkNum(atomicInteger.intValue());
         }
-    }
+
+
 
     private static void checkNum(int intValue) {
 
