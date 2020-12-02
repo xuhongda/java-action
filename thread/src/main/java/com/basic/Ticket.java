@@ -24,7 +24,7 @@ public class Ticket {
 
     private static AtomicInteger atomicInteger = new AtomicInteger(1000);
 
-    static ReentrantLock reentrantLock = new ReentrantLock();
+    private static ReentrantLock reentrantLock = new ReentrantLock();
 
     static void func1(){
         while (num>0){
