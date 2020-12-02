@@ -26,11 +26,11 @@ public class VolatileTest2 {
         }
         };
         executorService.submit(r);
-        executorService.submit(new Rr());
+        executorService.submit(new SetTrueRunnable());
     }
 }
 @Slf4j
-class Rr implements Runnable{
+class SetTrueRunnable implements Runnable{
 
     @Override
     public void run() {
