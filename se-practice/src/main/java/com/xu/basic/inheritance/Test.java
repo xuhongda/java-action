@@ -1,6 +1,7 @@
 package com.xu.basic.inheritance;
 
 import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Field;
 
 /**
  * @author xuhongda 2018/6/27
@@ -16,4 +17,21 @@ public class Test {
         String age = employee.getAge();
         log.info("age = {}",age);
     }
+
+    @org.junit.Test
+    public void test002() throws NoSuchFieldException {
+        Class<Manager> managerClass = Manager.class;
+        Field[] declaredFields = managerClass.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            System.out.println(declaredField);
+        }
+
+        Field bonus = managerClass.getDeclaredField("bonus");
+        String name = bonus.getName();
+        System.out.println(name);
+
+    }
+
+
+
 }

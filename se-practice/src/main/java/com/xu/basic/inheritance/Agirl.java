@@ -17,9 +17,6 @@ public class Agirl extends  Manager {
         if (this==obj){
             return true;
         }
-        if (this == null){
-            return false;
-        }
         //许多程序员
         //却喜欢使用 instanceof 进行检测：
         //if ( KotherObject instanceof Employee)) return false;

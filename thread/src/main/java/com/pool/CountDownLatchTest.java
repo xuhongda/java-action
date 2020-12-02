@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  * java-action
  */
 @Slf4j
-public class Ex {
+public class CountDownLatchTest {
 
     private static CountDownLatch countDownLatch = new CountDownLatch(2);
 

@@ -6,12 +6,15 @@ package com.basic;
  * javase-practice
  */
 public class Welcome {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //继承Thread 类
         Thread thread = new ExtendThread();
         //给线程命名
         thread.setName("线程一");
         thread.start();
+
+        //直到 thread 线程执行结束，才继续
+        thread.join();
 
 
         //runnable 方式

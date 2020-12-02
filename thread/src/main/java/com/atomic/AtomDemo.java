@@ -25,16 +25,16 @@ public class AtomDemo {
     }
 
     private static void open1() {
-        RunnableThread thread = new RunnableThread();
+        RunnableThread runnable= new RunnableThread();
         for (int i = 0; i < THREAD_NUM; i++) {
-            new Thread(thread).start();
+            new Thread(runnable).start();
         }
     }
 
     private static void open2() {
-        AtomicT thread = new AtomicT();
+        AtomicT runnable = new AtomicT();
         for (int i = 0; i < THREAD_NUM; i++) {
-            new Thread(thread).start();
+            new Thread(runnable).start();
         }
     }
 }

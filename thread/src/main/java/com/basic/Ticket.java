@@ -66,7 +66,7 @@ public class Ticket {
             }
         }catch (Exception e){
             log.info("exception",e);
-            e.printStackTrace();
+           // e.printStackTrace();
         }
 
     }
