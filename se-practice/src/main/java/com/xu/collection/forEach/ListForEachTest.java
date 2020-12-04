@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -56,7 +55,7 @@ public class ListForEachTest {
 
     }
 
-    private void t(Integer o) {
+    private void method(Integer o) {
         List<Integer> list = new ArrayList();
         List<Integer> list1 = m1(list);
         for (Integer i : list1) {
@@ -122,7 +121,8 @@ public class ListForEachTest {
         if (true){
             System.out.println("1");
 
-            ListForEachTest.t();
+            String method = ListForEachTest.method();
+            log.info("m = {}",method);
         }else {
             System.out.println("2");
         }
@@ -133,7 +133,7 @@ public class ListForEachTest {
         }
     }
 
-    private static String t(){
+    private static String method(){
         return "444";
     }
 
