@@ -60,6 +60,7 @@ public class HomePay03 {
             }
 
             else if(i==2){
+                System.out.println();
                 System.err.print("收入：");
                 Scanner s2 = new Scanner(System.in);
                 try {
@@ -76,6 +77,7 @@ public class HomePay03 {
                 }
             } else if(i==3){
                 if (sum>0){
+                    System.out.println();
                     System.err.print("本次支出金额：");
                     Scanner s3 = new Scanner(System.in);
                     long out = s3.nextLong();
