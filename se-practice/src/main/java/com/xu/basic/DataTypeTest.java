@@ -14,7 +14,22 @@ import java.math.BigDecimal;
  * java-action
  */
 @Slf4j
-public class FloatTest {
+public class DataTypeTest {
+
+
+    /**
+     * 取值范围：byte 1 byte;short 2 bytes;int 8 bytes; long 8 bytes
+     */
+    @Test
+    public void testByte(){
+        // byte  一个字节 八位 取值范围 -128~127
+        byte b = 127;
+       // byte b = 128;
+        System.out.println(b);
+
+
+    }
+
     @Test
     public void test1() {
         Float f1 = 96515.84F;
