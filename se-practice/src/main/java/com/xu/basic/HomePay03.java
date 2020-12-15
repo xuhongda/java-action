@@ -19,7 +19,7 @@ public class HomePay03 {
         for(int i=0;i<8;i++){
             System.out.print("-");
         }
-        System.out.print("家庭收支管理系统");
+        System.err.print("家庭收支管理系统");
         for(int i=0;i<8;i++){
             System.out.print("-");
         }
@@ -27,11 +27,11 @@ public class HomePay03 {
         while(b){
             if (i == 0){
                 System.out.println();
-                System.out.println("\t"+"1.收支明细");
-                System.out.println("\t"+"2.登记收入");
-                System.out.println("\t"+"3.登记支出");
-                System.out.println("\t"+"4.退出");
-                System.out.print("请输入(1-4):");
+                System.err.println("\t"+"1.收支明细");
+                System.err.println("\t"+"2.登记收入");
+                System.err.println("\t"+"3.登记支出");
+                System.err.println("\t"+"4.退出");
+                System.err.print("请输入(1-4):");
                 try{
                     Scanner s1 = new Scanner(System.in);
                     i =s1.nextInt();
@@ -44,7 +44,7 @@ public class HomePay03 {
 
             if(i==4){
                 while(b2){
-                    System.out.print("是否要退出(Y/N):");
+                    System.err.print("是否要退出(Y/N):");
                     Scanner s = new Scanner(System.in);
                     String str = s.nextLine();
                     if("Y".equals(str)){
@@ -55,44 +55,44 @@ public class HomePay03 {
                     }
                 }
             } else if(i==2){
-                System.out.print("收入：");
+                System.err.print("收入：");
                 Scanner s2 = new Scanner(System.in);
                 try {
                     getSalary=s2.nextInt();
                     sum+=getSalary;
                     s2.nextLine();
-                    System.out.print("本次收入说明：");
+                    System.err.print("本次收入说明：");
                     account1 = s2.nextLine();
                     i=0;
                 }catch (Exception e){
-                    System.out.println("请输入数字");
+                    System.err.println("请输入数字");
                     i =2;
                 }
             } else if(i==3){
-                System.out.print("本次支出金额：");
+                System.err.print("本次支出金额：");
                 Scanner s3 = new Scanner(System.in);
                 pay = s3.nextInt();
                 s3.nextLine();
-                System.out.print("本次支出说明：");
+                System.err.print("本次支出说明：");
                 account2=s3.nextLine();
-                System.out.println();
+                System.err.println();
                 i=0;
             }else if(i==1){
                 for(int i2=0;i2<8;i2++){
-                    System.out.print("*");
+                    System.err.print("*");
                 }
-                System.out.print("当前收支明细记录");
+                System.err.print("当前收支明细记录");
                 for(int i2=0;i2<8;i2++){
-                    System.out.print("*");
+                    System.err.print("*");
                 }
-                System.out.println();
-                System.out.println( "收支\t账户金额\t收支金额\t说    明\n");
-                System.out.println("收入"+sum+"\t"+getSalary+"\t"+account1);
-                System.out.println("支出"+sum+"\t"+pay+"\t"+account2);
-                System.out.println();
+                System.err.println();
+                System.err.println( "收支\t账户金额\t收支金额\t说    明\n");
+                System.err.println("收入"+sum+"\t"+getSalary+"\t"+account1);
+                System.err.println("支出"+sum+"\t"+pay+"\t"+account2);
+                System.err.println();
                 i=0;
             }	else{
-                System.out.println("输入错误请重新输入");
+                System.err.println("输入错误请重新输入");
             }
         }
     }
