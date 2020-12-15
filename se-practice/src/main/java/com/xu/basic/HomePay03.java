@@ -9,7 +9,7 @@ package com.xu.basic;
 import java.util.Scanner;
 public class HomePay03 {
     public static void main(String[] args) {
-        int sum=10000;
+        int sum=0;
         String account1=null;
         String account2=null;
         int getSalary=0;
@@ -25,6 +25,7 @@ public class HomePay03 {
         }
         int i =0;
         while(b){
+
             if (i == 0){
                 System.out.println();
                 System.err.println("\t"+"1.收支明细");
@@ -69,13 +70,23 @@ public class HomePay03 {
                     i =2;
                 }
             } else if(i==3){
-                System.err.print("本次支出金额：");
-                Scanner s3 = new Scanner(System.in);
-                pay = s3.nextInt();
-                s3.nextLine();
-                System.err.print("本次支出说明：");
-                account2=s3.nextLine();
-                System.err.println();
+                if (sum>0){
+                    System.err.print("本次支出金额：");
+                    Scanner s3 = new Scanner(System.in);
+                    pay = s3.nextInt();
+                    int k = sum -pay;
+                    if (k>0){
+                        sum = sum -pay;
+                        s3.nextLine();
+                        System.err.print("本次支出说明：");
+                        account2=s3.nextLine();
+                        System.err.println();
+                    }else {
+                        System.err.println("余额不足！");
+                        pay=0;
+                    }
+                }
+
                 i=0;
             }else if(i==1){
                 for(int i2=0;i2<8;i2++){
@@ -87,8 +98,8 @@ public class HomePay03 {
                 }
                 System.err.println();
                 System.err.println( "收支\t账户金额\t收支金额\t说    明\n");
-                System.err.println("收入"+sum+"\t"+getSalary+"\t"+account1);
-                System.err.println("支出"+sum+"\t"+pay+"\t"+account2);
+                System.err.println("剩余："+sum+"\t"+getSalary+"\t"+account1);
+                System.err.println("支出："+pay+"\t"+pay+"\t"+account2);
                 System.err.println();
                 i=0;
             }	else{
