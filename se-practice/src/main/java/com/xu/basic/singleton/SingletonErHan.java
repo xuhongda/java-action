@@ -1,5 +1,7 @@
 package com.xu.basic.singleton;
 
+import com.xu.lambda.self.bean.Girl;
+
 /**
  * <p>
  *     饿汉式
@@ -10,16 +12,17 @@ package com.xu.basic.singleton;
  */
 public class SingletonErHan {
 
-    private static SingletonErHan singletonErHan = new SingletonErHan();
+    private static final Girl girl = new Girl("only",18);
 
     private SingletonErHan(){}
 
-    public static SingletonErHan getInstance(){
-        return singletonErHan;
+    public static Girl getInstance(){
+        System.out.println("饿汉式获取对象");
+        return girl;
     }
 
     public static void main(String[] args) {
-        SingletonErHan instance = getInstance();
+        Girl instance = getInstance();
         System.out.println(instance);
     }
 }

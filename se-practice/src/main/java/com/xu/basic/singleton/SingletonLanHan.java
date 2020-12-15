@@ -1,5 +1,7 @@
 package com.xu.basic.singleton;
 
+import com.xu.lambda.self.bean.Girl;
+
 /**
  * <p>
  *     单列模式，懒汉式,线程不安全
@@ -9,7 +11,10 @@ package com.xu.basic.singleton;
  * javase-practice
  */
 public class SingletonLanHan {
-    private static SingletonLanHan singletonLanHan = null;
+    /**
+     *  成员变量
+     */
+    private static  Girl girl = null;
 
     private SingletonLanHan() {
     }
@@ -18,16 +23,17 @@ public class SingletonLanHan {
      * 在多线程条件下，（== null） 可能多个线程成立，导致单列失效
      * @return SingletonLanHan
      */
-    public static SingletonLanHan getInstance(){
-        if (singletonLanHan == null){
+    public static Girl getInstance() throws InterruptedException {
+        if (girl == null){
             System.out.println("懒汉式创建对象");
-           singletonLanHan = new SingletonLanHan();
+            Thread.sleep(10);
+           girl = new Girl("only",18);
         }
-        return singletonLanHan;
+        return girl;
     }
 
-    public static void main(String[] args) {
-        SingletonLanHan instance = getInstance();
+    public static void main(String[] args) throws InterruptedException {
+        Girl instance = getInstance();
         System.out.println(instance);
     }
 }
