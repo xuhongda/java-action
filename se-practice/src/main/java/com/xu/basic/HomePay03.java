@@ -9,11 +9,11 @@ package com.xu.basic;
 import java.util.Scanner;
 public class HomePay03 {
     public static void main(String[] args) {
-        int sum=0;
+        long sum=0;
         String sumInfo=null;
         String payInfo=null;
-        int getSalary=0;
-        int pay=0;
+        long getSalary=0;
+        long pay=0;
         boolean b =true;
         for(int i=0;i<8;i++){
             System.out.print("-");
@@ -63,7 +63,7 @@ public class HomePay03 {
                 System.err.print("收入：");
                 Scanner s2 = new Scanner(System.in);
                 try {
-                    getSalary=s2.nextInt();
+                    getSalary=s2.nextLong();
                     sum+=getSalary;
                     s2.nextLine();
                     System.err.print("本次收入说明：");
@@ -78,8 +78,8 @@ public class HomePay03 {
                 if (sum>0){
                     System.err.print("本次支出金额：");
                     Scanner s3 = new Scanner(System.in);
-                    int out = s3.nextInt();
-                    int k = sum -out;
+                    long out = s3.nextLong();
+                    long k = sum -out;
                     if (k>0){
                         pay+=out;
                         sum = sum -out;
