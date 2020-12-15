@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class HomePay03 {
     public static void main(String[] args) {
         long sum=0;
-        String sumInfo=null;
-        String payInfo=null;
-        long getSalary=0;
+        String sumInfo;
+        String payInfo;
+        long getSalary;
         long pay=0;
         boolean b =true;
         for(int i=0;i<8;i++){
@@ -42,9 +42,7 @@ public class HomePay03 {
                 }catch (Exception e){
                     i= 0;
                 }
-            }
-
-            if(i==4){
+            }else if(i==4){
                 boolean exit = true;
                 while(exit){
                     System.err.print("是否要退出(Y/N):");
