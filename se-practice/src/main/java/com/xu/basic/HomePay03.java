@@ -48,10 +48,10 @@ public class HomePay03 {
                     System.err.print("是否要退出(Y/N):");
                     Scanner s = new Scanner(System.in);
                     String str = s.nextLine();
-                    if("Y".equals(str)){
+                    if("Y".equals(str.toUpperCase())){
                         b2=false;
                         b=false;
-                    }else if("N".equals(str)){
+                    }else if("N".equals(str.toUpperCase())){
                         break;
                     }
                 }

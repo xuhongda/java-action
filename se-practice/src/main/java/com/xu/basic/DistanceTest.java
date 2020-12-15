@@ -20,10 +20,9 @@ public class DistanceTest {
             System.out.println("一致");
         }
 
-
     }
 
-    public double getDistance(double long1, double lat1, double long2, double lat2) {
+    private double getDistance(double long1, double lat1, double long2, double lat2) {
         double a, b;
         lat1 = lat1 * Math.PI / 180.0;
         lat2 = lat2 * Math.PI / 180.0;
@@ -40,19 +39,14 @@ public class DistanceTest {
     }
 
 
-    public static double distance(Double _lat1, Double _lon1, Double _lat2, Double _lon2) {
+    private static double distance(Double _lat1, Double _lon1, Double _lat2, Double _lon2) {
         if (_lat1 == null || _lat2 == null || _lon1 == null || _lon2 == null) {
             return 0;
         }
-
-        /** 修改纬度的合法判断条件为+-90,经度的合法判断条件为+-180 */
-        /*
-         * if (_lat1 < 2 || _lat2 < 2 || _lon1 < 2 || _lon2 < 2) {
-         * return 0;
-         * }
-         */
-        if ((_lat1 < -90.00d || _lat1 > 90.00d) || (_lat2 < -90.00d || _lat2 > 90.00d) || (_lon1 < -180.00d || _lon1 > 180.00d)
-                || (_lon2 < -180.00d || _lon2 > 180.00d)) {
+        //修改纬度的合法判断条件为+-90,经度的合法判断条件为+-180
+        boolean b = (_lat1 < -90.00d || _lat1 > 90.00d) || (_lat2 < -90.00d || _lat2 > 90.00d) || (_lon1 < -180.00d || _lon1 > 180.00d)
+                || (_lon2 < -180.00d || _lon2 > 180.00d);
+        if (b) {
             return 0;
         }
 
@@ -65,8 +59,7 @@ public class DistanceTest {
         double lon2 = Math.PI * _lon2;
         // 地球半径
         final double R = 6378100;
-        double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
-                * R;
+        double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1)) * R;
         try {
             return d > 0 ? new BigDecimal(d).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue() : 0;
         } catch (Exception e) {
