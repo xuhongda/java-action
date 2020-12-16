@@ -1,5 +1,6 @@
 package com.basic;
 
+import com.pool.task.TaskOne;
 import org.junit.Test;
 /**
  * @author xuhongda on 2018/11/5
@@ -24,5 +25,49 @@ public class ThreadTest {
         long freeMemory = runtime.freeMemory();
         System.out.println(freeMemory);
 
+    }
+
+    /**
+     * join
+     */
+    public static void main(String[] args) throws InterruptedException {
+        Runnable r1 = () -> {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("1");
+        };
+
+        Runnable r2 = () -> {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("2");
+        };
+
+        Runnable r3 = () -> {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("3");
+        };
+
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
+        Thread t3 = new Thread(r3);
+        t1.start();
+        //Waits for this thread to die.
+        t1.join();
+        boolean alive = t1.isAlive();
+        System.out.println("t1 alive = "+alive);
+        t2.start();
+        t2.join();
+        t3.start();
     }
 }
