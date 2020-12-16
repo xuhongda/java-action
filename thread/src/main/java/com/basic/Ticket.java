@@ -30,7 +30,7 @@ public class Ticket {
         while (num>0){
             try {
                 if (num%3==0){
-                    Thread.sleep(7);
+                    Thread.sleep(70);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -112,8 +112,11 @@ public class Ticket {
 
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-        executorService.submit(new ExtendThread());
+        for (int i = 0; i <10; i++) {
+            executorService.submit(new ExtendThread());
+        }
 
+        executorService.shutdown();
     }
 
     public static void main(String[] args) {
