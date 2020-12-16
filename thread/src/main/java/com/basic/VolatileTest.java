@@ -1,9 +1,6 @@
 package com.basic;
 
-import lombok.Data;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,45 +21,19 @@ public class VolatileTest {
 
     private static boolean b = false;
 
-    static boolean b() {
-        b = true;
-        return b;
-    }
-
     public static void main(String[] args)  {
-        log.info(Thread.currentThread().getName());
-        MyRunnable thread = new MyRunnable();
+
         ExecutorService executorService = Executors.newFixedThreadPool(3);
-        executorService.submit(thread);
-        executorService.shutdown();
-        while (true){
-            if (executorService.isTerminated()){
-                while (b) {
-                    log.info(" is end ! ");
-                }
-                break;
+        executorService.submit(()->{
+            try {
+                Thread.sleep(100L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }
-    }
-}
-
-@Slf4j
-@Data
-@ToString
-class MyRunnable implements Runnable {
-
-    /**
-     * volatile 关键字
-     * 注意： volatile 不具备互斥性；不保证原子性
-     */
-    @Override
-    public void run() {
-        boolean b = VolatileTest.b();
-        log.info("线程已经更改boolean 值 ,b = {}",b);
-        try {
-            Thread.sleep(200L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            b = true;
+            System.out.println(b);
+        });
+        executorService.submit(()-> System.out.println(b));
+        executorService.shutdown();
     }
 }

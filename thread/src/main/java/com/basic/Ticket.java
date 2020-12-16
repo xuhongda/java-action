@@ -3,16 +3,21 @@ package com.basic;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <p>
- *     模拟卖票问题
- *     不同线程消费单一资源，由于线程的阻塞，休眠，被唤醒等原因 造成多卖，超卖问题
+ * 模拟卖票问题
+ * 不同线程消费单一资源，由于线程的阻塞，休眠，被唤醒等原因 造成多卖，超卖问题
  * </p>
+ *
  * @author xuhongda on 2018/8/16
  * com.basic
  * javase-practice
@@ -20,38 +25,39 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class Ticket {
 
-    private static Long num = 1000L;
+    private static volatile Long num = 1000L;
 
-    private static AtomicInteger atomicInteger = new AtomicInteger(1000);
+    private static volatile AtomicInteger atomicInteger = new AtomicInteger(1000);
 
     private static ReentrantLock reentrantLock = new ReentrantLock();
 
-    static void func1(){
-        while (num>0){
+    private synchronized  static void type1() {
+        while (num > 0) {
             try {
-                if (num%3==0){
-                    Thread.sleep(70);
+                if (num % 3 == 0) {
+                    Thread.sleep(50);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             num--;
-            log.info("还有 = {} 票",num);
-            checkNum(num.intValue());
+            log.info("type1 还有 = {} 票", num);
+            checkNum("type1",num.intValue());
         }
     }
 
     /**
-     *  卖票
+     * 卖票
      */
-    private  static void func2(){
+    private static void type2() throws InterruptedException {
 
-            reentrantLock.lock();
+        boolean b = reentrantLock.tryLock(100, TimeUnit.MILLISECONDS);
+        if (b) {
             try {
-                while (atomicInteger.intValue()>0){
+                while (atomicInteger.intValue() > 0) {
                     try {
-                        if (atomicInteger.intValue()%3==0){
-                            Thread.sleep(7);
+                        if (atomicInteger.intValue() % 3 == 0) {
+                            Thread.sleep(50);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -59,27 +65,32 @@ public class Ticket {
 
                     atomicInteger.decrementAndGet();
 
-                    log.info("还有 = {} 票",atomicInteger.intValue());
+                    log.info(" type2 还有 = {} 票", atomicInteger.intValue());
 
-                    checkNum(atomicInteger.intValue());
+                    checkNum("type2",atomicInteger.intValue());
                 }
-            }finally {
+            } finally {
                 reentrantLock.unlock();
             }
-
+        }else {
+            System.out.println("lock have been another thread possessed !!!");
         }
+    }
 
+    /**
+     *  售卖异常票集合
+     */
+    private static volatile Map<String,Long> map = new HashMap<>();
 
-
-    private static void checkNum(int intValue) {
+    private static void checkNum(String name, int intValue) {
 
         try {
-            if (intValue < 0){
-                throw new RuntimeException(intValue + " 售票异常");
+            if (intValue < 0) {
+                map.put(name, (long) intValue);
+                throw new RuntimeException(name +"\t"+intValue + " 售票异常");
             }
-        }catch (Exception e){
-            log.info("exception",e);
-           // e.printStackTrace();
+        } catch (Exception e) {
+            log.info("exception", e);
         }
 
     }
@@ -87,18 +98,20 @@ public class Ticket {
     /**
      * runnable 方式
      */
-    private static void way1(){
-
-       // Runnable runnable = () -> func1();
-
-        Runnable runnable2 = Ticket::func2;
+    private static void way1() {
 
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         int thread = 10;
 
-        for (int i =0;i<thread;i++){
-            executorService.submit(runnable2);
+        for (int i = 0; i < thread; i++) {
+            executorService.submit(()->{
+                try {
+                    Ticket.type2();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
         executorService.shutdown();
@@ -108,12 +121,12 @@ public class Ticket {
     /**
      * 继承Thread
      */
-    private static void way2(){
+    private static void way2() {
 
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-
-        for (int i = 0; i <10; i++) {
-            executorService.submit(new ExtendThread());
+        int thread = 10;
+        for (int i = 0; i < thread; i++) {
+            executorService.submit(Ticket::type1);
         }
 
         executorService.shutdown();
@@ -121,10 +134,34 @@ public class Ticket {
 
     public static void main(String[] args) {
 
-        Ticket.way1();
-
-        //Ticket.way2();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
 
+        executorService.submit(()->{
+            while (num>0){
+                if (map.size()>0){
+                    System.out.println("**********"+map);
+                    List<Runnable> runnables = executorService.shutdownNow();
+                    runnables.forEach(r-> System.out.println(r.toString()));
+                    break;
+                }
+            }
+        });
+
+        executorService.submit(() -> {
+            reentrantLock.lock();
+            try{
+                System.out.println("start sell tickets ");
+            }finally {
+                reentrantLock.unlock();
+            }
+        });
+
+        executorService.submit(Ticket::way1);
+
+        executorService.submit(Ticket::way2);
+
+        executorService.shutdown();
+        
     }
 }
