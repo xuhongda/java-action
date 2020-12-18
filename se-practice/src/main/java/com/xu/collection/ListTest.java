@@ -4,7 +4,6 @@ import pojo.People;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -16,9 +15,9 @@ import java.util.concurrent.ConcurrentSkipListMap;
  */
 public class ListTest {
 
-    private List<People> list = new ArrayList<>();
+    private static List<People> list = new ArrayList<>();
 
-    {
+    static {
         int size = 10;
         for (int i = 0; i < size; i++) {
             list.add(new People("x" + i, i));
@@ -32,7 +31,7 @@ public class ListTest {
     public void test1() {
         list.clear();
         boolean empty = list.isEmpty();
-        Assert.assertEquals(true, empty);
+        Assert.assertTrue(empty);
         list.get(0);
         list.stream().filter(a -> a.getAge() > 18);
     }
@@ -85,4 +84,39 @@ public class ListTest {
 
 
     }
+
+    /**
+     * stack and heap differ with a lambda
+     */
+    public static void main(String[] args) {
+        int i = 5;
+        int i2 = 3;
+        People p = new People("yan",18);
+        Calculate<Integer,People> c1 =  (x, y)->{
+            y.setAge(y.getAge()+i);
+            System.out.println(y);
+        };
+        Calculate<Integer,Integer> c2 =  (x, y)->{
+            y=x+y;
+            System.out.println(y);
+        };
+        c1.copy(i,p);
+        System.out.println(p);
+        c2.copy(i,i2);
+        System.out.println(i2);
+    }
+
 }
+
+@FunctionalInterface
+interface Calculate<T, R> {
+    /**
+     * one action to multiply t and r
+     * @param t any params
+     * @param r any params
+     */
+    void copy(T t,R r);
+
+}
+
+
