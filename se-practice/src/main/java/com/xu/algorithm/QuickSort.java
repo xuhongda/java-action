@@ -1,8 +1,8 @@
-package com.xu.al;
+package com.xu.algorithm;
 
 /**
  * @author xuhongda on 2019/2/26
- * com.xu.al
+ * com.xu.algorithm
  * java-action
  */
 public class QuickSort {
@@ -18,7 +18,6 @@ public class QuickSort {
         System.out.println(arrayToString(num, "排序"));
         System.out.println("数组个数：" + num.length);
         System.out.println("循环次数：" + count);
-
     }
 
     /**
@@ -63,17 +62,13 @@ public class QuickSort {
 
     /**
      * 将一个int类型数组转化为字符串
-     *
-     * @param arr
-     * @param flag
-     * @return
      */
     private static String arrayToString(int[] arr, String flag) {
-        String str = "数组为(" + flag + ")：";
+        StringBuilder str = new StringBuilder("数组为(" + flag + ")：");
         for (int a : arr) {
-            str += a + "\t";
+            str.append(a).append("\t");
         }
-        return str;
+        return str.toString();
     }
 
 }
