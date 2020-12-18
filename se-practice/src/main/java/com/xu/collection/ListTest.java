@@ -1,18 +1,19 @@
 package com.xu.collection;
 
+import lombok.extern.slf4j.Slf4j;
 import pojo.People;
-import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.stream.Collectors;
 
 /**
  * @author xuhongda on 2018/11/1
  * com.xu.collection
  * javase-practice
  */
+@Slf4j
 public class ListTest {
 
     private static List<People> list = new ArrayList<>();
@@ -24,16 +25,27 @@ public class ListTest {
         }
     }
 
+    @Test
+    public void test(){
+        list.forEach(System.out::println);
+    }
+
     /**
      * 空集合需要注意一些问题
      */
     @Test
     public void test1() {
         list.clear();
-        boolean empty = list.isEmpty();
-        Assert.assertTrue(empty);
-        list.get(0);
-        list.stream().filter(a -> a.getAge() > 18);
+        System.out.println(list.size());
+        try{
+            People people = list.get(0);
+            System.out.println(people);
+        }catch (Exception e){
+            log.info("exception",e);
+        }finally {
+            List<People> collect = list.stream().filter(a -> a.getAge() > 18).collect(Collectors.toList());
+            System.out.println(collect);
+        }
     }
 
     /**
@@ -41,10 +53,8 @@ public class ListTest {
      */
     @Test
     public void test2() {
-
         Runnable r = () -> list.forEach(a -> a.setName("yan"));
         r.run();
-
     }
 
     @Test
@@ -81,8 +91,6 @@ public class ListTest {
         People remove = list.remove(4);
         System.out.println(list);
         System.out.println(remove);
-
-
     }
 
     /**
