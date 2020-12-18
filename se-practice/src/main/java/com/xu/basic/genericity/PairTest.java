@@ -17,7 +17,7 @@ public class PairTest {
         String[] words = {"yan", "xu", "jack", "cr7"};
         Pair<String> pair = ArrayAlg.minmax(words);
         System.out.println(pair.getFirst());
-        System.out.println(pair.getScond());
+        System.out.println(pair.getSecond());
     }
     @Test
     public void test2(){

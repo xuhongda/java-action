@@ -12,14 +12,14 @@ public class Pair<T> {
 
     private T first;
 
-    private T scond;
+    private T second;
 
     public Pair() {
     }
 
-    public Pair(T first, T scond) {
+    public Pair(T first, T second) {
         this.first = first;
-        this.scond = scond;
+        this.second = second;
     }
 
     public T getFirst() {
@@ -30,12 +30,12 @@ public class Pair<T> {
         this.first = first;
     }
 
-    public T getScond() {
-        return scond;
+    public T getSecond() {
+        return second;
     }
 
-    public void setScond(T scond) {
-        this.scond = scond;
+    public void setSecond(T second) {
+        this.second = second;
     }
 
 }
