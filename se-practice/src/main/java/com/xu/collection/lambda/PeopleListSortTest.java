@@ -1,4 +1,4 @@
-package com.xu.collection.sort;
+package com.xu.collection.lambda;
 
 import pojo.People;
 import org.junit.Before;
@@ -10,11 +10,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * <p>List 排序 匿名对象方式，也可以创建实列对象</p>
  *
  * @author xuhonda on 2018/7/9
- * com.xu.collection.sort
+ * com.xu.collection.lambda
  * javase-practice
  */
 public class PeopleListSortTest {
@@ -37,6 +39,25 @@ public class PeopleListSortTest {
         peoples.add(people5);
         peoples.add(people6);
         System.out.println("before" + peoples);
+    }
+
+
+    @Test
+    public void test() {
+        List<Integer> list1 = new ArrayList<>();
+        list1.add(1);
+        list1.add(3);
+        list1.add(5);
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(1);
+        list2.add(4);
+        list2.add(5);
+        list2.add(7);
+        // 交集
+        List<Integer> intersection = list1.stream().filter(list2::contains).collect(toList());
+        System.out.println("---交集 intersection---");
+        intersection.forEach(System.out::println);
+
     }
 
     @Test
@@ -68,11 +89,11 @@ public class PeopleListSortTest {
     @Test
     public void test3() {
         //lambda 表达
-        peoples.sort((People p1, People p2) -> p1.getAge().compareTo(p2.getAge()));
+        peoples.sort(Comparator.comparing(People::getAge));
         //可以简化,编译器会推断类型
-        peoples.sort((p1,p2)->p1.getAge().compareTo(p2.getAge()));
+        peoples.sort(Comparator.comparing(People::getAge));
         //提取comparator，调用reversed方法倒序
-        Comparator<People> comparator =  (p1,p2) -> p1.getAge().compareTo(p2.getAge());
+        Comparator<People> comparator = Comparator.comparing(People::getAge);
         peoples.sort(comparator.reversed());
         System.out.println(peoples);
     }

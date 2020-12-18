@@ -58,7 +58,7 @@ public class HashMapTest {
     }
 
     /**
-     * computeIfAbsent 缺啥补啥
+     * computeIfAbsent if the map not has the kay then add it to map
      */
     @Test
     public void test4(){
@@ -72,7 +72,7 @@ public class HashMapTest {
     }
 
     /**
-     * merge
+     * merge if key equals then the value multiply
      */
     @Test
     public void test5(){

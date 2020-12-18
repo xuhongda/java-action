@@ -10,7 +10,7 @@ import java.io.Serializable;
  * com.xu.basic.genericity
  * javase-practice
  */
-public class PairTest1 {
+public class PairTest {
 
     @Test
     public void test(){
