@@ -1,13 +1,20 @@
-package com.xu.basic.genericity;
+package com.xu.algorithm;
+
+import com.xu.basic.genericity.Pair;
 
 /**
  * @author xuhongda on 2018/7/24
  * com.xu.basic.genericity
  * javase-practice
  */
-public class ArrayAlg {
+public class ArrayAlgorithm {
 
-    static Pair<String> minmax(String[] a){
+    /**
+     *
+     * @param a a String array
+     * @return min and max String array
+     */
+    public static Pair<String> minmax(String[] a){
         if (a == null || a.length == 0){
             return null;
         }
@@ -25,18 +32,17 @@ public class ArrayAlg {
     }
 
     /**
-     * 泛型方法
-     * 类型变量放在修饰符（这里是 public static) 的
-     * 后面，返回类型的前面
+     * @return return the middle number in arrays
      */
-    static<T>T getMiddle(T... a){
+    @SafeVarargs
+    public static<T>T getMiddle(T... a){
         return a[(a.length)/2];
     }
 
     /**
-     * 类型变量限定
+     * @return  return the minimum number in the arrays while the params must implements {@link Comparable }
      */
-    public static <T extends Comparable> T min(T[] a) // almost correct
+    public static <T extends Comparable> T min(T[] a)
     {
         if (a ==  null || a.length == 0) {
             return null;
