@@ -111,7 +111,7 @@ public class ListTest {
 @FunctionalInterface
 interface Calculate<T, R> {
     /**
-     * one action to multiply t and r
+     * one action to manipulate t and r
      * @param t any params
      * @param r any params
      */
