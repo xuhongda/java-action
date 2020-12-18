@@ -2,9 +2,6 @@ package com.xu.lambda.book;
 
 import org.junit.Test;
 
-import java.io.PrintStream;
-import java.util.function.Function;
-
 /**
  * @author xuhongda on 2018/7/29
  * com.xu.lambda.book
@@ -13,11 +10,11 @@ import java.util.function.Function;
 public class Java8CaseTest {
     /**
      * 一个参数，一个返回值
-     * 接口 {@link Function}
+     * 接口 {@link java.util.function.Function}
      */
     @Test
     public void test1() {
-        Function<String, Integer> function = (String s) -> s.length();
+        java.util.function.Function<String,Integer> function = String::length;
         Integer i = function.apply("xxx");
         System.out.println(i);
     }
@@ -38,18 +35,18 @@ public class Java8CaseTest {
     @Test
     public void test3() {
         //
-        Test3<Integer, Integer, Integer> t = Integer::sum;
+        MyFunction<Integer, Integer, Integer> t = Integer::sum;
         Integer x = t.todoSomething(18, 20);
         System.out.println(x);
 
         //
-        Test3<String,String,String> t2 = (p1,p2)-> p1 +"\t" + p2;
+        MyFunction<String,String,String> t2 = (p1, p2)-> p1 +"\t" + p2;
         String count = t2.todoSomething("xu", "girl");
         System.out.println(count);
 
     }
-
-    interface Test3<T, R, E> {
+    @FunctionalInterface
+    interface MyFunction<T, R, E> {
         /**
          *一个接口方法，只需规定参数个数与返回结果.
          * @param t param 1
