@@ -2,12 +2,12 @@ package com.basic;
 
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -35,7 +35,7 @@ public class Ticket {
         while (num > 0) {
             try {
                 if (num % 3 == 0) {
-                    Thread.sleep(50);
+                    Thread.sleep(30);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -57,7 +57,7 @@ public class Ticket {
                 while (atomicInteger.intValue() > 0) {
                     try {
                         if (atomicInteger.intValue() % 3 == 0) {
-                            Thread.sleep(50);
+                            Thread.sleep(30);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -100,18 +100,13 @@ public class Ticket {
      */
     private static void way1() {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(10,new TicketThreadFactory("solve tickets way1"));
 
         int thread = 10;
 
         for (int i = 0; i < thread; i++) {
-            executorService.submit(()->{
-                try {
-                    Ticket.type2();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
+            executorService.submit(Ticket::type1);
+           log.info("------way1-------");
         }
 
         executorService.shutdown();
@@ -123,19 +118,26 @@ public class Ticket {
      */
     private static void way2() {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(10,new TicketThreadFactory("solve tickets way2"));
         int thread = 10;
-        for (int i = 0; i < thread; i++) {
-            executorService.submit(Ticket::type1);
-        }
 
+
+        for (int i = 0; i < thread; i++) {
+            executorService.submit(()->{
+                try {
+                    Ticket.type2();
+                    log.info("------way2-------");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
         executorService.shutdown();
     }
 
     public static void main(String[] args) {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
-
+        ExecutorService executorService = Executors.newFixedThreadPool(4,new TicketThreadFactory("all task"));
 
         executorService.submit(()->{
             while (num>0){
@@ -165,3 +167,43 @@ public class Ticket {
         
     }
 }
+
+ class TicketThreadFactory implements ThreadFactory{
+     /**
+      * Constructs a new {@code Thread}.  Implementations may also initialize
+      * priority, name, daemon status, {@code ThreadGroup}, etc.
+      *
+      * @param r a runnable to be executed by new thread instance
+      * @return constructed thread, or {@code null} if the request to
+      * create a thread is rejected
+      */
+
+
+
+     private static final AtomicInteger poolNumber = new AtomicInteger(1);
+     private final ThreadGroup group;
+     private final AtomicInteger threadNumber = new AtomicInteger(1);
+     private final String namePrefix;
+
+     public TicketThreadFactory(String name) {
+         SecurityManager s = System.getSecurityManager();
+         group = (s != null) ? s.getThreadGroup() :
+                 Thread.currentThread().getThreadGroup();
+         namePrefix = "pool-" +
+                 poolNumber.getAndIncrement() +"-"+name+
+                 "-thread-";
+     }
+     @Override
+     public Thread newThread(Runnable r) {
+         Thread t = new Thread(group, r,
+                 namePrefix + threadNumber.getAndIncrement(),
+                 0);
+         if (t.isDaemon()) {
+             t.setDaemon(false);
+         }
+         if (t.getPriority() != Thread.NORM_PRIORITY) {
+             t.setPriority(Thread.NORM_PRIORITY);
+         }
+         return t;
+     }
+ }
