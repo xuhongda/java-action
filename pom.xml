@@ -13,7 +13,6 @@
         <module>thread</module>
         <module>component</module>
         <module>web-basic</module>
-        <module>netty-eve</module>
         <module>disruptor</module>
     </modules>
     <properties>
