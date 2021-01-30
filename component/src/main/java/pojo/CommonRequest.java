@@ -9,11 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 基本请求(用于json解析)
- * 
- * @author wangqiu
- * @version 1.0
- * @created 2012-10-11 下午4:15:20
+ * @author xuhongda
  */
 @Data
 @ToString
