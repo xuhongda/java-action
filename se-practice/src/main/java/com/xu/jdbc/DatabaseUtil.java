@@ -22,7 +22,7 @@ public class DatabaseUtil {
      */
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://192.168.0.206:3306/dw_tmp";
-    private static final String USERNAME = "niezhili";
+    private static final String USERNAME = "****";
     private static final String PASSWORD = "MyNewPass5!";
     /**
      * 数据库操作
