@@ -36,7 +36,7 @@ public class ScheduledThreadTest {
      */
     private static void sc(ScheduledThreadPoolExecutor executor) {
 
-        ScheduledFuture<?> scheduledFuture = executor.schedule(() -> log.info("run .."), 3, TimeUnit.SECONDS);
+        ScheduledFuture<?> scheduledFuture = executor.schedule(() -> log.info("run ."), 3, TimeUnit.SECONDS);
 
         executor.shutdown();
 
@@ -58,7 +58,7 @@ public class ScheduledThreadTest {
      */
     private static void fixRate(ScheduledThreadPoolExecutor executor) {
 
-        executor.scheduleAtFixedRate(() -> log.info("run .."), 2, 2, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(() -> log.info("run ."), 2, 2, TimeUnit.SECONDS);
 
     }
 
