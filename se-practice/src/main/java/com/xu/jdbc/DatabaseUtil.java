@@ -33,7 +33,7 @@ public class DatabaseUtil {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
-            LOGGER.error("can not load jdbc driver", e);
+            LOGGER.error("cannot load jdbc driver", e);
         }
     }
 
