@@ -52,4 +52,13 @@ public class ExcTest {
         int i = (int)(7*3.6/100) ;
         System.out.println(i);
     }
+
+
+    @Test
+    public void test003(){
+        for (int i = 2021; i < 2100 ; i++) {
+            System.out.print(" "+i + "新年快乐;");
+        }
+    }
+
 }
