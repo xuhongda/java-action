@@ -1,6 +1,8 @@
 package com.threadLocal;
 
 import lombok.extern.slf4j.Slf4j;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * <p>
@@ -16,12 +18,20 @@ public class SequenceNumber {
 
     private static ThreadLocal<Integer> seqNum = ThreadLocal.withInitial(() -> 0);
 
+    private static ThreadLocal<SimpleDateFormat> dateFormatThreadLocal  = ThreadLocal.withInitial(()->new SimpleDateFormat("yyyy-MM-dd"));
+
     private int getNextNum() {
         seqNum.set(seqNum.get() + 1);
         return seqNum.get();
     }
 
     public static void main(String[] args) {
+
+        dateFormatThreadLocal.set(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
+        SimpleDateFormat dateFormat = dateFormatThreadLocal.get();
+        String format = dateFormat.format(new Date());
+        log.info("time = {}",format);
+
 
         SequenceNumber sn = new SequenceNumber();
         TestClient t1 = new TestClient(sn);

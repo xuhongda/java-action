@@ -31,6 +31,34 @@ public class ListTest {
     }
 
     /**
+     *  ArrayList  、 LinkedList、vector
+     *  有序性
+     */
+    @Test
+    public void testOrder(){
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(12);
+        list.add(5);
+        list.add(1);
+        list.forEach(System.out::println);
+        LinkedList <Integer> linkedList = new LinkedList<>();
+        linkedList.add(12);
+        linkedList.add(5);
+        linkedList.add(1);
+        linkedList.forEach(System.out::println);
+        Integer first = linkedList.getFirst();
+        System.out.println(first);
+        Integer last = linkedList.getLast();
+        System.out.println(last);
+
+        Vector<Integer> vector = new Vector<>();
+        vector.add(6);
+        vector.add(8);
+        vector.add(5);
+        vector.forEach(System.out::println);
+    }
+
+    /**
      * 空集合需要注意一些问题
      */
     @Test
