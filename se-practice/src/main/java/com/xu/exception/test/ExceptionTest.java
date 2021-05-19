@@ -37,9 +37,8 @@ public class ExceptionTest {
 
     @Test
     public void test003() {
-
+        ex1();
         try {
-            ex1();
             ex2();
         } catch (Exception e) {
             log.info("ex2= {}", e.toString());
