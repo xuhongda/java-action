@@ -1,6 +1,8 @@
 package com.xu.servlet;
 
 import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,7 @@ import java.util.ResourceBundle;
  */
 @Slf4j
 @WebServlet("/dis")
-public class DispatcherServlet extends HttpServlet {
+public class DispatcherServlet extends HttpServlet implements ServletContextListener {
 
     private static final String LSTRING_FILE =
             "javax.servlet.http.LocalStrings";

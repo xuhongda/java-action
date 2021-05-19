@@ -30,7 +30,7 @@ public class ExceptionTest {
         try {
             throw new MyException("this is my  exception");
         } catch (MyException e) {
-            log.info(e.toString());
+            log.info("e = ",e);
         }
     }
 
