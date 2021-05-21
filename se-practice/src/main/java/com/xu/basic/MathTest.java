@@ -1,12 +1,18 @@
 package com.xu.basic;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author xuhongda on 2019/6/3
  * com.xu.math
  * java-action
  */
+@Slf4j
 public class MathTest {
 
     @Test
@@ -79,4 +85,21 @@ public class MathTest {
         double hypot = Math.hypot(Math.hypot(0.2, -0.1), 1);
         System.out.println(hypot);
     }
+
+    @Test
+    public void test8(){
+        List<Map<String,Object>> list = new ArrayList<>();
+        Map<String ,Object> map;
+        for (int i = 0; i <3 ; i++) {
+            //构建三个 map 临时变量，这两种写法有何不同，这勾起了我的疑惑
+            // 只是一个赋值语句 ，无区别？
+           // Map<String ,Object> map = new HashMap<>(3);
+            map = new HashMap<>(3);
+            map.put("x"+i,i);
+            list.add(map);
+        }
+        list.forEach(System.out::println);
+
+    }
+
 }

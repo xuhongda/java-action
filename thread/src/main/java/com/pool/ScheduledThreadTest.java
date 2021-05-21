@@ -31,15 +31,11 @@ public class ScheduledThreadTest {
 
     /**
      * 延迟执行
-     *
-     * @param executor
      */
     private static void sc(ScheduledThreadPoolExecutor executor) {
 
         ScheduledFuture<?> scheduledFuture = executor.schedule(() -> log.info("run ."), 3, TimeUnit.SECONDS);
-
         executor.shutdown();
-
         while (true) {
             if (executor.isTerminated()) {
                 boolean done = scheduledFuture.isDone();
@@ -49,8 +45,6 @@ public class ScheduledThreadTest {
                 }
             }
         }
-
-
     }
 
     /**
