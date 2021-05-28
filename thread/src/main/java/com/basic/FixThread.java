@@ -11,8 +11,8 @@ import java.util.concurrent.Executors;
 public class FixThread {
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         executorService.submit(()-> System.out.println("1"));
 
@@ -20,11 +20,9 @@ public class FixThread {
 
         executorService.submit(()-> System.out.println("3"));
 
-
         for (int i = 0; i < 5; i++) {
             executorService.submit(()-> System.out.println(5));
         }
-
         executorService.shutdown();
     }
 }
