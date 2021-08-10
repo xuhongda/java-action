@@ -2,7 +2,6 @@ package com.xu.collection;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-
 import java.util.Map;
 import java.util.NavigableSet;
 import java.util.concurrent.ConcurrentNavigableMap;
@@ -26,25 +25,61 @@ public class ConcurrentSkipListMapTest {
         map.put("4", "4");
         map.put("5", "5");
         map.put("6", "6");
-        log.info("init...map = {}",map);
+        log.info("init...map = {}", map);
     }
 
+
+    @Test
+    public void test010() {
+
+        log.info("map = {}", map);
+        map.put("7","7");
+        map.put("8","7");
+        String s = map.get("9");
+        System.out.println(s);
+        log.info("after map = {}", map);
+
+    }
+
+    @Test
+    public void test009() {
+
+        log.info("map = {}", map);
+        map.remove("7");
+        log.info("after map = {}", map);
+
+    }
+
+    @Test
+    public void test007() {
+
+        log.info("map = {}", map);
+        map.remove("1");
+        map.remove("7");
+        String s = map.get("1");
+        if (s == null) {
+            System.out.println(s);
+        }
+        System.out.println(s);
+        log.info("after map = {}", map);
+
+    }
 
 
     @Test
     public void test005() {
 
-        log.info("map = {}",map);
+        log.info("map = {}", map);
         ConcurrentNavigableMap<String, String> headMap = map.headMap("4");
-        log.info("headMap = {}",headMap);
+        log.info("headMap = {}", headMap);
         NavigableSet<String> set = headMap.keySet();
         /*for (String s : set){
             map.remove(s);
         }*/
         String higher = set.higher("2");
-        log.info("higher = {}",higher);
+        log.info("higher = {}", higher);
         headMap.clear();
-        log.info("clear remain map = {}",map);
+        log.info("clear remain map = {}", map);
 
     }
 
@@ -56,13 +91,11 @@ public class ConcurrentSkipListMapTest {
     }
 
 
-
     @Test
     public void test008() {
         Map.Entry<String, String> stringStringEntry = map.firstEntry();
         System.out.println(stringStringEntry);
     }
-
 
 
 }
