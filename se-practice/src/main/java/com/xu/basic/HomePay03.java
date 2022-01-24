@@ -19,7 +19,7 @@ public class HomePay03 {
         for(int i=0;i<8;i++){
             System.out.print("*");
         }
-        System.err.print("家庭收支管理系统");
+        System.err.println("家庭收支管理系统");
         for(int i=0;i<8;i++){
             System.out.print("*");
         }

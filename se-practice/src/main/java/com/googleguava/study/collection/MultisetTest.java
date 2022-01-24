@@ -30,6 +30,14 @@ public class MultisetTest {
     }
 
     @Test
+    public void test009(){
+       People people = new People();
+        if (people.getAge() == Integer.MAX_VALUE){
+            System.out.println("ok");
+        }
+    }
+
+    @Test
     public void test2(){
 
         Multiset<People> peopleMultiset = HashMultiset.create();

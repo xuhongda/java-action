@@ -10,7 +10,7 @@ public class People {
 
 
     private String name;
-    private Integer age;
+    private Integer age  = Integer.MAX_VALUE;
 
     public People() {
     }
